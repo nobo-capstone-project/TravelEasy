@@ -1,22 +1,25 @@
 package model
 
-import "time"
+import (
+	"gopkg.in/mgo.v2/bson"
+	"time"
+)
 
 type UserProfile struct {
-	UserID          string    `json:"userID"`
-	Username        string    `json:"username"`
-	Password        string    `json:"password"`
-	PasswordConf    string    `json:"passwordConf"`
-	Email           string    `json:"email"`
-	FirstName       string    `json:"firstName"`
-	LastName        string    `json:"lastName"`
-	DOB             time.Time `json:"dob"`
-	Gender          string    `json:"gender"`
-	Points          int32     `json:"pts"`
-	LocationCity    string    `json:"locationCity"`
-	LocationState   string    `json:"locationState"`
-	LocationCountry string    `json:"locationCountry"`
-	PictureURL      string    `json:"pictureURL"` // upload pic?
+	UserID          string      `json:"userID"`
+	Username        string      `json:"username"`
+	Password        string      `json:"password"`
+	PasswordConf    string      `json:"passwordConf"`
+	Email           string      `json:"email"`
+	FirstName       string      `json:"firstName"`
+	LastName        string      `json:"lastName"`
+	DOB             time.Time   `json:"dob"`
+	Gender          string      `json:"gender"`
+	Points          int32       `json:"pts"`
+	LocationCity    string      `json:"locationCity"`
+	LocationState   string      `json:"locationState"`
+	LocationCountry string      `json:"locationCountry"`
+	Picture         bson.Binary `json:"picture"`
 }
 
 type UserFollower struct {

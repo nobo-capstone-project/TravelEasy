@@ -1,15 +1,18 @@
 package model
 
-import "time"
+import (
+	"gopkg.in/mgo.v2/bson"
+	"time"
+)
 
 type RouteLoc struct {
-	RouteID     string   `json:"routeID"`
-	CreatorID   string   `json:"creatorID"`
-	Description string   `json:"description"`
-	StopID      []string `json:"stopID"`
-	Category    []string `json:"category"`
-	PictureURL  []string `json:"pictureURL"`
-	Vote        int32    `json:"vote"`
+	RouteID     string        `json:"routeID"`
+	CreatorID   string        `json:"creatorID"`
+	Description string        `json:"description"`
+	StopID      []string      `json:"stopID"`
+	Category    []string      `json:"category"`
+	Picture     []bson.Binary `json:"picture"`
+	Vote        int32         `json:"vote"`
 }
 
 type RouteComment struct {
