@@ -22,13 +22,13 @@ var (
 	ErrUsernameUsed = fmt.Errorf("username used")
 )
 
-type FirebaseStore struct {
+type FirestoreStore struct {
 	AppClient		*firestore.Client
 	Context			*context.Context
 }
 
-// establishes connection with firestore and returns a FirebaseStore struct pointer
-func NewApp(ctx context.Context) (*FirebaseStore, error) {
+// establishes connection with firestore and returns a FirestoreStore struct pointer
+func NewApp(ctx context.Context) (*FirestoreStore, error) {
 	opt := option.WithCredentialsFile("/home/ryocown/.ssh/traveleasy-1554765588100-firebase-adminsdk-pxlbj-5c2e782b09.json")
 	config := &firebase.Config{ProjectID: "traveleasy-1554765588100"}
 
@@ -42,15 +42,15 @@ func NewApp(ctx context.Context) (*FirebaseStore, error) {
 		return nil, err
 	}
 
-	return &FirebaseStore{client, &ctx}, nil
+	return &FirestoreStore{client, &ctx}, nil
 }
 
 // wrapper to closes client
-func (fs *FirebaseStore) CloseClient() {
+func (fs *FirestoreStore) CloseClient() {
 	_ = fs.AppClient.Close()
 }
 
-func (fs *FirebaseStore) AddUser(user *model.UserProfile) (*model.UserProfile, error) {
+func (fs *FirestoreStore) AddUser(user *model.UserProfile) (*model.UserProfile, error) {
 
 	err := fs.identifierIsUnused(user)
 	if err != nil {
@@ -78,7 +78,7 @@ func (fs *FirebaseStore) AddUser(user *model.UserProfile) (*model.UserProfile, e
 	}
 }
 
-func (fs *FirebaseStore) AddRouteLoc(routeLoc *model.RouteLoc) (*model.RouteLoc, error) {
+func (fs *FirestoreStore) AddRouteLoc(routeLoc *model.RouteLoc) (*model.RouteLoc, error) {
 	ref, _, err := fs.AppClient.Collection(routeDB).Add(*fs.Context, routeLoc)
 	if err != nil {
 		return nil, err
@@ -88,7 +88,7 @@ func (fs *FirebaseStore) AddRouteLoc(routeLoc *model.RouteLoc) (*model.RouteLoc,
 	}
 }
 
-func (fs *FirebaseStore) AddStopLoc(stopLoc *model.StopLoc) (*model.StopLoc, error) {
+func (fs *FirestoreStore) AddStopLoc(stopLoc *model.StopLoc) (*model.StopLoc, error) {
 	ref, _, err := fs.AppClient.Collection(stopDB).Add(*fs.Context, stopLoc)
 	if err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ func (fs *FirebaseStore) AddStopLoc(stopLoc *model.StopLoc) (*model.StopLoc, err
 	}
 }
 
-func (fs *FirebaseStore) AddRouteComment(routeComment *model.RouteComment) (*model.RouteComment, error) {
+func (fs *FirestoreStore) AddRouteComment(routeComment *model.RouteComment) (*model.RouteComment, error) {
 	ref, _, err := fs.AppClient.Collection(commentDB).Add(*fs.Context, routeComment)
 	if err != nil {
 		return nil, err
@@ -108,7 +108,7 @@ func (fs *FirebaseStore) AddRouteComment(routeComment *model.RouteComment) (*mod
 	}
 }
 
-func (fs *FirebaseStore) AddStopComment(stopComment *model.StopComment) (*model.StopComment, error) {
+func (fs *FirestoreStore) AddStopComment(stopComment *model.StopComment) (*model.StopComment, error) {
 	ref, _, err := fs.AppClient.Collection(commentDB).Add(*fs.Context, stopComment)
 	if err != nil {
 		return nil, err
@@ -118,7 +118,7 @@ func (fs *FirebaseStore) AddStopComment(stopComment *model.StopComment) (*model.
 	}
 }
 
-func (fs *FirebaseStore) ModifyUser(user *model.UserProfile) (*model.UserProfile, error) {
+func (fs *FirestoreStore) ModifyUser(user *model.UserProfile) (*model.UserProfile, error) {
 	documentID := user.DocumentID
 	user.DocumentID = ""
 
@@ -141,7 +141,27 @@ func (fs *FirebaseStore) ModifyUser(user *model.UserProfile) (*model.UserProfile
 	return parseDataSnapshotToUserProfile(doc)
 }
 
-func (fs *FirebaseStore) GetUserProfileByUsername(username string) (*model.UserProfile, error) {
+// TODO
+func (fs *FirestoreStore) GetUserProfileByDocumentID(documentID string) (*model.UserProfile, error) {
+
+	
+	doc, err := fs.AppClient.Collection(userDB).
+		Where("documentID", "==", documentID).
+		Documents(*fs.Context).
+		Next()
+
+	if doc == nil {
+		return nil, fmt.Errorf("user not found")
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return parseDataSnapshotToUserProfile(doc)
+}
+
+func (fs *FirestoreStore) GetUserProfileByUsername(username string) (*model.UserProfile, error) {
 	doc, err := fs.AppClient.Collection(userDB).
 		Where("username", "==", username).
 		Documents(*fs.Context).
@@ -158,7 +178,7 @@ func (fs *FirebaseStore) GetUserProfileByUsername(username string) (*model.UserP
 	return parseDataSnapshotToUserProfile(doc)
 }
 
-func (fs *FirebaseStore) identifierIsUnused(user *model.UserProfile) error {
+func (fs *FirestoreStore) identifierIsUnused(user *model.UserProfile) error {
 	username := user.Username
 	email := user.Email
 
