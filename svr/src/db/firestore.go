@@ -78,6 +78,46 @@ func (fs *FirebaseStore) AddUser(user *model.UserProfile) (*model.UserProfile, e
 	}
 }
 
+func (fs *FirebaseStore) AddRouteLoc(routeLoc *model.RouteLoc) (*model.RouteLoc, error) {
+	ref, _, err := fs.AppClient.Collection(routeDB).Add(*fs.Context, routeLoc)
+	if err != nil {
+		return nil, err
+	} else {
+		routeLoc.DocumentID = ref.ID
+		return routeLoc, nil
+	}
+}
+
+func (fs *FirebaseStore) AddStopLoc(stopLoc *model.StopLoc) (*model.StopLoc, error) {
+	ref, _, err := fs.AppClient.Collection(stopDB).Add(*fs.Context, stopLoc)
+	if err != nil {
+		return nil, err
+	} else {
+		stopLoc.DocumentID = ref.ID
+		return stopLoc, nil
+	}
+}
+
+func (fs *FirebaseStore) AddRouteComment(routeComment *model.RouteComment) (*model.RouteComment, error) {
+	ref, _, err := fs.AppClient.Collection(commentDB).Add(*fs.Context, routeComment)
+	if err != nil {
+		return nil, err
+	} else {
+		routeComment.DocumentID = ref.ID
+		return routeComment, nil
+	}
+}
+
+func (fs *FirebaseStore) AddStopComment(stopComment *model.StopComment) (*model.StopComment, error) {
+	ref, _, err := fs.AppClient.Collection(commentDB).Add(*fs.Context, stopComment)
+	if err != nil {
+		return nil, err
+	} else {
+		stopComment.DocumentID = ref.ID
+		return stopComment, nil
+	}
+}
+
 func (fs *FirebaseStore) ModifyUser(user *model.UserProfile) (*model.UserProfile, error) {
 	documentID := user.DocumentID
 	user.DocumentID = ""
