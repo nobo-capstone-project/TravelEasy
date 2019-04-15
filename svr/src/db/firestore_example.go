@@ -1,18 +1,16 @@
-package main
+package db
 
 import (
-	"TravelEasy/svr/src/db"
 	"TravelEasy/svr/src/model"
-	"context"
 	"encoding/json"
+	"golang.org/x/net/context"
 	"log"
 	"time"
 )
 
-
-func main() {
+func addAndModifyUser() {
 	ctx := context.Background()
-	fs, err := db.NewApp(ctx)
+	fs, err := NewApp(ctx)
 	if err != nil {
 		log.Fatalln("cannot create new app: ", err)
 	}
