@@ -144,7 +144,7 @@ func (fs *FirestoreStore) ModifyUser(user *model.UserProfile) (*model.UserProfil
 // TODO
 func (fs *FirestoreStore) GetUserProfileByDocumentID(documentID string) (*model.UserProfile, error) {
 
-	
+
 	doc, err := fs.AppClient.Collection(userDB).
 		Where("documentID", "==", documentID).
 		Documents(*fs.Context).

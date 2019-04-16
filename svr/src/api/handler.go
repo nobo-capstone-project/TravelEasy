@@ -1,19 +1,13 @@
 package api
 
 import (
+	"TravelEasy/svr/src/config"
 	"TravelEasy/svr/src/model"
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"github.com/pkg/errors"
 	"io"
 	"net/http"
 	"strings"
-)
-
-var (
-	ErrUnsupportedMediaType = errors.New("unsupported media type")
-	ErrInvalidCredentials   = errors.New("invalid credentials")
-	ErrMethodNotAllowed     = errors.New("method not allowed")
 )
 
 func (ctx *Context) UserCreateHandler(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +15,7 @@ func (ctx *Context) UserCreateHandler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPost:
 
 		if !strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
-			http.Error(w, ErrUnsupportedMediaType.Error(), http.StatusUnsupportedMediaType)
+			http.Error(w, config.ErrUnsupportedMediaType.Error(), http.StatusUnsupportedMediaType)
 			return
 		}
 
@@ -38,11 +32,11 @@ func (ctx *Context) UserCreateHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		b, _ := json.Marshal(res)
-		httpWriter(http.StatusOK, b, "application/json", w)
+		config.HttpWriter(http.StatusOK, b, "application/json", w)
 		return
 
 	default:
-		http.Error(w, ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		http.Error(w, config.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
 	}
 }
@@ -58,7 +52,7 @@ func (ctx *Context) UserGetHandler(w http.ResponseWriter, r *http.Request) {
 
 	case http.MethodPost:
 	default:
-		http.Error(w, ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		http.Error(w, config.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
 	}
 }
@@ -73,17 +67,3 @@ func userProfileDecoder(d io.ReadCloser) (*model.UserProfile, error) {
 	}
 }
 
-// HttpWriter takes necessary arguments to write back to client.
-func httpWriter(statusCode int, body []byte, contentType string, w http.ResponseWriter) {
-	if len(contentType) > 0 {
-		w.Header().Set("Content-Type", contentType)
-	} else {
-		w.Header().Set("Content-Type", "text/plain")
-	}
-
-	w.WriteHeader(statusCode)
-
-	if len(body) > 0 {
-		_, _ = w.Write(body)
-	}
-}
