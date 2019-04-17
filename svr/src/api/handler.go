@@ -15,7 +15,7 @@ func (ctx *Context) UserCreateHandler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPost:
 
 		if !strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
-			http.Error(w, config.ErrUnsupportedMediaType.Error(), http.StatusUnsupportedMediaType)
+			http.Error(w, common.ErrUnsupportedMediaType.Error(), http.StatusUnsupportedMediaType)
 			return
 		}
 
@@ -32,11 +32,11 @@ func (ctx *Context) UserCreateHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		b, _ := json.Marshal(res)
-		config.HttpWriter(http.StatusOK, b, "application/json", w)
+		common.HttpWriter(http.StatusOK, b, "application/json", w)
 		return
 
 	default:
-		http.Error(w, config.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
 	}
 }
@@ -52,7 +52,7 @@ func (ctx *Context) UserGetHandler(w http.ResponseWriter, r *http.Request) {
 
 	case http.MethodPost:
 	default:
-		http.Error(w, config.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
 	}
 }

@@ -10,7 +10,7 @@ import (
 
 func addAndModifyUser() {
 	ctx := context.Background()
-	fs, err := NewApp(ctx)
+	fs, err := NewApp(ctx, "")
 	if err != nil {
 		log.Fatalln("cannot create new app: ", err)
 	}

@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
 
-docker build -t gcr.io/traveleasy-1554765588100/redis:test .
-docker push gcr.io/traveleasy-1554765588100/redis:test
+echo
+echo "===== Building Redis Server Image ====="
+echo
+
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o redisServer
+
+docker build -t gcr.io/traveleasy-1554765588100/redis:latest .
+docker push gcr.io/traveleasy-1554765588100/redis:latest
+
+rm -v redisServer
+
+echo
+echo "===== Done ====="
+echo

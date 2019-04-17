@@ -1,26 +1,61 @@
+// A standalone authentication server that only handles login and logout.
+//
+// The server receives credentials in JSON format, fetches user profile from DB,
+// authenticates against the profile in the database, creates session accordingly
+// and returns the profile.
+//
+// The server receives a session key, removes session from session server and logs out the user
+
 package main
 
 import (
+	"TravelEasy/svr/src/common"
+	"TravelEasy/svr/src/db"
+	"TravelEasy/svr/src/model"
+	"encoding/json"
 	"fmt"
 	"github.com/bryoco/dazzling/session"
 	"github.com/gorilla/mux"
-	"github.com/pkg/errors"
+	"golang.org/x/net/context"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
+// context for authentication server
 type Context struct {
 	redis *session.RedisStore
+	db    *db.FirestoreStore
+	key   string
 }
 
-var ErrMethodNotAllowed = errors.New("method not allowed")
-var ErrNotYetImplemented = errors.New("not yet implemented")
+// defines credentials
+type Credential struct {
+	Username	string `json:"username"`
+	Password	string `json:"password"`
+}
 
+// fetches and authenticates user profile from DB
+// returns error if username not found or incorrect password
+func (ctx *Context) getAndAuthUser(username, password string) (*model.UserProfile, error) {
+	up, err := ctx.db.GetUserProfileByUsername(username)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := up.AuthenticatePassword(password); err != nil {
+		return nil, err
+	} else {
+		return up, nil
+	}
+}
+
+// pings redis
 func (ctx *Context) OkHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
-		http.Error(w, ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -32,71 +67,108 @@ func (ctx *Context) OkHandler(w http.ResponseWriter, r *http.Request) {
 		resp = fmt.Sprintf("Session server connected, redis ping: %v", ping)
 	}
 
-	httpWriter(http.StatusOK, []byte(resp), "text/plain", w)
+	common.HttpWriter(http.StatusOK, []byte(resp), "text/plain", w)
 }
 
+// handles login and log out
 func (ctx *Context) SessionHandler(w http.ResponseWriter, r *http.Request) {
-
-	// validate RedisRequest
-
 	switch r.Method {
-	case http.MethodGet:
-		//ctx.RedisStore.Get()
-		http.Error(w, ErrNotYetImplemented.Error(), http.StatusMethodNotAllowed)
-		return
+	// login
 	case http.MethodPost:
-		//ctx.RedisStore.Put()
-		http.Error(w, ErrNotYetImplemented.Error(), http.StatusMethodNotAllowed)
-		return
+		if !strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
+			http.Error(w, common.ErrUnsupportedMediaType.Error(), http.StatusUnsupportedMediaType)
+			return
+		}
+
+		decoder := json.NewDecoder(r.Body)
+		var cred Credential
+		if err := decoder.Decode(&cred); err != nil {
+			http.Error(w, err.Error(), http.StatusUnsupportedMediaType)
+			return
+		}
+
+		user, err := ctx.getAndAuthUser(cred.Username, cred.Password)
+		if err != nil {
+			http.Error(w, common.ErrInvalidCredentials.Error(), http.StatusForbidden)
+			return
+		}
+
+		// remove salted password
+		user.Password = ""
+
+		newSessionState := session.State{
+			SessionStart: time.Now(),
+			Interface:    user,
+		}
+		_, err = session.BeginSession(ctx.key, ctx.redis, newSessionState, w)
+
+		js, _ := json.Marshal(user)
+		common.HttpWriter(http.StatusOK, js, "application/json", w)
+
+	// delete session
+	case http.MethodDelete:
+
+		// `state` is discarded
+		_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusUnauthorized)
+			return
+		}
+
+		_, err = session.EndSession(r, ctx.key, ctx.redis)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		common.HttpWriter(http.StatusOK, []byte("you have been signed out"), "application/json", w)
+
 	default:
-		http.Error(w, ErrNotYetImplemented.Error(), http.StatusMethodNotAllowed)
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
-	}
-}
-
-// HttpWriter takes necessary arguments to write back to client.
-func httpWriter(statusCode int, body []byte, contentType string, w http.ResponseWriter) {
-	if len(contentType) > 0 {
-		w.Header().Set("Content-Type", contentType)
-	} else {
-		w.Header().Set("Content-Type", "text/plain")
-	}
-
-	w.WriteHeader(statusCode)
-
-	if len(body) > 0 {
-		_, _ = w.Write(body)
 	}
 }
 
 func main() {
 
-	port := os.Getenv("PORT")
-	if port == "" {
+	port := os.Getenv(common.EnvPort)
+	if len(port) == 0 {
 		port = "8080"
 	}
 
-	redisAddr := os.Getenv("REDISADDR")
+	redisAddr := os.Getenv(common.EnvSessionServer)
 	if len(redisAddr) == 0 {
 		redisAddr = "redis:6379"
 	}
 
-	sessionKey := os.Getenv("SESSIONKEY")
+	sessionKey := os.Getenv(common.EnvSessionKey)
 	if len(sessionKey) == 0 {
 		sessionKey = "default_key"
 	}
 
+	firestoreKey := os.Getenv(common.EnvFirestoreKeyPath)
+	if len(firestoreKey) == 0 {
+		firestoreKey = "/firebase_key.json"
+	}
+
 	sessionDuration := time.Hour * 24 * 30 // a month
+
+	fs, err := db.NewApp(context.Background(), firestoreKey)
+	if err != nil {
+		log.Fatalln("cannot create new app:", err)
+	}
+	defer fs.CloseClient()
 
 	ctx := Context{
 		redis: session.NewRedisStore(session.NewRedisClient(redisAddr), sessionDuration),
+		key: sessionKey,
+		db: fs,
 	}
 
 	router := mux.NewRouter()
 	router.HandleFunc("/session/ok", ctx.OkHandler)
-	router.HandleFunc("/session", ctx.SessionHandler)
+	router.HandleFunc("/user/auth", ctx.SessionHandler)
 
 	log.Printf("serving redis at port %s!", port)
-
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), router))
 }

@@ -1,10 +1,14 @@
-package config
+package common
 
 import "net/http"
 
 const (
 	MimeJSON = "application/json"
 	MimeText = "text/plain"
+	EnvPort = "PORT"
+	EnvSessionServer = "SESSION_SERVER_ADDR"
+	EnvSessionKey = "SESSION_KEY"
+	EnvFirestoreKeyPath = "FIRESTORE_KEY_PATH"
 )
 
 // HttpWriter takes necessary arguments to write back to client.
