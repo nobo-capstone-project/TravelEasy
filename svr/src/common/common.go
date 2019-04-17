@@ -3,6 +3,7 @@ package common
 import "net/http"
 
 const (
+	HeaderContentType = "Content-Type"
 	MimeJSON = "application/json"
 	MimeText = "text/plain"
 	EnvPort = "PORT"

@@ -59,15 +59,15 @@ func (ctx *Context) OkHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ping, err := ctx.redis.Client.Ping().Result()
-	var resp string
-	if err != nil {
-		resp = fmt.Sprintf("Session server not connected, redis error: %v", err)
+	if pong, err := ctx.redis.Client.Ping().Result(); err != nil {
+		common.HttpWriter(http.StatusOK,
+			[]byte(fmt.Sprintf("Session server not connected, redis error: %v", err)),
+			common.MimeText, w)
 	} else {
-		resp = fmt.Sprintf("Session server connected, redis ping: %v", ping)
+		common.HttpWriter(http.StatusOK,
+			[]byte(fmt.Sprintf("Session server connected, redis pong: %v", pong)),
+			common.MimeText, w)
 	}
-
-	common.HttpWriter(http.StatusOK, []byte(resp), "text/plain", w)
 }
 
 // handles login and log out
@@ -75,21 +75,21 @@ func (ctx *Context) SessionHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	// login
 	case http.MethodPost:
-		if !strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
+		if !strings.HasPrefix(r.Header.Get(common.HeaderContentType), common.MimeJSON) {
 			http.Error(w, common.ErrUnsupportedMediaType.Error(), http.StatusUnsupportedMediaType)
 			return
 		}
 
-		decoder := json.NewDecoder(r.Body)
+		// decode cred
 		var cred Credential
-		if err := decoder.Decode(&cred); err != nil {
+		if err := json.NewDecoder(r.Body).Decode(&cred); err != nil {
 			http.Error(w, err.Error(), http.StatusUnsupportedMediaType)
 			return
 		}
 
 		user, err := ctx.getAndAuthUser(cred.Username, cred.Password)
 		if err != nil {
-			http.Error(w, common.ErrInvalidCredentials.Error(), http.StatusForbidden)
+			http.Error(w, err.Error(), http.StatusForbidden)
 			return
 		}
 
@@ -122,7 +122,6 @@ func (ctx *Context) SessionHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		common.HttpWriter(http.StatusOK, []byte("you have been signed out"), "application/json", w)
-
 	default:
 		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
