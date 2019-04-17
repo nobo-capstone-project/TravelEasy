@@ -6,6 +6,7 @@ import (
 )
 
 type RouteLoc struct {
+	DocumentID	string			`json:"documentID"`
 	RouteID     string        `json:"routeID"`
 	CreatorID   string        `json:"creatorID"`
 	Description string        `json:"description"`
@@ -16,7 +17,7 @@ type RouteLoc struct {
 }
 
 type RouteComment struct {
-	RouteCommentID string    `json:"routeCommentID"`
+	DocumentID string    `json:"documentID"`
 	RouteID        string    `json:"routeID"`
 	Comment        string    `json:"comment"`
 	CreatorID      string    `json:"creatorID"`

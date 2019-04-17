@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  app:
+    image: golang:alpine
+    volumes:
+      - .:/home/ryocown/go/src/
+    working_dir: /home/ryocown/go/src/TravelEasy/svr/src/db/redis
+    command: go run main.go
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    environment:
+      REDISADDR: redis:6379
+      ADDR: 8000
+    networks:
+      - backend
+
+  redis:
+    image: "redis:alpine"
+    networks:
+      - backend
+
+networks:
+  backend:
