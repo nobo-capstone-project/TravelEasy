@@ -11,13 +11,38 @@ import { Platform, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 // import { Text, View } from 'react-native';
 
-
-
-
 import { Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
+
+
+import { NativeRouter, Switch, Route } from 'react-router-native';
+
+
+// IMPORT COMPONENTS: 
+import BottomNav from './Components/BottomNav';
+import HomePage from './Pages/HomePage';
+import AddGuidePage from './Pages/AddGuidePage';
+
+
+import AppNav from './Components/createAppNavigator';
+
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <Container>
+        <AppNav></AppNav>
+
+
+        <BottomNav></BottomNav>
+      </Container>
+
+    );
+  }
+}
+
 
 
 const styles = StyleSheet.create({
@@ -43,82 +68,6 @@ const styles = StyleSheet.create({
 
   }
 })
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <Container style={styles.container}>
-        {/* <View><Text>Hello</Text></View> */}
-        {/* <View></View> */}
-        <Text> Travel</Text>
-
-        <Header hasTabs />
-
-        <Tabs style={styles.tabs}>
-          <Tab heading="All">
-            {/* <Tab1 /> */}
-          </Tab>
-          <Tab heading="Trending">
-            {/* <Tab2 /> */}
-          </Tab>
-
-        </Tabs>
-
-        <Card>
-
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-        </Card>
-
-        <Content style={styles.guideContainer} ref={c => (this.component = c)}>
-          <Text style={{ margin: 20 }}>test</Text>
-          <Text style={{ margin: 20 }}>test</Text>
-          <Text style={{ margin: 20 }}>test</Text>
-          <Text style={{ margin: 20 }}>test</Text>
-          <Text style={{ margin: 20 }}>test</Text>
-          <Text style={{ margin: 20 }}>test</Text><Text style={{ margin: 20 }}>test</Text>
-          <Text style={{ margin: 20 }}>test</Text>
-          <Text style={{ margin: 20 }}>test</Text>
-        </Content>
-
-
-
-
-        <Footer style={styles.footer}>
-          <FooterTab>
-            <Button vertical>
-              <Icon name="apps" />
-              <Text>Explore</Text>
-            </Button>
-            <Button vertical>
-              <Icon name="camera" />
-              <Text>Favorites</Text>
-            </Button>
-            <Button vertical active>
-              <Icon active name="navigate" />
-              <Text>Trips</Text>
-            </Button>
-            <Button vertical>
-              <Icon name="person" />
-              <Text>Add</Text>
-            </Button>
-            <Button vertical>
-              <Icon name="person" />
-              <Text>User</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-
-      </Container >
-    );
-  }
-}
-
 // type Props = {};
 // export default class App extends Component<Props> {
 //   render() {
