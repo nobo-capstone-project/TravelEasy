@@ -19,7 +19,6 @@ import (
 	"golang.org/x/net/context"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 )
@@ -49,6 +48,16 @@ func (ctx *Context) getAndAuthUser(username, password string) (*model.UserProfil
 		return nil, err
 	} else {
 		return up, nil
+	}
+}
+
+func makeSessionState(u *model.UserProfile) session.State {
+	// remove salted password
+	u.Password = ""
+
+	return session.State{
+		SessionStart: time.Now(),
+		Interface:    &u,
 	}
 }
 
@@ -87,23 +96,16 @@ func (ctx *Context) SessionHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		user, err := ctx.getAndAuthUser(cred.Username, cred.Password)
+		up, err := ctx.getAndAuthUser(cred.Username, cred.Password)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusForbidden)
 			return
 		}
 
-		// remove salted password
-		user.Password = ""
+		_, err = session.BeginSession(ctx.key, ctx.redis, makeSessionState(up), w)
 
-		newSessionState := session.State{
-			SessionStart: time.Now(),
-			Interface:    user,
-		}
-		_, err = session.BeginSession(ctx.key, ctx.redis, newSessionState, w)
-
-		js, _ := json.Marshal(user)
-		common.HttpWriter(http.StatusOK, js, "application/json", w)
+		b, _ := json.Marshal(up)
+		common.HttpWriter(http.StatusOK, b, common.MimeJSON, w)
 
 	// delete session
 	case http.MethodDelete:
@@ -128,38 +130,56 @@ func (ctx *Context) SessionHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// creates the given user to firestore and creates session
+func (ctx *Context) UserCreateHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodPost:
+
+		if !strings.HasPrefix(r.Header.Get(common.HeaderContentType), common.MimeJSON) {
+			http.Error(w, common.ErrUnsupportedMediaType.Error(), http.StatusUnsupportedMediaType)
+			return
+		}
+
+		decoder := json.NewDecoder(r.Body)
+		var up model.UserProfile
+		if err := decoder.Decode(&up); err != nil {
+			http.Error(w, err.Error(), http.StatusUnsupportedMediaType)
+			return
+		}
+
+		res, err := ctx.db.AddUser(&up)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		_, err = session.BeginSession(ctx.key, ctx.redis, makeSessionState(res), w)
+
+		b, _ := json.Marshal(res)
+		common.HttpWriter(http.StatusOK, b, common.MimeJSON, w)
+		return
+
+	default:
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		return
+	}
+}
+
 func main() {
 
-	port := os.Getenv(common.EnvPort)
-	if len(port) == 0 {
-		port = "8080"
-	}
+	port := common.GetEnvPort()
+	redisAddr := common.GetEnvRedisAddr()
+	sessionKey := common.GetEnvSessionKey()
+	firestoreKeyPath := common.GetEnvFirestoreKeyPath()
 
-	redisAddr := os.Getenv(common.EnvSessionServer)
-	if len(redisAddr) == 0 {
-		redisAddr = "redis:6379"
-	}
-
-	sessionKey := os.Getenv(common.EnvSessionKey)
-	if len(sessionKey) == 0 {
-		sessionKey = "default_key"
-	}
-
-	firestoreKey := os.Getenv(common.EnvFirestoreKeyPath)
-	if len(firestoreKey) == 0 {
-		firestoreKey = "/firebase_key.json"
-	}
-
-	sessionDuration := time.Hour * 24 * 30 // a month
-
-	fs, err := db.NewApp(context.Background(), firestoreKey)
+	fs, err := db.NewApp(context.Background(), firestoreKeyPath)
 	if err != nil {
 		log.Fatalln("cannot create new app:", err)
 	}
 	defer fs.CloseClient()
 
 	ctx := Context{
-		redis: session.NewRedisStore(session.NewRedisClient(redisAddr), sessionDuration),
+		redis: session.NewRedisStore(session.NewRedisClient(redisAddr), time.Hour * 24 * 30),
 		key: sessionKey,
 		db: fs,
 	}
@@ -167,6 +187,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/session/ok", ctx.OkHandler)
 	router.HandleFunc("/user/auth", ctx.SessionHandler)
+	router.HandleFunc("/user/create", ctx.UserCreateHandler)
 
 	log.Printf("serving redis at port %s!", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), router))

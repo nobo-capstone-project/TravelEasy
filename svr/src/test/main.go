@@ -30,8 +30,8 @@ func main() {
 	//log.Println("serving redis!")
 	//log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), router))
 	newUser := model.UserProfile{
-		Username:        "username",
-		Password:        "123",
+		Username:        "bryoco",
+		Password:        "123456",
 		Email:           "email2@email.com",
 		FirstName:       "Testing",
 		LastName:        "Tester",
@@ -43,8 +43,6 @@ func main() {
 		LocationCountry: "US",
 		Picture:         "123",
 	}
-
-	newUser.Password = ""
 
 	js, _ := json.Marshal(newUser)
 	log.Println(string(js))
