@@ -31,12 +31,15 @@ import AppNav from './Components/createAppNavigator';
 
 export default class App extends React.Component {
   render() {
+
     return (
       <Container>
-        <AppNav></AppNav>
+        <AddGuidePage></AddGuidePage>
+
+        {/* <AppNav></AppNav> */}
 
 
-        <BottomNav></BottomNav>
+
       </Container>
 
     );
