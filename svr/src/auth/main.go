@@ -6,7 +6,7 @@
 //
 // The server receives a session key, removes session from session server and logs out the user
 
-package main
+package auth
 
 import (
 	"TravelEasy/svr/src/common"
