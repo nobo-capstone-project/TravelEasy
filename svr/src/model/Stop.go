@@ -1,7 +1,6 @@
 package model
 
 import (
-	"gopkg.in/mgo.v2/bson"
 	"time"
 )
 
@@ -17,7 +16,7 @@ type StopLoc struct {
 	Address      string        `json:"address"`
 	Type         []string      `json:"type"`
 	TimeSpent    time.Duration `json:"timeSpent"`
-	Picture      []bson.Binary `json:"picture"`
+	Picture      []string      `json:"picture"`
 	ADA          bool          `json:"ADA"`
 }
 

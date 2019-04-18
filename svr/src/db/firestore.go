@@ -28,8 +28,11 @@ type FirestoreStore struct {
 }
 
 // establishes connection with firestore and returns a FirestoreStore struct pointer
-func NewApp(ctx context.Context) (*FirestoreStore, error) {
-	opt := option.WithCredentialsFile("/home/ryocown/.ssh/traveleasy-1554765588100-firebase-adminsdk-pxlbj-5c2e782b09.json")
+func NewApp(ctx context.Context, credPath string) (*FirestoreStore, error) {
+	if credPath == "" {
+		credPath = "/home/ryocown/.ssh/traveleasy-1554765588100-firebase-adminsdk-pxlbj-5c2e782b09.json"
+	}
+	opt := option.WithCredentialsFile(credPath)
 	config := &firebase.Config{ProjectID: "traveleasy-1554765588100"}
 
 	app, err := firebase.NewApp(ctx, config, opt)
