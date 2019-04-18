@@ -60,7 +60,7 @@ func GetEnvSessionKey() string {
 func GetEnvFirestoreKeyPath() string {
 	firestoreKeyPath := os.Getenv(EnvFirestoreKeyPath)
 	if len(firestoreKeyPath) == 0 {
-		return "/firebase_key.json"
+		return "/firestore_key.json"
 	} else {
 		return firestoreKeyPath
 	}
