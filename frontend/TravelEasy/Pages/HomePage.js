@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Platform, Text, View, TouchableHighlight, ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native';
 // import { Text, View } from 'react-native';
 
@@ -45,8 +45,6 @@ export default class App extends React.Component {
 
                 {/* <Header hasTabs /> */}
                 <Header>
-
-
                     <Tabs style={styles.tabs}>
                         <Tab heading="All">
                             {/* <Tab1 /> */}
@@ -66,6 +64,58 @@ export default class App extends React.Component {
                 </Grid>
 
 
+
+                {/* <TouchableHighlight
+                    style={styles.categoryButton}
+                // onPress={this.onPress}
+                >
+                    <Text> Touch Here </Text>
+                </TouchableHighlight> */}
+                <Text>Categories:</Text>
+                <ScrollView horizontal>
+                    <TouchableHighlight>
+                        <Text>Click here</Text>
+                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                    </TouchableHighlight>
+
+                    <TouchableHighlight>
+                        <Text>Click here</Text>
+                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                    </TouchableHighlight>
+                    <TouchableHighlight>
+                        <Text>Click here</Text>
+                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                    </TouchableHighlight>
+                    <TouchableHighlight>
+                        <Text>Click here</Text>
+                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                    </TouchableHighlight>
+                    <TouchableHighlight>
+                        <Text>Click here</Text>
+                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                    </TouchableHighlight>
+                </ScrollView>
+
+
+                {/* <ScrollView>
+                        
+                </ScrollView> */}
+                <Text>Guide Feed: </Text>
                 <Content style={styles.guideContainer} ref={c => (this.component = c)}>
                     <Text style={{ margin: 20 }}>test</Text>
                     <Text style={{ margin: 20 }}>test</Text>
@@ -112,5 +162,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         height: 50
 
+    },
+    categoryButton: {
+        backgroundColor: 'red'
     }
 })

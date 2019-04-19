@@ -24,6 +24,7 @@ import { NativeRouter, Switch, Route } from 'react-router-native';
 import BottomNav from './Components/BottomNav';
 import HomePage from './Pages/HomePage';
 import AddGuidePage from './Pages/AddGuidePage';
+import Login from './Pages/Login';
 
 
 import AppNav from './Components/createAppNavigator';
@@ -34,9 +35,11 @@ export default class App extends React.Component {
 
     return (
       <Container>
-        <AddGuidePage></AddGuidePage>
-
+        {/* <AddGuidePage></AddGuidePage> */}
+        {/* <HomePage /> */}
         {/* <AppNav></AppNav> */}
+
+        <Login></Login>
 
 
 
