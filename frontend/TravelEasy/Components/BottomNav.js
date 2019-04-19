@@ -24,35 +24,79 @@ import { Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, Tabs, 
 
 
 
+export default class BottomNav extends React.Component {
+    static navigationOptions = {
+        title: 'Welcome',
+    };
+    render() {
 
-export default ({ history }) => (
-    <Footer >
-        <FooterTab>
-            <Button vertical >
-                <Icon name="apps" />
-                <Text>Explore</Text>
+        return (
+            <Footer >
+                <FooterTab>
+                    <Button vertical >
+                        <Icon name="apps" />
+                        <Text>Explore</Text>
 
 
-            </Button>
-            <Button vertical>
-                <Icon name="camera" />
-                <Text>Favorites</Text>
-            </Button>
-            <Button vertical active>
-                <Icon active name="navigate" />
-                <Text>Trips</Text>
-            </Button>
-            <Button vertical onPress={() => history.push("/AddGuide")}>
-                <Icon name="person" />
-                <Text>Add</Text>
-            </Button>
-            <Button vertical>
-                <Icon name="person" />
-                <Text>User</Text>
-            </Button>
-        </FooterTab>
-    </Footer>
+                    </Button>
+                    <Button vertical>
+                        <Icon name="camera" />
+                        <Text>Favorites</Text>
+                    </Button>
+                    <Button vertical active>
+                        <Icon active name="navigate" />
+                        <Text>Trips</Text>
+                    </Button>
+                    <Button vertical onPress={() => this.props.navigation.push('Home')}>
+                        <Icon name="person" />
+                        <Text>Add</Text>
+                    </Button>
+                    <Button vertical>
+                        <Icon name="person" />
+                        <Text>User</Text>
+                    </Button>
+                </FooterTab>
+            </Footer>
 
-);
+
+
+
+        );
+    }
+}
+
+
+
+
+// export default () => (
+
+//     <Footer >
+//         <FooterTab>
+//             <Button vertical >
+//                 <Icon name="apps" />
+//                 <Text>Explore</Text>
+
+
+//             </Button>
+//             <Button vertical>
+//                 <Icon name="camera" />
+//                 <Text>Favorites</Text>
+//             </Button>
+//             <Button vertical active>
+//                 <Icon active name="navigate" />
+//                 <Text>Trips</Text>
+//             </Button>
+//             <Button vertical onPress={() => navigate('Profile')}>
+//                 <Icon name="person" />
+//                 <Text>Add</Text>
+//             </Button>
+//             <Button vertical>
+//                 <Icon name="person" />
+//                 <Text>User</Text>
+//             </Button>
+//         </FooterTab>
+//     </Footer>
+
+// );
 
 
