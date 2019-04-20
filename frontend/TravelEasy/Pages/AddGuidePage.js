@@ -8,13 +8,14 @@
 
 import React, { Component } from 'react';
 import { Platform, Text, View } from 'react-native';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 // import { Text, View } from 'react-native';
+import { Button } from 'react-native';
+
+import { CheckBox } from 'react-native-elements';
 
 
-
-
-import { Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
+import { Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Footer, Icon, } from 'native-base';
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
@@ -51,7 +52,7 @@ export default class AddGuidePage extends React.Component {
                 {/* <View><Text>Hello</Text></View> */}
                 {/* <View></View> */}
 
-                <Text>TravelEasy</Text>
+                <Text>ADD GUIDE PAGE</Text>
 
                 {/* <Header hasTabs /> */}
                 <Header>
@@ -73,6 +74,92 @@ export default class AddGuidePage extends React.Component {
                     <Row>
                         <Col><CardItem><Text>ADD GUIDE PAGES</Text></CardItem></Col><Col><CardItem><Text>hello</Text></CardItem></Col><Col><CardItem><Text>hello</Text></CardItem></Col>
                     </Row>
+                    <Text>Guide Name</Text>
+                    <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
+                    />
+
+                    <Text>Project Description </Text>
+                    <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+
+
+
+                    <Text> Add Stops: </Text>
+
+                    <Text>Stop Name</Text>
+
+                    <TextInput
+                        multiline={true}
+                        numberOfLines={4}
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
+                    />
+
+                    <Text>Stop Address</Text>
+
+                    <TextInput
+                        multiline={true}
+                        numberOfLines={4}
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
+                    />
+
+                    <Text>Stop Type</Text>
+                    <CheckBox
+                        title='Food (lunch, dinner)'
+                    // checked={this.state.checked}
+                    />
+                    <CheckBox
+                        title='Deserts (lunch, dinner)'
+                    // checked={this.state.checked}
+                    />
+                    <CheckBox
+                        title='Nature / Hiking'
+                    // checked={this.state.checked}
+                    />
+
+                    <CheckBox
+                        title='Urban Exploration'
+                    // checked={this.state.checked}
+                    />
+
+                    <CheckBox
+                        title='Shopping'
+                    // checked={this.state.checked}
+                    />
+
+                    <TextInput
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+
+                    <Text>Stop Duration</Text>
+
+                    <TextInput
+                        multiline={true}
+                        numberOfLines={4}
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
+                    />
+
+                    <Button
+                        // onPress={onPressLearnMore}
+                        title="ADD STOP"
+                        color="red"
+                        accessibilityLabel="Learn more about this purple button"
+                    />
+
+                    <Button
+                        // onPress={onPressLearnMore}
+                        title="Submit guide"
+                        color="red"
+                        accessibilityLabel="Learn more about this purple button"
+                    />
+
+                    {/* // onChangeText={(text) => this.setState({ text })}
+                    // value={this.state.text} */}
+
                 </Grid>
 
                 {/* <Card>
@@ -88,13 +175,7 @@ export default class AddGuidePage extends React.Component {
 
                 <Content style={styles.guideContainer} ref={c => (this.component = c)}>
                     <Text style={{ margin: 20 }}>test</Text>
-                    <Text style={{ margin: 20 }}>test</Text>
-                    <Text style={{ margin: 20 }}>test</Text>
-                    <Text style={{ margin: 20 }}>test</Text>
-                    <Text style={{ margin: 20 }}>test</Text>
-                    <Text style={{ margin: 20 }}>test</Text><Text style={{ margin: 20 }}>test</Text>
-                    <Text style={{ margin: 20 }}>test</Text>
-                    <Text style={{ margin: 20 }}>test</Text>
+
                 </Content>
 
 

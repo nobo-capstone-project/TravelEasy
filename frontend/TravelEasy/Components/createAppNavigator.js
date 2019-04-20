@@ -2,7 +2,10 @@ import React from "react";
 import { View, Text } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
-class HomeScreen extends React.Component {
+
+import HomePage from '../Pages/HomePage'
+
+class Test extends React.Component {
     render() {
         return (
             <View >
@@ -13,9 +16,9 @@ class HomeScreen extends React.Component {
 }
 
 const AppNavigator = createStackNavigator({
-    Home: {
-        screen: HomeScreen
-    }
+    Home: HomePage,
+    Test: Test
+
 });
 
 export default createAppContainer(AppNavigator);

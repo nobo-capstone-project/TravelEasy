@@ -7,47 +7,37 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Platform, Text, View, TouchableHighlight, ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native';
 // import { Text, View } from 'react-native';
 
+import BottomNav from "../Components/BottomNav";
 
+// import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
 
-
-import { Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
+import { Item, Grid, Col, Row, Card, CardItem, Container, Header, Input, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
 
 
-const styles = StyleSheet.create({
-    container: {
-        // paddingTop: 200
-    },
-    footer: {
-        position: 'absolute',
-        bottom: 0
-    },
-    guideContainer: {
-        backgroundColor: 'blue',
-        height: 100,
-        // width: 100,
-        // position: 'absolute',
-        // top: 100,
-        // left: 0
-    },
-    tabs: {
-        // marginTop: 0,
-        backgroundColor: 'red',
-        height: 50
 
-    }
-})
 
 export default class App extends React.Component {
     render() {
         return (
             <Container style={styles.container}>
+                <Header searchBar rounded>
+                    <Item>
+                        <Icon name="ios-search" />
+                        <Input placeholder="Search" />
+                        <Icon name="ios-people" />
+                    </Item>
+                    <Button transparent>
+                        <Text>Search</Text>
+                    </Button>
+                </Header>
+
                 {/* <View><Text>Hello</Text></View> */}
                 {/* <View></View> */}
 
@@ -55,8 +45,6 @@ export default class App extends React.Component {
 
                 {/* <Header hasTabs /> */}
                 <Header>
-
-
                     <Tabs style={styles.tabs}>
                         <Tab heading="All">
                             {/* <Tab1 /> */}
@@ -75,18 +63,63 @@ export default class App extends React.Component {
                     </Row>
                 </Grid>
 
-                {/* <Card>
 
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-          <CardItem><Text>hsdfas</Text></CardItem>
-        </Card> */}
 
+                {/* <TouchableHighlight
+                    style={styles.categoryButton}
+                // onPress={this.onPress}
+                >
+                    <Text> Touch Here </Text>
+                </TouchableHighlight> */}
+                <Text>Categories:</Text>
+                <ScrollView horizontal>
+                    <TouchableHighlight>
+                        <Text>Click here</Text>
+                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                    </TouchableHighlight>
+
+                    <TouchableHighlight>
+                        <Text>Click here</Text>
+                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                    </TouchableHighlight>
+                    <TouchableHighlight>
+                        <Text>Click here</Text>
+                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                    </TouchableHighlight>
+                    <TouchableHighlight>
+                        <Text>Click here</Text>
+                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                    </TouchableHighlight>
+                    <TouchableHighlight>
+                        <Text>Click here</Text>
+                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                    </TouchableHighlight>
+                </ScrollView>
+
+
+                {/* <ScrollView>
+                        
+                </ScrollView> */}
+                <Text>Guide Feed: </Text>
                 <Content style={styles.guideContainer} ref={c => (this.component = c)}>
+                    <Text style={{ margin: 20 }}>test</Text>
+                    <Text style={{ margin: 20 }}>test</Text>
+                    <Text style={{ margin: 20 }}>test</Text>
                     <Text style={{ margin: 20 }}>test</Text>
                     <Text style={{ margin: 20 }}>test</Text>
                     <Text style={{ margin: 20 }}>test</Text>
@@ -100,64 +133,37 @@ export default class App extends React.Component {
 
 
 
-                {/* <Footer style={styles.footer}>
-                    <FooterTab>
-                        <Button vertical>
-                            <Icon name="apps" />
-                            <Text>Explore</Text>
-                        </Button>
-                        <Button vertical>
-                            <Icon name="camera" />
-                            <Text>Favorites</Text>
-                        </Button>
-                        <Button vertical active>
-                            <Icon active name="navigate" />
-                            <Text>Trips</Text>
-                        </Button>
-                        <Button vertical>
-                            <Icon name="person" />
-                            <Text>Add</Text>
-                        </Button>
-                        <Button vertical>
-                            <Icon name="person" />
-                            <Text>User</Text>
-                        </Button>
-                    </FooterTab>
-                </Footer> */}
+                <BottomNav></BottomNav>
 
             </Container >
         );
     }
 }
+const styles = StyleSheet.create({
+    container: {
+        // paddingTop: 200
+        margin: 0,
+        padding: 0
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0
+    },
+    guideContainer: {
+        backgroundColor: 'blue',
+        height: 100,
+        // width: 100,
+        // position: 'absolute',
+        // top: 100,
+        // left: 0
+    },
+    tabs: {
+        // marginTop: 0,
+        backgroundColor: 'red',
+        height: 50
 
-// type Props = {};
-// export default class App extends Component<Props> {
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text style={styles.welcome}>Welcome to React Native!</Text>
-//         <Text style={styles.instructions}>To get started, edit App.js</Text>
-//         <Text style={styles.instructions}>{instructions}</Text>
-//       </View>
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: '#F5FCFF',
-//   },
-//   welcome: {
-//     fontSize: 20,
-//     textAlign: 'center',
-//     margin: 10,
-//   },
-//   instructions: {
-//     textAlign: 'center',
-//     color: '#333333',
-//     marginBottom: 5,
-//   },
-// });
+    },
+    categoryButton: {
+        backgroundColor: 'red'
+    }
+})
