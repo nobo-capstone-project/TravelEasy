@@ -1,7 +1,7 @@
 FROM golang:1.12 as builder
 WORKDIR /go/src/TravelEasy/svr/src
 #COPY . /svr
-ADD . /go/src/TravelEasy/svr/src
+ADD .. /go/src/TravelEasy/svr/src
 RUN go get github.com/bryoco/dazzling/session
 RUN go get github.com/gorilla/mux
 RUN go get cloud.google.com/go/firestore

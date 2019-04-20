@@ -6,7 +6,7 @@
 //
 // The server receives a session key, removes session from session server and logs out the user
 
-package auth
+package main
 
 import (
 	"TravelEasy/svr/src/common"
@@ -24,7 +24,7 @@ import (
 )
 
 // context for authentication server
-type Context struct {
+type AuthContext struct {
 	redis *session.RedisStore
 	db    *db.FirestoreStore
 	key   string
@@ -36,9 +36,38 @@ type Credential struct {
 	Password	string `json:"password"`
 }
 
+// serve authentication server
+func main() {
+
+	port := common.GetEnvPort()
+	redisAddr := common.GetEnvRedisAddr()
+	sessionKey := common.GetEnvSessionKey()
+	firestoreKeyPath := common.GetEnvFirestoreKeyPath()
+
+	fs, err := db.NewApp(context.Background(), firestoreKeyPath)
+	if err != nil {
+		log.Fatalln("cannot create new app:", err)
+	}
+	defer fs.CloseClient()
+
+	ctx := AuthContext{
+		redis: session.NewRedisStore(session.NewRedisClient(redisAddr), time.Hour * 24 * 30),
+		key: sessionKey,
+		db: fs,
+	}
+
+	router := mux.NewRouter()
+	router.HandleFunc("/session/ok", ctx.OkHandler)
+	router.HandleFunc("/user/auth", ctx.SessionHandler)
+	router.HandleFunc("/user/create", ctx.UserCreateHandler)
+
+	log.Printf("serving redis at port %s!", port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), router))
+}
+
 // fetches and authenticates user profile from DB
 // returns error if username not found or incorrect password
-func (ctx *Context) getAndAuthUser(username, password string) (*model.UserProfile, error) {
+func (ctx *AuthContext) getAndAuthUser(username, password string) (*model.UserProfile, error) {
 	up, err := ctx.db.GetUserProfileByUsername(username)
 	if err != nil {
 		return nil, err
@@ -62,7 +91,7 @@ func makeSessionState(u *model.UserProfile) session.State {
 }
 
 // pings redis
-func (ctx *Context) OkHandler(w http.ResponseWriter, r *http.Request) {
+func (ctx *AuthContext) OkHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
@@ -80,7 +109,7 @@ func (ctx *Context) OkHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // handles login and log out
-func (ctx *Context) SessionHandler(w http.ResponseWriter, r *http.Request) {
+func (ctx *AuthContext) SessionHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	// login
 	case http.MethodPost:
@@ -131,7 +160,7 @@ func (ctx *Context) SessionHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // creates the given user to firestore and creates session
-func (ctx *Context) UserCreateHandler(w http.ResponseWriter, r *http.Request) {
+func (ctx *AuthContext) UserCreateHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
 
@@ -163,32 +192,4 @@ func (ctx *Context) UserCreateHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
 	}
-}
-
-func main() {
-
-	port := common.GetEnvPort()
-	redisAddr := common.GetEnvRedisAddr()
-	sessionKey := common.GetEnvSessionKey()
-	firestoreKeyPath := common.GetEnvFirestoreKeyPath()
-
-	fs, err := db.NewApp(context.Background(), firestoreKeyPath)
-	if err != nil {
-		log.Fatalln("cannot create new app:", err)
-	}
-	defer fs.CloseClient()
-
-	ctx := Context{
-		redis: session.NewRedisStore(session.NewRedisClient(redisAddr), time.Hour * 24 * 30),
-		key: sessionKey,
-		db: fs,
-	}
-
-	router := mux.NewRouter()
-	router.HandleFunc("/session/ok", ctx.OkHandler)
-	router.HandleFunc("/user/auth", ctx.SessionHandler)
-	router.HandleFunc("/user/create", ctx.UserCreateHandler)
-
-	log.Printf("serving redis at port %s!", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), router))
 }

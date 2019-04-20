@@ -6,13 +6,16 @@ import (
 )
 
 const (
-	HeaderContentType = "Content-Type"
-	MimeJSON = "application/json"
-	MimeText = "text/plain"
-	EnvPort = "PORT"
-	EnvSessionServer = "SESSION_SERVER_ADDR"
-	EnvSessionKey = "SESSION_KEY"
+	HeaderContentType   = "Content-Type"
+	MimeJSON            = "application/json"
+	MimeText            = "text/plain"
+	EnvPort             = "PORT"
+	EnvSessionServer    = "SESSION_SERVER_ADDR"
+	EnvSessionKey       = "SESSION_KEY"
 	EnvFirestoreKeyPath = "FIRESTORE_KEY_PATH"
+	EnvRouteServerAddr  = "ROUTE_SERVER_ADDR"
+	EnvStopServerAddr   = "STOP_SERVER_ADDR"
+	EnvUserServerAddr	= "USER_SERVER_ADDR"
 )
 
 // HttpWriter takes necessary arguments to write back to client.
@@ -63,5 +66,26 @@ func GetEnvFirestoreKeyPath() string {
 		return "/firestore_key.json"
 	} else {
 		return firestoreKeyPath
+	}
+}
+
+func GetEnvRouteSvrAddr() string {
+	routeSvrAddr := os.Getenv(EnvRouteServerAddr)
+	if len(routeSvrAddr) == 0 {
+		return "localhost:8080"
+	}
+}
+
+func GetEnvStopSvrAddr() string {
+	stopSvrAddr := os.Getenv(EnvStopServerAddr)
+	if len(stopSvrAddr) == 0 {
+		return "localhost:8080"
+	}
+}
+
+func GetEnvUserSvrAddr() string {
+	userSvrAddr := os.Getenv(EnvUserServerAddr)
+	if len(userSvrAddr) == 0 {
+		return "localhost:8080"
 	}
 }
