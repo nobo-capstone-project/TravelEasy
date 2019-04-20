@@ -73,6 +73,8 @@ func GetEnvRouteSvrAddr() string {
 	routeSvrAddr := os.Getenv(EnvRouteServerAddr)
 	if len(routeSvrAddr) == 0 {
 		return "localhost:8080"
+	} else {
+		return routeSvrAddr
 	}
 }
 
@@ -80,6 +82,8 @@ func GetEnvStopSvrAddr() string {
 	stopSvrAddr := os.Getenv(EnvStopServerAddr)
 	if len(stopSvrAddr) == 0 {
 		return "localhost:8080"
+	} else {
+		return stopSvrAddr
 	}
 }
 
@@ -87,5 +91,7 @@ func GetEnvUserSvrAddr() string {
 	userSvrAddr := os.Getenv(EnvUserServerAddr)
 	if len(userSvrAddr) == 0 {
 		return "localhost:8080"
+	} else {
+		return userSvrAddr
 	}
 }
