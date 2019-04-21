@@ -14,13 +14,13 @@ import (
 type GatewayContext struct {
 	firebaseStore *db.FirestoreStore
 	key           string
-	redis		  *session.RedisStore
+	redis         *session.RedisStore
 }
 
 func main() {
 
 	port := common.GetEnvPort()
-	redisAddr := common.GetEnvRedisAddr()
+	sessionSvrAddr := common.GetEnvSessionSvrAddr()
 	sessionKey := common.GetEnvSessionKey()
 	firestoreKeyPath := common.GetEnvFirestoreKeyPath()
 	// TODO: combine route and stop server
@@ -37,22 +37,24 @@ func main() {
 	ctx := GatewayContext{
 		firebaseStore: fs,
 		key:           sessionKey,
+		//redis:		   session.NewRedisStore(session.NewRedisClient(sessionSvrAddr), time.Hour * 24 * 30),
 	}
 
-	// TODO: what service does what
+	// gateway service
+	//router.HandleFunc("/gateway/ok/", ctx.OkHandler)
 
 	// auth service
-	authRouter := ctx.NewProxy(redisAddr)
+	sessionSvrRouter := ctx.NewProxy(sessionSvrAddr)
 	// {domain}/session/ok/: GET - get redis ping
-	router.Handle("/session/ok/", authRouter)
+	router.Handle("/session/ok/", sessionSvrRouter)
 	// {domain}/user/auth/: POST - log in current user
 	// {domain}/user/auth/: DELETE - log out current user
-	router.Handle("/user/auth/", authRouter)
+	router.Handle("/user/auth/", sessionSvrRouter)
 	// {domain}/user/create/: POST - create new user and save to db
-	router.Handle("/user/create/", authRouter)
+	router.Handle("/user/create/", sessionSvrRouter)
 	// {domain}/user/{id}: GET - retrieve user profile
 	// {domain}/user/{id}: PATCH - modify existing user
-	router.Handle("/user/{user_id}", authRouter)
+	router.Handle("/user/{user_id}", sessionSvrRouter)
 
 	// route service
 	routeRouter := ctx.NewProxy(routeSvrAddr)
@@ -82,5 +84,5 @@ func main() {
 
 	// booting service
 	log.Printf("serving gateway at port %s!", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), router))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), common.NewLogger(router)))
 }

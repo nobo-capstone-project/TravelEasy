@@ -6,16 +6,16 @@ import (
 )
 
 const (
-	HeaderContentType   = "Content-Type"
-	MimeJSON            = "application/json"
-	MimeText            = "text/plain"
-	EnvPort             = "PORT"
-	EnvSessionServer    = "SESSION_SERVER_ADDR"
-	EnvSessionKey       = "SESSION_KEY"
-	EnvFirestoreKeyPath = "FIRESTORE_KEY_PATH"
-	EnvRouteServerAddr  = "ROUTE_SERVER_ADDR"
-	EnvStopServerAddr   = "STOP_SERVER_ADDR"
-	EnvUserServerAddr	= "USER_SERVER_ADDR"
+	HeaderContentType    = "Content-Type"
+	MimeJSON             = "application/json"
+	MimeText             = "text/plain"
+	EnvPort              = "PORT"
+	EnvSessionServerAddr = "SESSION_SERVER_ADDR"
+	EnvSessionKey        = "SESSION_KEY"
+	EnvFirestoreKeyPath  = "FIRESTORE_KEY_PATH"
+	EnvRouteServerAddr   = "ROUTE_SERVER_ADDR"
+	EnvStopServerAddr    = "STOP_SERVER_ADDR"
+	EnvUserServerAddr    = "USER_SERVER_ADDR"
 )
 
 // HttpWriter takes necessary arguments to write back to client.
@@ -42,12 +42,12 @@ func GetEnvPort() string {
 	}
 }
 
-func GetEnvRedisAddr() string {
-	redisAddr := os.Getenv(EnvSessionServer)
-	if len(redisAddr) == 0 {
+func GetEnvSessionSvrAddr() string {
+	sessionSvrAddr := os.Getenv(EnvSessionServerAddr)
+	if len(sessionSvrAddr) == 0 {
 		return "redis:6379"
 	} else {
-		return redisAddr
+		return sessionSvrAddr
 	}
 }
 

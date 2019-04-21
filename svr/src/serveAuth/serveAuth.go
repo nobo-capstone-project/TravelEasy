@@ -31,7 +31,7 @@ type AuthContext struct {
 func main() {
 
 	port := common.GetEnvPort()
-	redisAddr := common.GetEnvRedisAddr()
+	redisAddr := common.GetEnvSessionSvrAddr()
 	sessionKey := common.GetEnvSessionKey()
 	firestoreKeyPath := common.GetEnvFirestoreKeyPath()
 
@@ -49,11 +49,11 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/session/ok/", ctx.OkHandler)
-	router.HandleFunc("/user/auth/", ctx.SessionHandler)
+	router.HandleFunc("/user/auth/", ctx.AuthHandler)
 	router.HandleFunc("/user/create/", ctx.UserCreateHandler)
-	//router.HandleFunc("/user/{user_id}", ctx.UserHandler)
+	router.HandleFunc("/user/{user_id}", ctx.UserIdHandler)
 
 	log.Printf("serving redis at port %s!", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), router))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), common.NewLogger(router)))
 }
 

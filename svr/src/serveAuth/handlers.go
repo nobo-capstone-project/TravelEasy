@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/bryoco/dazzling/session"
+	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -61,9 +62,9 @@ func (ctx *AuthContext) OkHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // handles login and log out
-// {domain}/user/auth: POST - log in current user
-// {domain}/user/auth: DELETE - log out current user
-func (ctx *AuthContext) SessionHandler(w http.ResponseWriter, r *http.Request) {
+// {domain}/user/auth/: POST - log in current user
+// {domain}/user/auth/: DELETE - log out current user
+func (ctx *AuthContext) AuthHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	// login
 	case http.MethodPost:
@@ -90,8 +91,10 @@ func (ctx *AuthContext) SessionHandler(w http.ResponseWriter, r *http.Request) {
 		b, _ := json.Marshal(up)
 		common.HttpWriter(http.StatusOK, b, common.MimeJSON, w)
 
-	// delete session
+	// logout
 	case http.MethodDelete:
+
+		log.Println(r.Header.Get("Authorization"))
 
 		// `state` is discarded
 		_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
@@ -138,6 +141,10 @@ func (ctx *AuthContext) UserCreateHandler(w http.ResponseWriter, r *http.Request
 		}
 
 		_, err = session.BeginSession(ctx.key, ctx.redis, makeSessionState(res), w)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
 		b, _ := json.Marshal(res)
 		common.HttpWriter(http.StatusOK, b, common.MimeJSON, w)
@@ -149,9 +156,75 @@ func (ctx *AuthContext) UserCreateHandler(w http.ResponseWriter, r *http.Request
 	}
 }
 
-// doesnt really make sense to retrieve user from auth server
-//// {domain}/user/{id}: GET - retrieve user profile
-//// {domain}/user/{id}: PATCH - modify existing user
-//func (ctx *AuthContext) UserHandler(w http.ResponseWriter, r *http.Request) {
-//
-//}
+// {domain}/user/{id}: GET - retrieve user profile
+// {domain}/user/{id}: PATCH - modify existing user
+func (ctx *AuthContext) UserIdHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodGet:
+
+		if !strings.HasPrefix(r.Header.Get(common.HeaderContentType), common.MimeJSON) {
+			http.Error(w, common.ErrUnsupportedMediaType.Error(), http.StatusUnsupportedMediaType)
+			return
+		}
+
+		currentState := &session.State{}
+		_, err := session.GetState(r, ctx.key, ctx.redis, currentState)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusForbidden)
+			return
+		}
+
+		b, _ := json.Marshal(currentState.Interface)
+		common.HttpWriter(http.StatusCreated, b, common.MimeJSON, w)
+		return
+
+	case http.MethodPatch:
+
+		if !strings.HasPrefix(r.Header.Get(common.HeaderContentType), common.MimeJSON) {
+			http.Error(w, common.ErrUnsupportedMediaType.Error(), http.StatusUnsupportedMediaType)
+			return
+		}
+
+		// discard currentState
+		_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusForbidden)
+			return
+		}
+
+		decoder := json.NewDecoder(r.Body)
+		var up model.UserProfile
+		if err := decoder.Decode(&up); err != nil {
+			http.Error(w, err.Error(), http.StatusUnsupportedMediaType)
+			return
+		}
+
+		res, err := ctx.db.ModifyUser(&up)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// refresh session since contextual state has changed
+		_, err = session.EndSession(r, ctx.key, ctx.redis)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// refresh state
+		_, err = session.BeginSession(ctx.key, ctx.redis, makeSessionState(res), w)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		b, _ := json.Marshal(res)
+		common.HttpWriter(http.StatusCreated, b, common.MimeJSON, w)
+		return
+
+	default:
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		return
+	}
+}

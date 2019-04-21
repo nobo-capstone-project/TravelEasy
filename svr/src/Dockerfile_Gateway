@@ -1,7 +1,7 @@
 FROM golang:1.12 as builder
-WORKDIR /go/src/TravelEasy/svr/src
-#COPY . /svr
-ADD .. /go/src/TravelEasy/svr/src
+WORKDIR /go/src/TravelEasy/svr/src/serveGateway
+COPY ./ /go/src/TravelEasy/svr/src
+ADD ./ /go/src/TravelEasy/svr/src
 RUN go get github.com/bryoco/dazzling/session
 RUN go get github.com/gorilla/mux
 RUN go get cloud.google.com/go/firestore
@@ -12,8 +12,8 @@ RUN go get google.golang.org/api/option
 RUN CGO_ENABLED=0 GOOS=linux go build -v -o gateway
 
 FROM alpine
-COPY --from=builder /go/src/TravelEasy/svr/src/gateway /gateway
-COPY --from=builder /go/src/TravelEasy/svr/src/firestore_key.json /firestore_key.json
+COPY --from=builder /go/src/TravelEasy/svr/src/serveGateway/gateway /gateway
+COPY --from=builder /go/src/TravelEasy/svr/src/serveGateway/firestore_key.json /firestore_key.json
 RUN pwd
 RUN ls -alh
 CMD ["/gateway"]
