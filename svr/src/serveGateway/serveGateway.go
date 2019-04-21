@@ -4,32 +4,17 @@ import (
 	"TravelEasy/svr/src/common"
 	"TravelEasy/svr/src/db"
 	"fmt"
+	"github.com/bryoco/dazzling/session"
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
 	"log"
 	"net/http"
-	"net/http/httputil"
-	"sync"
 )
 
 type GatewayContext struct {
-	FirebaseStore	*db.FirestoreStore
-	Key				string
-}
-
-func (ctx *GatewayContext) NewProxy(addr string) *httputil.ReverseProxy {
-	// thread locking
-	mx := sync.Mutex{}
-	mx.Lock()
-	defer mx.Unlock()
-
-	return &httputil.ReverseProxy{
-		Director: func(r *http.Request) {
-			r.Host = addr
-			r.URL.Host = addr
-			r.URL.Scheme = "http"
-		},
-	}
+	firebaseStore *db.FirestoreStore
+	key           string
+	redis		  *session.RedisStore
 }
 
 func main() {
@@ -50,21 +35,24 @@ func main() {
 
 	router := mux.NewRouter()
 	ctx := GatewayContext{
-		FirebaseStore: fs,
-		Key:           sessionKey,
+		firebaseStore: fs,
+		key:           sessionKey,
 	}
+
+	// TODO: what service does what
 
 	// auth service
 	authRouter := ctx.NewProxy(redisAddr)
-	// {domain}/user/auth: POST - log in current user
-	// {domain}/user/auth: DELETE - log out current user
-	router.Handle("/user/auth", authRouter)
-	// {domain}/user/create: POST - create new user and save to db
-	router.Handle("/user/create", authRouter)
-	router.Handle("/session/ok", authRouter)
+	// {domain}/session/ok/: GET - get redis ping
+	router.Handle("/session/ok/", authRouter)
+	// {domain}/user/auth/: POST - log in current user
+	// {domain}/user/auth/: DELETE - log out current user
+	router.Handle("/user/auth/", authRouter)
+	// {domain}/user/create/: POST - create new user and save to db
+	router.Handle("/user/create/", authRouter)
 	// {domain}/user/{id}: GET - retrieve user profile
 	// {domain}/user/{id}: PATCH - modify existing user
-	router.Handle("/user/{user_id}/", authRouter)
+	router.Handle("/user/{user_id}", authRouter)
 
 	// route service
 	routeRouter := ctx.NewProxy(routeSvrAddr)
