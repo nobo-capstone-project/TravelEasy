@@ -9,14 +9,8 @@
   "dependencies": {
     "native-base": "^2.12.1",
     "react": "16.8.3",
-<<<<<<< HEAD
-    "react-art": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-native": "^0.59.6",
-=======
     "react-native": "0.59.4",
     "react-native-elements": "^1.1.0",
->>>>>>> 4a0263b05430623f766588439a3f20ed276da4aa
     "react-native-gesture-handler": "^1.1.0",
     "react-native-material-bottom-navigation": "^1.0.3",
     "react-native-web": "^0.11.2",

@@ -25,6 +25,7 @@ import BottomNav from './Components/BottomNav';
 import HomePage from './Pages/HomePage';
 import AddGuidePage from './Pages/AddGuidePage';
 import Login from './Pages/Login';
+import RoutePage from './Pages/RoutePage';
 
 
 import AppNav from './Components/createAppNavigator';
@@ -38,9 +39,10 @@ export default class App extends React.Component {
         {/* <AddGuidePage></AddGuidePage> */}
         {/* <HomePage /> */}
         {/* <AppNav></AppNav> */}
+        
 
-        <Login></Login>
-
+        {/* <Login></Login> */}
+        <RoutePage></RoutePage>
 
 
       </Container>
