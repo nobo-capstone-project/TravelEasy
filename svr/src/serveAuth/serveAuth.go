@@ -51,7 +51,7 @@ func main() {
 	router.HandleFunc("/session/ok/", ctx.OkHandler)
 	router.HandleFunc("/user/auth/", ctx.AuthHandler)
 	router.HandleFunc("/user/create/", ctx.UserCreateHandler)
-	router.HandleFunc("/user/{user_id}", ctx.UserIdHandler)
+	router.HandleFunc("/user/{id}", ctx.UserIdHandler)
 
 	log.Printf("serving redis at port %s!", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), common.NewLogger(router)))

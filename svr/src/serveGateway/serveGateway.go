@@ -54,7 +54,7 @@ func main() {
 	router.Handle("/user/create/", sessionSvrRouter)
 	// {domain}/user/{id}: GET - retrieve user profile
 	// {domain}/user/{id}: PATCH - modify existing user
-	router.Handle("/user/{user_id}", sessionSvrRouter)
+	router.Handle("/user/{id}", sessionSvrRouter)
 
 	// route service
 	routeRouter := ctx.NewProxy(routeSvrAddr)

@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/bryoco/dazzling/session"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"strings"
@@ -159,13 +160,15 @@ func (ctx *AuthContext) UserCreateHandler(w http.ResponseWriter, r *http.Request
 // {domain}/user/{id}: GET - retrieve user profile
 // {domain}/user/{id}: PATCH - modify existing user
 func (ctx *AuthContext) UserIdHandler(w http.ResponseWriter, r *http.Request) {
+
+	documentID := mux.Vars(r)["id"]
+	if len(documentID) == 0 {
+		http.Error(w, http.ErrNoLocation.Error(), http.StatusBadRequest)
+		return
+	}
+
 	switch r.Method {
 	case http.MethodGet:
-
-		if !strings.HasPrefix(r.Header.Get(common.HeaderContentType), common.MimeJSON) {
-			http.Error(w, common.ErrUnsupportedMediaType.Error(), http.StatusUnsupportedMediaType)
-			return
-		}
 
 		currentState := &session.State{}
 		_, err := session.GetState(r, ctx.key, ctx.redis, currentState)
@@ -174,8 +177,21 @@ func (ctx *AuthContext) UserIdHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		b, _ := json.Marshal(currentState.Interface)
-		common.HttpWriter(http.StatusCreated, b, common.MimeJSON, w)
+		up, err := ctx.db.GetUserProfileByDocumentID(documentID)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		//up := currentState.Interface.(model.UserProfile)
+		//
+		//if up.DocumentID != documentID {
+		//	http.Error(w, common.ErrCannotAccessProfile.Error(), http.StatusForbidden)
+		//	return
+		//}
+
+		b, _ := json.Marshal(up)
+		common.HttpWriter(http.StatusOK, b, common.MimeJSON, w)
 		return
 
 	case http.MethodPatch:
@@ -185,10 +201,16 @@ func (ctx *AuthContext) UserIdHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// discard currentState
-		_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+		currentState := &session.State{}
+
+		_, err := session.GetState(r, ctx.key, ctx.redis, currentState)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusForbidden)
+			return
+		}
+
+		if currentState.Interface.(model.UserProfile).DocumentID != documentID {
+			http.Error(w, common.ErrCannotAccessProfile.Error(), http.StatusForbidden)
 			return
 		}
 
