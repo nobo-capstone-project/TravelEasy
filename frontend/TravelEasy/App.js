@@ -88,6 +88,14 @@ export default class App extends React.Component {
 
               />
             </Scene>
+            <Scene key="route" title="route" icon={TabIcon}>
+              <Scene
+                key="RoutePage"
+                component={RoutePage}
+                title="RouteGuide"
+
+              />
+            </Scene>
           </Scene>
 
 
