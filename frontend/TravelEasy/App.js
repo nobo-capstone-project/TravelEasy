@@ -25,7 +25,12 @@ import { Router, Scene } from 'react-native-router-flux';
 import BottomNav from './Components/BottomNav';
 import HomePage from './Pages/HomePage';
 import AddGuidePage from './Pages/AddGuidePage';
+
 import LoginPage from './Pages/LoginPage';
+
+
+import RoutePage from './Pages/RoutePage';
+
 
 
 import AppNav from './Components/createAppNavigator';
@@ -39,7 +44,15 @@ const TabIcon = ({ selected, title }) => {
 export default class App extends React.Component {
   render() {
 
+    // return (
+    //   <Container>
+    //     {/* <AddGuidePage></AddGuidePage> */}
+    //     {/* <HomePage /> */}
+    //     {/* <AppNav></AppNav> */}
 
+
+    //     {/* <Login></Login> */}
+    //     <RoutePage></RoutePage>
 
     return (
       <Router>

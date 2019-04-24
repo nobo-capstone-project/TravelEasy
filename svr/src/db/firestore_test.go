@@ -2,6 +2,7 @@ package db
 
 import (
 	"TravelEasy/svr/src/model"
+	"encoding/json"
 	"golang.org/x/net/context"
 	"log"
 	"testing"
@@ -26,38 +27,19 @@ var (
 	}
 )
 
-func TestFirebaseStore_AddUser(t *testing.T) {
+func TestFirebaseStore(t *testing.T) {
 	ctx := context.Background()
-	fs, err := NewApp(ctx)
+	fs, err := NewApp(ctx, "/home/ryocown/go/src/TravelEasy/svr/src/serveAuth/firestore_key.json")
 	if err != nil {
 		log.Fatalln("cannot create new app: ", err)
 	}
 	defer fs.CloseClient()
 
-	cases := []struct {
-		name           string
-		profile        model.UserProfile
-		expectError    bool
-		expectedResult model.UserProfile
-	} {
-		{
-			name:           "happy case",
-			profile:        validProfile,
-			expectError:    false,
-			expectedResult: validProfile,
-		},
-		{
-			name:           "used username",
-			profile:        validProfile,
-			expectError:    true,
-			expectedResult: nil,
-		},
-		{
-			name:           "used email",
-			profile:        model.UserProfile{},
-			expectError:    true,
-			expectedResult: model.UserProfile{},
-		},
+	up, err := fs.GetUserProfileByDocumentID("NqabjKC15cb688AsjD0a")
+	if err != nil {
+		log.Println(err)
+	} else {
+		b, _ := json.Marshal(up)
+		log.Println(string(b))
 	}
-
 }

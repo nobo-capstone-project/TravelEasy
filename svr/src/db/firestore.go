@@ -144,14 +144,11 @@ func (fs *FirestoreStore) ModifyUser(user *model.UserProfile) (*model.UserProfil
 	return parseDataSnapshotToUserProfile(doc)
 }
 
-// TODO
 func (fs *FirestoreStore) GetUserProfileByDocumentID(documentID string) (*model.UserProfile, error) {
 
-
 	doc, err := fs.AppClient.Collection(userDB).
-		Where("documentID", "==", documentID).
-		Documents(*fs.Context).
-		Next()
+		Doc("NqabjKC15cb688AsjD0a").
+		Get(*fs.Context)
 
 	if doc == nil {
 		return nil, fmt.Errorf("user not found")
