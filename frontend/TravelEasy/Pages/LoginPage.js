@@ -18,6 +18,7 @@ import BottomNav from "../Components/BottomNav";
 import { Item, Grid, Col, Row, Card, CardItem, Container, Header, Input, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
 
 import { Form } from 'native-base';
+
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
@@ -25,7 +26,7 @@ import { Form } from 'native-base';
 
 
 
-export default class App extends React.Component {
+export default class LoginPage extends React.Component {
     render() {
         return (
             <Container style={styles.container}>
@@ -53,6 +54,8 @@ export default class App extends React.Component {
                         <Input placeholder="Password" />
                     </Item>
                 </Form>
+
+                <Button title="Solid Button"><Text>HELLO</Text></Button>
 
             </Container >
         );
