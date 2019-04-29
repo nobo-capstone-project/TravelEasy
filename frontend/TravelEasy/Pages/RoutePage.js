@@ -168,7 +168,7 @@ class RouteHeader extends React.Component {
                         <Text style={styles.coverTextH1}>
                             University of Washington 1-Day Tour
                         </Text>
-                        <View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
+                        <View style={{ flexDirection: 'row', marginTop: 10 }}>
                             <FontAwesomeIcon style={{ color: 'white', marginRight: 5 }} icon={faMapMarkerAlt} />
                             <Text style={styles.coverTextH2}>
                                 University of Washington
@@ -176,7 +176,7 @@ class RouteHeader extends React.Component {
                         </View>
                     </View>
                     <View style={styles.coverVote}>
-                        <View style={{ flex: 1, flexDirection: 'row'}}>
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                             <FontAwesomeIcon icon={faArrowUp} style={{ color: 'white', marginRight: 5 }} />
                             <Text style={{
                                 fontSize: 18,
@@ -186,8 +186,13 @@ class RouteHeader extends React.Component {
                             }}>23,880</Text>
                             <FontAwesomeIcon icon={faArrowDown} style={{ color: 'white', marginLeft: 5 }} />
                         </View>
-                        <View style={{ flex: 1, flexDirection: 'row' }}>
-                            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'center'
+                            // alignItems: 'flex-end'
+                        }}>
+                            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                                 <FontAwesomeIcon icon={faShareSquare} style={styles.coverIcon}></FontAwesomeIcon>
                                 <Text style={{
                                     fontSize: 10,
@@ -196,7 +201,7 @@ class RouteHeader extends React.Component {
                                     color: "#ffffff"
                                 }} >SHARE</Text>
                             </View>
-                            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+                            <View style={{ flexDirection: 'column', alignItems: 'center', marginLeft: 20 }}>
                                 <FontAwesomeIcon icon={faHeart} style={styles.coverIcon}></FontAwesomeIcon>
                                 <Text style={{
                                     fontSize: 10,
