@@ -4,10 +4,16 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "react-devtools": "react-devtools"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.17",
+    "@fortawesome/free-solid-svg-icons": "^5.8.1",
+    "@fortawesome/react-native-fontawesome": "^0.1.0",
+    "i": "^0.3.6",
     "native-base": "^2.12.1",
+    "npm": "^6.9.0",
     "react": "16.8.3",
     "react-art": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -16,6 +22,7 @@
     "react-native-gesture-handler": "^1.1.0",
     "react-native-material-bottom-navigation": "^1.0.3",
     "react-native-router-flux": "^4.0.6",
+    "react-native-svg": "^9.4.0",
     "react-native-web": "^0.11.2",
     "react-navigation": "^3.8.1",
     "react-router-native": "^5.0.0"
@@ -26,6 +33,7 @@
     "babel-jest": "^24.7.1",
     "jest": "^24.7.1",
     "metro-react-native-babel-preset": "^0.53.1",
+    "react-devtools": "^3.6.1",
     "react-test-renderer": "16.8.3"
   },
   "jest": {
