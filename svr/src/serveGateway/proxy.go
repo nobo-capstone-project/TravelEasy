@@ -5,7 +5,8 @@ import (
 	"net/http/httputil"
 )
 
-func (ctx *GatewayContext) NewProxy(addr string) *httputil.ReverseProxy {
+func (ctx *gatewayContext) NewProxy(addr string) *httputil.ReverseProxy {
+	thread <- 1
 	return &httputil.ReverseProxy{
 		Director: func(r *http.Request) {
 			r.Host = addr

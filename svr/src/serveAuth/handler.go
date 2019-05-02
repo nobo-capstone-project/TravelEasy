@@ -22,15 +22,15 @@ type Credential struct {
 // fetches and authenticates user profile from DB
 // returns error if username not found or incorrect password
 func (ctx *AuthContext) getAndAuthUser(username, password string) (*model.UserProfile, error) {
-	up, err := ctx.db.GetUserProfileByUsername(username)
+	profile, err := ctx.db.GetUserProfileByUsername(username)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := up.AuthenticatePassword(password); err != nil {
+	if err := profile.AuthenticatePassword(password); err != nil {
 		return nil, err
 	} else {
-		return up, nil
+		return profile, nil
 	}
 }
 
@@ -46,6 +46,7 @@ func makeSessionState(u *model.UserProfile) session.State {
 
 // pings redis
 func (ctx *AuthContext) OkHandler(w http.ResponseWriter, r *http.Request) {
+
 	if r.Method != http.MethodGet {
 		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
@@ -66,6 +67,7 @@ func (ctx *AuthContext) OkHandler(w http.ResponseWriter, r *http.Request) {
 // {domain}/user/auth/: POST - log in current user
 // {domain}/user/auth/: DELETE - log out current user
 func (ctx *AuthContext) AuthHandler(w http.ResponseWriter, r *http.Request) {
+
 	switch r.Method {
 	// login
 	case http.MethodPost:
@@ -81,15 +83,15 @@ func (ctx *AuthContext) AuthHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		up, err := ctx.getAndAuthUser(cred.Username, cred.Password)
+		profile, err := ctx.getAndAuthUser(cred.Username, cred.Password)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusForbidden)
 			return
 		}
 
-		_, err = session.BeginSession(ctx.key, ctx.redis, makeSessionState(up), w)
+		_, err = session.BeginSession(ctx.key, ctx.redis, makeSessionState(profile), w)
 
-		b, _ := json.Marshal(up)
+		b, _ := json.Marshal(profile)
 		common.HttpWriter(http.StatusOK, b, common.MimeJSON, w)
 
 	// logout
@@ -110,7 +112,7 @@ func (ctx *AuthContext) AuthHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		common.HttpWriter(http.StatusOK, []byte("you have been signed out"), "application/json", w)
+		common.HttpWriter(http.StatusOK, []byte("you have been signed out"), common.MimeText, w)
 	default:
 		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
@@ -120,6 +122,7 @@ func (ctx *AuthContext) AuthHandler(w http.ResponseWriter, r *http.Request) {
 // creates the given user to firestore and creates session
 // {domain}/user/create: POST - create new user and save to db
 func (ctx *AuthContext) UserCreateHandler(w http.ResponseWriter, r *http.Request) {
+
 	switch r.Method {
 	case http.MethodPost:
 
@@ -177,20 +180,16 @@ func (ctx *AuthContext) UserIdHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		up, err := ctx.db.GetUserProfileByDocumentID(documentID)
+		userProfile, err := ctx.db.GetUserProfileByDocumentID(documentID)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
-		//up := currentState.Interface.(model.UserProfile)
-		//
-		//if up.DocumentID != documentID {
-		//	http.Error(w, common.ErrCannotAccessProfile.Error(), http.StatusForbidden)
-		//	return
-		//}
+		// remove salted password
+		userProfile.Password = ""
 
-		b, _ := json.Marshal(up)
+		b, _ := json.Marshal(userProfile)
 		common.HttpWriter(http.StatusOK, b, common.MimeJSON, w)
 		return
 

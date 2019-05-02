@@ -47,13 +47,13 @@ func main() {
 		db: fs,
 	}
 
-	router := mux.NewRouter()
-	router.HandleFunc("/session/ok/", ctx.OkHandler)
-	router.HandleFunc("/user/auth/", ctx.AuthHandler)
-	router.HandleFunc("/user/create/", ctx.UserCreateHandler)
-	router.HandleFunc("/user/{id}", ctx.UserIdHandler)
+	r := mux.NewRouter()
+	r.HandleFunc("/session/ok/", ctx.OkHandler)
+	r.HandleFunc("/user/auth/", ctx.AuthHandler)
+	r.HandleFunc("/user/create/", ctx.UserCreateHandler)
+	r.HandleFunc("/user/{id}", ctx.UserIdHandler)
 
 	log.Printf("serving redis at port %s!", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), common.NewLogger(router)))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), common.NewLogger(r)))
 }
 

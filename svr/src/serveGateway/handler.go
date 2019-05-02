@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func (ctx *GatewayContext) OkHandler(w http.ResponseWriter, r *http.Request) {
+func (ctx *gatewayContext) OkHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
