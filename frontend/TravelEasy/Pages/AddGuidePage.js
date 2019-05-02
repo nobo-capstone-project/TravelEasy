@@ -21,29 +21,7 @@ import { Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, Tabs, 
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
 
 
-const styles = StyleSheet.create({
-    container: {
-        // paddingTop: 200
-    },
-    footer: {
-        position: 'absolute',
-        bottom: 0
-    },
-    guideContainer: {
-        backgroundColor: 'blue',
-        height: 100,
-        // width: 100,
-        // position: 'absolute',
-        // top: 100,
-        // left: 0
-    },
-    tabs: {
-        // marginTop: 0,
-        backgroundColor: 'red',
-        height: 50
 
-    }
-})
 
 export default class AddGuidePage extends React.Component {
     render() {
@@ -210,6 +188,30 @@ export default class AddGuidePage extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        // paddingTop: 200
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0
+    },
+    guideContainer: {
+        backgroundColor: 'blue',
+        height: 100,
+        // width: 100,
+        // position: 'absolute',
+        // top: 100,
+        // left: 0
+    },
+    tabs: {
+        // marginTop: 0,
+        backgroundColor: 'red',
+        height: 50
+
+    }
+})
 
 // type Props = {};
 // export default class App extends Component<Props> {

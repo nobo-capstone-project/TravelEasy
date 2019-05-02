@@ -19,31 +19,105 @@ import { Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Foote
 
 import { NativeRouter, Switch, Route } from 'react-router-native';
 
+import { Router, Scene } from 'react-native-router-flux';
 
 // IMPORT COMPONENTS: 
 import BottomNav from './Components/BottomNav';
 import HomePage from './Pages/HomePage';
 import AddGuidePage from './Pages/AddGuidePage';
-import Login from './Pages/Login';
+
+import LoginPage from './Pages/LoginPage';
+
+
+import RoutePage from './Pages/RoutePage';
+
 
 
 import AppNav from './Components/createAppNavigator';
 
+const TabIcon = ({ selected, title }) => {
+  return (
+    <Text style={{ color: selected ? 'red' : 'black' }}>{title}</Text>
+  );
+}
 
 export default class App extends React.Component {
   render() {
 
+    // return (
+    //   <Container>
+    //     {/* <AddGuidePage></AddGuidePage> */}
+    //     {/* <HomePage /> */}
+    //     {/* <AppNav></AppNav> */}
+
+
+    //     {/* <Login></Login> */}
+    //     <RoutePage></RoutePage>
+
     return (
-      <Container>
-        {/* <AddGuidePage></AddGuidePage> */}
-        {/* <HomePage /> */}
-        {/* <AppNav></AppNav> */}
+      <Router>
+        <Scene key="root">
+          <Scene
+            key="tabbar"
+            tabs
+            tabBarStyle={{ backgroundColor: '#FFFFFF' }}
+          >
+            <Scene key="home" title="home" icon={TabIcon}>
+              <Scene
+                key="HomePage"
+                component={HomePage}
+                title="HomePage"
+                initial
+              />
+            </Scene>
 
-        <Login></Login>
+            <Scene key="addGuide" title="addGuide" icon={TabIcon}>
+              <Scene
+                key="AddGuidePage"
+                component={AddGuidePage}
+                title="AddGuide"
+
+              />
+            </Scene>
+
+            <Scene key="login" title="login" icon={TabIcon}>
+              <Scene
+                key="LoginPage"
+                component={LoginPage}
+                title="LoginGuide"
+
+              />
+            </Scene>
+            <Scene key="route" title="route" icon={TabIcon}>
+              <Scene
+                key="RoutePage"
+                component={RoutePage}
+                title="RouteGuide"
+
+              />
+            </Scene>
+          </Scene>
 
 
 
-      </Container>
+          {/* <Scene
+            key="LoginPage"
+            component={LoginPage}
+            title="LoginPage"
+            initial
+          /> */}
+
+        </Scene>
+      </Router>
+
+
+      // <Container>
+      //   {/* <AddGuidePage></AddGuidePage> */}
+      //   <HomePage />
+      //   {/* <AppNav></AppNav> */}
+
+      //   {/* <Login></Login> */}
+      // </Container>
 
     );
   }
