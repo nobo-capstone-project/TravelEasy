@@ -60,7 +60,7 @@ export default class App extends React.Component {
           <Scene
             key="tabbar"
             tabs
-            tabBarStyle={{ backgroundColor: '#FFFFFF' }}
+            tabBarStyle={{ backgroundColor: '#FFFFFF', margin: 0, padding: 0 }}
           >
             <Scene key="home" title="home" icon={TabIcon}>
               <Scene
@@ -76,7 +76,6 @@ export default class App extends React.Component {
                 key="AddGuidePage"
                 component={AddGuidePage}
                 title="AddGuide"
-
               />
             </Scene>
 
@@ -98,26 +97,8 @@ export default class App extends React.Component {
             </Scene>
           </Scene>
 
-
-
-          {/* <Scene
-            key="LoginPage"
-            component={LoginPage}
-            title="LoginPage"
-            initial
-          /> */}
-
         </Scene>
       </Router>
-
-
-      // <Container>
-      //   {/* <AddGuidePage></AddGuidePage> */}
-      //   <HomePage />
-      //   {/* <AppNav></AppNav> */}
-
-      //   {/* <Login></Login> */}
-      // </Container>
 
     );
   }
@@ -126,56 +107,25 @@ export default class App extends React.Component {
 
 
 const styles = StyleSheet.create({
-  container: {
-    // paddingTop: 200
-  },
-  footer: {
-    position: 'absolute',
-    bottom: 0
-  },
-  guideContainer: {
-    backgroundColor: 'blue',
-    height: 100,
-    // width: 100,
-    // position: 'absolute',
-    // top: 100,
-    // left: 0
-  },
-  tabs: {
-    // marginTop: 0,
-    backgroundColor: 'red',
-    height: 50
+  // container: {
+  //   // paddingTop: 200
+  // },
+  // footer: {
+  //   position: 'absolute',
+  //   bottom: 0
+  // },
+  // guideContainer: {
+  //   backgroundColor: 'blue',
+  //   height: 100,
+  //   // width: 100,
+  //   // position: 'absolute',
+  //   // top: 100,
+  //   // left: 0
+  // },
+  // tabs: {
+  //   // marginTop: 0,
+  //   backgroundColor: 'red',
+  //   height: 50
 
-  }
+  // }
 })
-// type Props = {};
-// export default class App extends Component<Props> {
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text style={styles.welcome}>Welcome to React Native!</Text>
-//         <Text style={styles.instructions}>To get started, edit App.js</Text>
-//         <Text style={styles.instructions}>{instructions}</Text>
-//       </View>
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: '#F5FCFF',
-//   },
-//   welcome: {
-//     fontSize: 20,
-//     textAlign: 'center',
-//     margin: 10,
-//   },
-//   instructions: {
-//     textAlign: 'center',
-//     color: '#333333',
-//     marginBottom: 5,
-//   },
-// });
