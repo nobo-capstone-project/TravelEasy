@@ -25,11 +25,9 @@ import { Router, Scene } from 'react-native-router-flux';
 import BottomNav from './Components/BottomNav';
 import HomePage from './Pages/HomePage';
 import AddGuidePage from './Pages/AddGuidePage';
-
 import LoginPage from './Pages/LoginPage';
-
-
 import RoutePage from './Pages/RoutePage';
+import ProfilePage from './Pages/ProfilePage';
 
 
 
@@ -55,6 +53,8 @@ export default class App extends React.Component {
     //     <RoutePage></RoutePage>
 
     return (
+
+
       <Router>
         <Scene key="root">
           <Scene
@@ -92,7 +92,14 @@ export default class App extends React.Component {
                 key="RoutePage"
                 component={RoutePage}
                 title="RouteGuide"
+              />
+            </Scene>
 
+            <Scene key="prifle" title="profile" icon={TabIcon}>
+              <Scene
+                key="ProfilePage"
+                component={ProfilePage}
+                title="ProfilePage"
               />
             </Scene>
           </Scene>
