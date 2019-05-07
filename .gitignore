@@ -161,3 +161,6 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+/svr/src/serveRouteStop/firestore_key.json
+svr/src/serveAuth/firestore_key.json
+svr/src/serveGateway/firestore_key.json

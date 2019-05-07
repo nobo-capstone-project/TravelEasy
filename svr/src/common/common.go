@@ -23,7 +23,7 @@ func HttpWriter(statusCode int, body []byte, contentType string, w http.Response
 	if len(contentType) > 0 {
 		w.Header().Set("Content-Type", contentType)
 	} else {
-		w.Header().Set("Content-Type", "text/plain")
+		w.Header().Set("Content-Type", MimeText)
 	}
 
 	w.WriteHeader(statusCode)
@@ -95,3 +95,4 @@ func GetEnvUserSvrAddr() string {
 		return userSvrAddr
 	}
 }
+

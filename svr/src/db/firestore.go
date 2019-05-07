@@ -7,6 +7,7 @@ import (
 	"firebase.google.com/go"
 	"fmt"
 	"golang.org/x/net/context"
+	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
 
@@ -55,7 +56,7 @@ func (fs *FirestoreStore) CloseClient() {
 
 func (fs *FirestoreStore) AddUser(user *model.UserProfile) (*model.UserProfile, error) {
 
-	err := fs.identifierIsUnused(user)
+	err := fs.isIdentifierUnused(user)
 	if err != nil {
 		return nil, err
 	}
@@ -121,33 +122,132 @@ func (fs *FirestoreStore) AddStopComment(stopComment *model.StopComment) (*model
 	}
 }
 
-func (fs *FirestoreStore) ModifyUser(user *model.UserProfile) (*model.UserProfile, error) {
-	documentID := user.DocumentID
-	user.DocumentID = ""
+func (fs *FirestoreStore) GetAllRouteComment(routeID string) ([]*model.RouteComment, error) {
 
-	m, err := cleanUnusedFields(user)
+	var routeComments []*model.RouteComment
+	query := fs.AppClient.Collection(commentDB).Where("routeID", "==", routeID)
+
+	docs := query.Documents(*fs.Context)
+	for {
+		doc, err := docs.Next()
+		if err == iterator.Done {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+
+		rc, err := parseDataSnapshotToRouteComment(doc)
+		if err != nil {
+			return nil, err
+		}
+
+		rc.DocumentID = doc.Ref.ID
+		routeComments = append(routeComments, rc)
+	}
+	return routeComments, nil
+}
+
+func (fs *FirestoreStore) GetAllStopComment(stopID string) ([]*model.StopComment, error) {
+
+	var stopComments []*model.StopComment
+	query := fs.AppClient.Collection(commentDB).Where("stopID", "==", stopID)
+
+	docs := query.Documents(*fs.Context)
+	for {
+		doc, err := docs.Next()
+		if err == iterator.Done {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+
+		sc, err := parseDataSnapshotToStopComment(doc)
+		if err != nil {
+			return nil, err
+		}
+
+		sc.DocumentID = doc.Ref.ID
+		stopComments = append(stopComments, sc)
+	}
+	return stopComments, nil
+}
+
+func (fs *FirestoreStore) GetSpecificRoute(documentID string) (*model.RouteLoc, error) {
+
+	doc, err := fs.AppClient.Collection(routeDB).Doc(documentID).Get(*fs.Context)
+	if doc == nil {
+		return nil, fmt.Errorf("comment not found")
+	} else if err != nil {
+		return nil, err
+	}
+
+	routeLoc, err := parseDataSnapshotToRoute(doc)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = fs.AppClient.Collection(userDB).Doc(documentID).Set(*fs.Context, m, firestore.MergeAll)
+	routeLoc.DocumentID = doc.Ref.ID
+	return routeLoc, nil
+}
+
+func (fs *FirestoreStore) GetSpecificStop(documentID string) (*model.StopLoc, error) {
+
+	doc, err := fs.AppClient.Collection(stopDB).Doc(documentID).Get(*fs.Context)
+	if doc == nil {
+		return nil, fmt.Errorf("comment not found")
+	} else if err != nil {
+		return nil, err
+	}
+
+	stopLoc, err := parseDataSnapshotToStop(doc)
 	if err != nil {
 		return nil, err
 	}
 
-	// set does not return updated results, therefore, manually lookup after the update
-	doc, err := fs.AppClient.Collection(userDB).Doc(documentID).Get(*fs.Context)
+	stopLoc.DocumentID = doc.Ref.ID
+	return stopLoc, nil
+}
+
+func (fs *FirestoreStore) GetSpecificRouteComment(documentID string) (*model.RouteComment, error) {
+
+	doc, err := fs.AppClient.Collection(commentDB).Doc(documentID).Get(*fs.Context)
+	if doc == nil {
+		return nil, fmt.Errorf("comment not found")
+	} else if err != nil {
+		return nil, err
+	}
+
+	routeComment, err := parseDataSnapshotToRouteComment(doc)
 	if err != nil {
 		return nil, err
 	}
 
-	return parseDataSnapshotToUserProfile(doc)
+	routeComment.DocumentID = doc.Ref.ID
+	return routeComment, nil
+}
+
+func (fs *FirestoreStore) GetSpecificStopComment(documentID string) (*model.StopComment, error) {
+
+	doc, err := fs.AppClient.Collection(commentDB).Doc(documentID).Get(*fs.Context)
+	if doc == nil {
+		return nil, fmt.Errorf("comment not found")
+	} else if err != nil {
+		return nil, err
+	}
+
+	sc, err := parseDataSnapshotToStopComment(doc)
+	if err != nil {
+		return nil, err
+	}
+
+	sc.DocumentID = doc.Ref.ID
+	return sc, nil
 }
 
 func (fs *FirestoreStore) GetUserProfileByDocumentID(documentID string) (*model.UserProfile, error) {
 
 	doc, err := fs.AppClient.Collection(userDB).
-		Doc("NqabjKC15cb688AsjD0a").
+		Doc(documentID).
 		Get(*fs.Context)
 
 	if doc == nil {
@@ -178,7 +278,30 @@ func (fs *FirestoreStore) GetUserProfileByUsername(username string) (*model.User
 	return parseDataSnapshotToUserProfile(doc)
 }
 
-func (fs *FirestoreStore) identifierIsUnused(user *model.UserProfile) error {
+func (fs *FirestoreStore) ModifyUser(user *model.UserProfile) (*model.UserProfile, error) {
+	documentID := user.DocumentID
+	user.DocumentID = ""
+
+	m, err := cleanUnusedFields(user)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = fs.AppClient.Collection(userDB).Doc(documentID).Set(*fs.Context, m, firestore.MergeAll)
+	if err != nil {
+		return nil, err
+	}
+
+	// set does not return updated results, therefore, manually lookup after the update
+	doc, err := fs.AppClient.Collection(userDB).Doc(documentID).Get(*fs.Context)
+	if err != nil {
+		return nil, err
+	}
+
+	return parseDataSnapshotToUserProfile(doc)
+}
+
+func (fs *FirestoreStore) isIdentifierUnused(user *model.UserProfile) error {
 	username := user.Username
 	email := user.Email
 
@@ -202,6 +325,9 @@ func (fs *FirestoreStore) identifierIsUnused(user *model.UserProfile) error {
 
 	return nil
 }
+// ===========================
+// parsers and utility methods
+// ===========================
 
 func parseDataSnapshotToUserProfile(d *firestore.DocumentSnapshot) (*model.UserProfile, error) {
 	up := &model.UserProfile{}
@@ -218,6 +344,74 @@ func parseDataSnapshotToUserProfile(d *firestore.DocumentSnapshot) (*model.UserP
 	up.DocumentID = d.Ref.ID
 
 	return up, nil
+}
+
+func parseDataSnapshotToRouteComment(d *firestore.DocumentSnapshot) (*model.RouteComment, error) {
+	rc := &model.RouteComment{}
+	b, err := json.Marshal(d.Data())
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(b, rc)
+	if err != nil {
+		return nil, err
+	}
+
+	rc.DocumentID = d.Ref.ID
+
+	return rc, nil
+}
+
+func parseDataSnapshotToStopComment(d *firestore.DocumentSnapshot) (*model.StopComment, error) {
+	sc := &model.StopComment{}
+	b, err := json.Marshal(d.Data())
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(b, sc)
+	if err != nil {
+		return nil, err
+	}
+
+	sc.DocumentID = d.Ref.ID
+
+	return sc, nil
+}
+
+func parseDataSnapshotToRoute(d *firestore.DocumentSnapshot) (*model.RouteLoc, error) {
+	rl := &model.RouteLoc{}
+	b, err := json.Marshal(d.Data())
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(b, rl)
+	if err != nil {
+		return nil, err
+	}
+
+	rl.DocumentID = d.Ref.ID
+
+	return rl, nil
+}
+
+func parseDataSnapshotToStop(d *firestore.DocumentSnapshot) (*model.StopLoc, error) {
+	sl := &model.StopLoc{}
+	b, err := json.Marshal(d.Data())
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(b, sl)
+	if err != nil {
+		return nil, err
+	}
+
+	sl.DocumentID = d.Ref.ID
+
+	return sl, nil
 }
 
 // strips off empty fields from `UserProfile` struct and prepares for DB insertion
