@@ -5,16 +5,39 @@ import (
 	"TravelEasy/svr/src/model"
 	"dazzling/session"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
+	"log"
 	"net/http"
 	"strings"
 )
 
+// {domain}/route/ok/: GET - ok
+func (ctx *RouteContext) okHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		return
+	}
+
+	if pong, err := ctx.redis.Client.Ping().Result(); err != nil {
+		common.HttpWriter(http.StatusInternalServerError,
+			[]byte(fmt.Sprintf("Gateway server not connected to redis, redis error: %v", err)),
+			common.MimeText, w)
+	} else {
+		common.HttpWriter(http.StatusOK,
+			[]byte(fmt.Sprintf("Gateway server connected to redis, ping redis: %v", pong)),
+			common.MimeText, w)
+	}
+}
+
+// {domain}/route/create/: POST - create new route and save to db
 func (ctx *RouteContext) routeCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
 	_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+	log.Println(ctx.key)
 	if err != nil {
+		log.Println(err.Error())
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
 	}
@@ -53,6 +76,7 @@ func (ctx *RouteContext) routeCreateHandler(w http.ResponseWriter, r *http.Reque
 	}
 }
 
+// {domain}/stop/create: POST - create new stop and save to db
 func (ctx *RouteContext) stopCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
@@ -96,6 +120,7 @@ func (ctx *RouteContext) stopCreateHandler(w http.ResponseWriter, r *http.Reques
 	}
 }
 
+// {domain}/route/{id}/comment/: POST - post new comment
 func (ctx *RouteContext) routeCommentCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
@@ -148,6 +173,7 @@ func (ctx *RouteContext) routeCommentCreateHandler(w http.ResponseWriter, r *htt
 	}
 }
 
+// {domain}/stop/{id}/comment: POST - post new comment
 func (ctx *RouteContext) stopCommentCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
@@ -196,6 +222,8 @@ func (ctx *RouteContext) stopCommentCreateHandler(w http.ResponseWriter, r *http
 	}
 }
 
+// {domain}/route/{id}: PATCH - modify existing route
+// {domain}/route/{id}: GET - get route details
 func (ctx *RouteContext) specificRouteHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
@@ -228,12 +256,17 @@ func (ctx *RouteContext) specificRouteHandler(w http.ResponseWriter, r *http.Req
 		return
 
 	case http.MethodPatch:
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusNotImplemented)
+		return
 	default:
 		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
 		return
 	}
 }
 
+// {domain}/stop/comment/{id}: GET - get comment
+// {domain}/stop/comment/{id}: PATCH - modify existing comment
+// {domain}/stop/comment/{id}: DELETE - delete existing comment
 func (ctx *RouteContext) specificStopHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
@@ -273,6 +306,9 @@ func (ctx *RouteContext) specificStopHandler(w http.ResponseWriter, r *http.Requ
 
 }
 
+// {domain}/route/{id}/comment/{id}: GET - get comment
+// {domain}/route/{id}/comment/{id}: PATCH - modify existing comment
+// {domain}/route/{id}/comment/{id}: DELETE - delete existing comment
 func (ctx *RouteContext) specificRouteCommentHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
@@ -293,5 +329,19 @@ func (ctx *RouteContext) specificRouteCommentHandler(w http.ResponseWriter, r *h
 }
 
 func (ctx *RouteContext) specificStopCommentHandler(w http.ResponseWriter, r *http.Request) {
+	// check session
+	_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
 
+	switch r.Method {
+	case http.MethodGet:
+	case http.MethodPatch:
+	case http.MethodDelete:
+	default:
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		return
+	}
 }

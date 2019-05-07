@@ -13,7 +13,7 @@ func (ctx *gatewayContext) OkHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if pong, err := ctx.redis.Client.Ping().Result(); err != nil {
-		common.HttpWriter(http.StatusOK,
+		common.HttpWriter(http.StatusInternalServerError,
 			[]byte(fmt.Sprintf("Gateway server not connected to redis, redis error: %v", err)),
 			common.MimeText, w)
 	} else {

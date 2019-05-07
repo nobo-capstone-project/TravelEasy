@@ -1,12 +1,13 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"net/http/httputil"
 )
 
 func (ctx *gatewayContext) NewProxy(addr string) *httputil.ReverseProxy {
-	thread <- 1
+	log.Println("creating proxy at: " + addr)
 	return &httputil.ReverseProxy{
 		Director: func(r *http.Request) {
 			r.Host = addr

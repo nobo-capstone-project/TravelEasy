@@ -3,9 +3,9 @@ package main
 import (
 	"TravelEasy/svr/src/common"
 	"TravelEasy/svr/src/model"
+	"dazzling/session"
 	"encoding/json"
 	"fmt"
-	"github.com/bryoco/dazzling/session"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"

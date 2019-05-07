@@ -3,12 +3,13 @@ package main
 import (
 	"TravelEasy/svr/src/common"
 	"TravelEasy/svr/src/db"
+	"dazzling/session"
 	"fmt"
-	"github.com/bryoco/dazzling/session"
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
 	"log"
 	"net/http"
+	"time"
 )
 
 type gatewayContext struct {
@@ -20,13 +21,13 @@ type gatewayContext struct {
 func main() {
 
 	port := common.GetEnvPort()
-	sessionSvrAddr := common.GetEnvSessionSvrAddr()
 	sessionKey := common.GetEnvSessionKey()
 	firestoreKeyPath := common.GetEnvFirestoreKeyPath()
 
 	// NOTE: route and stop on the same server
-	routeSvrAddr := common.GetEnvRouteSvrAddr()
-	stopSvrAddr := common.GetEnvRouteSvrAddr()
+	routeStopSvrAddr := common.GetEnvRouteStopSvrAddr()
+	authSvrAddr := common.GetEnvAuthSvrAddr()
+	redisAddr := common.GetEnvRedisAddr()
 
 	fs, err := db.NewApp(context.Background(), firestoreKeyPath)
 	if err != nil {
@@ -38,62 +39,62 @@ func main() {
 	ctx := gatewayContext{
 		firebaseStore: fs,
 		key:           sessionKey,
+		redis:         session.NewRedisStore(session.NewRedisClient(redisAddr), time.Hour * 24 * 30),
 	}
 
 	r.HandleFunc("/gateway/ok/", ctx.OkHandler)
 
 	// auth service
-	sessionSvrRouter := ctx.NewProxy(sessionSvrAddr)
+	authSvrRouter := ctx.NewProxy(authSvrAddr)
 
 	// {domain}/session/ok/: GET - get redis ping
-	r.Handle("/session/ok/", sessionSvrRouter)
+	r.Handle("/session/ok/", authSvrRouter)
 
 	// {domain}/user/auth/: POST - log in current user
 	// {domain}/user/auth/: DELETE - log out current user
-	r.Handle("/user/auth/", sessionSvrRouter)
+	r.Handle("/user/auth/", authSvrRouter)
 
 	// {domain}/user/create/: POST - create new user and save to db
-	r.Handle("/user/create/", sessionSvrRouter)
+	r.Handle("/user/create/", authSvrRouter)
 
 	// {domain}/user/{id}: GET - retrieve user profile
 	// {domain}/user/{id}: PATCH - modify existing user
-	r.Handle("/user/{id}", sessionSvrRouter)
+	r.Handle("/user/{id}", authSvrRouter)
 
-	// route service
-	routeRouter := ctx.NewProxy(routeSvrAddr)
+	// routeStop service
+	routeStopSvrRouter := ctx.NewProxy(routeStopSvrAddr)
+
+	r.Handle("/route/ok/", routeStopSvrRouter)
 
 	// {domain}/route/create: POST - create new route and save to db
-	r.Handle("/route/create/", routeRouter)
+	r.Handle("/route/create/", routeStopSvrRouter)
 
 	// {domain}/route/{id}: PATCH - modify existing route
 	// {domain}/route/{id}: GET - get route details
-	r.Handle("/route/{route_id}", routeRouter)
+	r.Handle("/route/{route_id}", routeStopSvrRouter)
 
 	// {domain}/route/{id}/comment: POST - post new comment
-	r.Handle("/route/{route_id}/comment/", routeRouter)
+	r.Handle("/route/{route_id}/comment/", routeStopSvrRouter)
 
 	// {domain}/route/{id}/comment/{id}: PATCH - modify existing comment
 	// {domain}/route/{id}/comment/{id}: DELETE - delete existing comment
 	// {domain}/route/{id}/comment/{id}: GET - get comment
-	r.Handle("/route/comment/{comment_id}", routeRouter)
-
-	// stop service
-	stopRouter := ctx.NewProxy(stopSvrAddr)
+	r.Handle("/route/comment/{comment_id}", routeStopSvrRouter)
 
 	// {domain}/stop/create: POST - create new stop and save to db
-	r.Handle("/stop/create/", stopRouter)
+	r.Handle("/stop/create/", routeStopSvrRouter)
 
 	// {domain}/stop/{id}/comment: POST - post new comment
-	r.Handle("/stop/{route_id}/comment/", stopRouter)
+	r.Handle("/stop/{route_id}/comment/", routeStopSvrRouter)
 
 	// {domain}/stop/{id}: PATCH - modify existing route
 	// {domain}/stop/{id}: GET - get stop details
-	r.Handle("/stop/{stop_id}", stopRouter)
+	r.Handle("/stop/{stop_id}", routeStopSvrRouter)
 
 	// {domain}/stop/{id}/comment/{id}: PATCH - modify existing comment
 	// {domain}/stop/{id}/comment/{id}: DELETE - delete existing comment
 	// {domain}/stop/{id}/comment/{id}: GET - get comment
-	r.Handle("/stop/comment/{comment_id}", routeRouter)
+	r.Handle("/stop/comment/{comment_id}", routeStopSvrRouter)
 
 	// booting service
 	log.Printf("serving gateway at port %s!", port)

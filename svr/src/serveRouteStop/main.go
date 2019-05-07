@@ -23,7 +23,7 @@ type RouteContext struct {
 func main() {
 
 	port := common.GetEnvPort()
-	redisAddr := common.GetEnvSessionSvrAddr()
+	redisAddr := common.GetEnvRedisAddr()
 	sessionKey := common.GetEnvSessionKey()
 	firestoreKeyPath := common.GetEnvFirestoreKeyPath()
 
@@ -41,14 +41,16 @@ func main() {
 
 	r := mux.NewRouter()
 
-	// {domain}/route/create: POST - create new route and save to db
+	r.HandleFunc("/route/ok/", ctx.okHandler)
+
+	// {domain}/route/create/: POST - create new route and save to db
 	r.HandleFunc("/route/create/", ctx.routeCreateHandler)
 
 	// {domain}/route/{id}: PATCH - modify existing route
 	// {domain}/route/{id}: GET - get route details
 	r.HandleFunc("/route/{route_id}", ctx.specificRouteHandler)
 
-	// {domain}/route/{id}/comment: POST - post new comment
+	// {domain}/route/{id}/comment/: POST - post new comment
 	r.HandleFunc("/route/{route_id}/comment/", ctx.routeCommentCreateHandler)
 
 	// {domain}/route/{id}/comment/{id}: GET - get comment

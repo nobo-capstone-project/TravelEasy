@@ -11,8 +11,8 @@ package main
 import (
 	"TravelEasy/svr/src/common"
 	"TravelEasy/svr/src/db"
+	"dazzling/session"
 	"fmt"
-	"github.com/bryoco/dazzling/session"
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
 	"log"
@@ -31,7 +31,7 @@ type AuthContext struct {
 func main() {
 
 	port := common.GetEnvPort()
-	redisAddr := common.GetEnvSessionSvrAddr()
+	redisAddr := common.GetEnvRedisAddr()
 	sessionKey := common.GetEnvSessionKey()
 	firestoreKeyPath := common.GetEnvFirestoreKeyPath()
 

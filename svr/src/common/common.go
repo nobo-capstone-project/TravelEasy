@@ -6,16 +6,18 @@ import (
 )
 
 const (
-	HeaderContentType    = "Content-Type"
-	MimeJSON             = "application/json"
-	MimeText             = "text/plain"
-	EnvPort              = "PORT"
-	EnvSessionServerAddr = "SESSION_SERVER_ADDR"
-	EnvSessionKey        = "SESSION_KEY"
-	EnvFirestoreKeyPath  = "FIRESTORE_KEY_PATH"
-	EnvRouteServerAddr   = "ROUTE_SERVER_ADDR"
-	EnvStopServerAddr    = "STOP_SERVER_ADDR"
-	EnvUserServerAddr    = "USER_SERVER_ADDR"
+	HeaderContentType      = "Content-Type"
+	MimeJSON               = "application/json"
+	MimeText               = "text/plain"
+	EnvPort                = "PORT"
+	EnvRedisAddr           = "REDIS_ADDR"
+	EnvSessionKey          = "SESSION_KEY"
+	EnvFirestoreKeyPath    = "FIRESTORE_KEY_PATH"
+	EnvAuthServerAddr      = "AUTH_SERVER_ADDR"
+	EnvRouteServerAddr     = "ROUTE_SERVER_ADDR"
+	EnvRouteStopServerAddr = "ROUTE_STOP_SERVER_ADDR"
+	EnvStopServerAddr      = "STOP_SERVER_ADDR"
+	EnvUserServerAddr      = "USER_SERVER_ADDR"
 )
 
 // HttpWriter takes necessary arguments to write back to client.
@@ -42,12 +44,12 @@ func GetEnvPort() string {
 	}
 }
 
-func GetEnvSessionSvrAddr() string {
-	sessionSvrAddr := os.Getenv(EnvSessionServerAddr)
-	if len(sessionSvrAddr) == 0 {
+func GetEnvRedisAddr() string {
+	redisAddr := os.Getenv(EnvRedisAddr)
+	if len(redisAddr) == 0 {
 		return "redis:6379"
 	} else {
-		return sessionSvrAddr
+		return redisAddr
 	}
 }
 
@@ -66,6 +68,24 @@ func GetEnvFirestoreKeyPath() string {
 		return "/firestore_key.json"
 	} else {
 		return firestoreKeyPath
+	}
+}
+
+func GetEnvAuthSvrAddr() string {
+	authSvrAddr := os.Getenv(EnvAuthServerAddr)
+	if len(authSvrAddr) == 0 {
+		return "auth:8080"
+	} else {
+		return authSvrAddr
+	}
+}
+
+func GetEnvRouteStopSvrAddr() string {
+	routeStopSvrAddr := os.Getenv(EnvRouteStopServerAddr)
+	if len(routeStopSvrAddr ) == 0 {
+		return "routeStop:8081"
+	} else {
+		return routeStopSvrAddr
 	}
 }
 
