@@ -13,9 +13,11 @@ import { Alert, AppRegistry, TouchableHighlight, TouchableOpacity, TouchableNati
 // import { Text, View } from 'react-native';
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowUp, faArrowDown, faMapMarkerAlt, faShareSquare, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faArrowDown, faChevronLeft, faMapMarkerAlt, faEllipsisH, faShareSquare, faHeart } from '@fortawesome/free-solid-svg-icons';
+import SvgUri from 'react-native-svg-uri';
 
 
+// import { Button } from 'react-native';
 
 import { Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
 import { whileStatement } from '@babel/types';
@@ -30,6 +32,16 @@ const styles = StyleSheet.create({
     },
     cover: {
         position: 'relative'
+    },
+    topLeftBottom: {
+        position: 'absolute',
+        top: 34,
+        left: 15
+    },
+    topRightBottom: {
+        position: 'absolute',
+        top: 36,
+        right: 15
     },
     coverHeader: {
         position: 'absolute',
@@ -97,13 +109,14 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 10,
+        marginLeft: 15,
         marginRight: 10,
-        marginTop: 5,
-        marginBottom: 5
+        marginTop: 10
     },
     description: {
-        margin: 10
+        margin: 10,
+        marginLeft: 15,
+        marginRight: 15
     },
     descriptionText: {
         // fontFamily: "Roboto",
@@ -135,6 +148,23 @@ const styles = StyleSheet.create({
         fontWeight: "normal",
         fontStyle: "normal",
         color: "#ffffff"
+    },
+    card: {
+        width: 350,
+        borderRadius: 4,
+        backgroundColor: "#ffffff",
+        shadowColor: "rgba(0, 0, 0, 0.1)",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowRadius: 2,
+        shadowOpacity: 1,
+        borderStyle: "solid",
+        borderWidth: 0.3,
+        borderColor: "#666666",
+        padding: 10,
+        marginBottom: 10
     }
 })
 
@@ -142,7 +172,27 @@ export default class Route extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tags: ['Campus', 'Seattle', 'University', "Historic"]
+            tags: ['Campus', 'Seattle', 'University', "Historic"],
+            stops: [
+                {
+                    title: "Suzzallo Library",
+                    price: "Free",
+                    time: "30mins ~ 1hrs",
+                    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris'
+                },
+                {
+                    title: "Suzzallo Library",
+                    price: "Free",
+                    time: "30mins ~ 1hrs",
+                    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris'
+                },
+                {
+                    title: "Suzzallo Library",
+                    price: "Free",
+                    time: "30mins ~ 1hrs",
+                    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris'
+                }
+            ]
         };
     }
 
@@ -152,6 +202,7 @@ export default class Route extends React.Component {
                 <RouteHeader></RouteHeader>
                 <View style={{ backgroundColor: '#F3F7FF' }}>
                     <RouteIntro tags={this.state.tags}></RouteIntro>
+                    <RouteDetail stops={this.state.stops}></RouteDetail>
                 </View>
             </ScrollView>
         );
@@ -164,6 +215,22 @@ class RouteHeader extends React.Component {
             <View>
                 <View style={styles.cover}>
                     <Image source={require('../imgs/cover.jpg')} style={styles.cover_img} />
+                    <View style={styles.topLeftBottom}>
+                        <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                            <FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black', marginRight: 5 }} />
+                            <Text style={{
+                                width: 77,
+                                height: 23,
+                                fontSize: 14,
+                                fontWeight: "500",
+                                fontStyle: "normal",
+                                color: "#000000"
+                            }}>EXPLORE</Text>
+                        </View>
+                    </View>
+                    <View style={styles.topRightBottom}>
+                        <FontAwesomeIcon icon={faEllipsisH} style={{ color: 'black' }} />
+                    </View>
                     <View style={styles.coverHeader}>
                         <Text style={styles.coverTextH1}>
                             University of Washington 1-Day Tour
@@ -193,21 +260,25 @@ class RouteHeader extends React.Component {
                             // alignItems: 'flex-end'
                         }}>
                             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                <FontAwesomeIcon icon={faShareSquare} style={styles.coverIcon}></FontAwesomeIcon>
+                                {/* <SvgUri width="21" height="21" source={require('../imgs/like.svg')} /> */}
+                                <SvgUri width="21" height="21" source={require('../imgs/share.svg')} />
                                 <Text style={{
                                     fontSize: 10,
                                     fontWeight: "900",
                                     fontStyle: "normal",
-                                    color: "#ffffff"
+                                    color: "#ffffff",
+                                    marginTop: 1
                                 }} >SHARE</Text>
                             </View>
                             <View style={{ flexDirection: 'column', alignItems: 'center', marginLeft: 20 }}>
-                                <FontAwesomeIcon icon={faHeart} style={styles.coverIcon}></FontAwesomeIcon>
+                                {/* <FontAwesomeIcon icon={faHeart} style={styles.coverIcon}></FontAwesomeIcon> */}
+                                <SvgUri width="21" height="21" source={require('../imgs/heart.svg')} />
                                 <Text style={{
                                     fontSize: 10,
                                     fontWeight: "900",
                                     fontStyle: "normal",
-                                    color: "#ffffff"
+                                    color: "#ffffff",
+                                    marginTop: 1
                                 }} >LIKE</Text>
                             </View>
                         </View>
@@ -259,10 +330,10 @@ class RouteIntro extends React.Component {
                         <Text style={styles.descriptionText}>1 ~ 3 hrs</Text>
                     </View>
                     <View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
-                        {this.props.tags.map((tag) => {
+                        {this.props.tags.map((tag, i) => {
                             return (
-                                <View style={styles.tag}>
-                                    <Text style={styles.tagText} key={tag}>{tag}</Text>
+                                <View style={styles.tag} key={i}>
+                                    <Text style={styles.tagText} key={i}>{tag}</Text>
                                 </View>)
                         })}
 
@@ -274,10 +345,88 @@ class RouteIntro extends React.Component {
 }
 
 class RouteDetail extends React.Component {
-    render() {
-        <View>
+    constructor(props) {
+        super(props);
+    }
 
-        </View>
+    render() {
+        // console.log(this.props.stops);
+        return (
+            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
+                {this.props.stops.map((stop, i) => {
+                    return (
+                        <StopCard stop={stop} key={i}></StopCard>
+                    )
+                })}
+            </View>
+        );
+    }
+}
+
+class StopCard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isSelected: false,
+            icons: {
+                right: require("../imgs/arrow-right.svg"),
+                down: require("../imgs/arrow-down.svg")
+            }
+        }
+        this._onPress = this._onPress.bind(this);
+    }
+
+    _renderDetail() {
+        return (
+            <View>
+                <View style={{ flex: 1, flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
+                    <Text style={styles.descriptionText}>{this.props.stop.price}</Text>
+
+                    <Image source={require('../imgs/time.png')} style={styles.iconImg} />
+                    <Text style={styles.descriptionText}>{this.props.stop.time}</Text>
+                </View>
+                <Text style={[styles.descriptionText, {marginBottom: 10}]}>{this.props.stop.desc}</Text>
+            </View>
+        )
+    }
+
+    _onPress() {
+        
+        this.setState((prevState) => ({
+            isSelected: !prevState.isSelected
+        }));
+    }
+
+    render() {
+        let iconSource;
+        if (this.state.isSelected) {
+            iconSource = require("../imgs/arrow-down.svg");
+        } else {
+            iconSource = require("../imgs/arrow-right.svg");
+        }
+        return (
+            <View>
+                <View style={styles.card}>
+                    <TouchableWithoutFeedback onPress={this._onPress}>
+                        <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end'
+                        }}>
+                            <Text style={{
+                                fontSize: 14,
+                                fontWeight: "500",
+                                fontStyle: "normal",
+                                color: "#666666",
+                                flex: 1
+                            }}>{this.props.stop.title}</Text>
+                            <SvgUri width="21" height="21" source={iconSource} />
+                        </View>
+                    </TouchableWithoutFeedback>
+                    {this.state.isSelected && this._renderDetail()}
+                </View>
+            </View>
+        );
     }
 }
 
