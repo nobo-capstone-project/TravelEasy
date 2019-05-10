@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import { Platform, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native';
+import { AsyncStorage } from 'react-native';
 // import { Text, View } from 'react-native';
 
 import { Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
@@ -20,6 +21,7 @@ import { Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Foote
 import { NativeRouter, Switch, Route } from 'react-router-native';
 
 import { Router, Scene } from 'react-native-router-flux';
+import { logger } from 'react-native-logger'
 
 // IMPORT COMPONENTS: 
 import BottomNav from './Components/BottomNav';
@@ -28,6 +30,7 @@ import AddGuidePage from './Pages/AddGuidePage';
 import LoginPage from './Pages/LoginPage';
 import RoutePage from './Pages/RoutePage';
 import ProfilePage from './Pages/ProfilePage';
+import SignUpPage from './Pages/SignUpPage';
 
 
 
@@ -84,9 +87,17 @@ export default class App extends React.Component {
                 key="LoginPage"
                 component={LoginPage}
                 title="LoginGuide"
-
               />
             </Scene>
+
+            <Scene key="signUp" title="signUp" icon={TabIcon}>
+              <Scene
+                key="SignUp"
+                component={SignUpPage}
+                title="SignUpPage"
+              />
+            </Scene>
+
             <Scene key="route" title="route" icon={TabIcon}>
               <Scene
                 key="RoutePage"
@@ -95,13 +106,15 @@ export default class App extends React.Component {
               />
             </Scene>
 
-            <Scene key="prifle" title="profile" icon={TabIcon}>
+            <Scene key="profle" title="profile" icon={TabIcon}>
               <Scene
                 key="ProfilePage"
                 component={ProfilePage}
                 title="ProfilePage"
               />
             </Scene>
+
+
           </Scene>
 
         </Scene>

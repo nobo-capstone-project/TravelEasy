@@ -22,13 +22,16 @@
     "react-native-collapsible": "^1.4.0",
     "react-native-elements": "^1.1.0",
     "react-native-gesture-handler": "^1.1.0",
+    "react-native-logger": "^1.0.3",
     "react-native-material-bottom-navigation": "^1.0.3",
     "react-native-router-flux": "^4.0.6",
     "react-native-svg": "^9.4.0",
     "react-native-svg-uri": "^1.2.3",
     "react-native-web": "^0.11.2",
     "react-navigation": "^3.8.1",
+    "react-redux": "^7.0.3",
     "react-router-native": "^5.0.0",
+    "redux": "^4.0.1",
     "rnpm": "^1.9.0"
   },
   "devDependencies": {

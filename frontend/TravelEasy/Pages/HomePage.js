@@ -24,6 +24,7 @@ import BottomNav from "../Components/BottomNav";
 
 import { Item, Grid, Col, Row, Card, CardItem, Container, Header, Input, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, Right, } from 'native-base';
 import { Reducer } from 'react-native-router-flux';
+import { logger } from 'react-native-logger';
 // import { console } from 'console';
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
@@ -36,11 +37,10 @@ export default class App extends React.Component {
 
     render() {
 
-        console.log('hello');
+        // console.log('hello');
+
 
         return (
-
-
             <Container style={styles.homeSearch}>
                 <Header searchBar rounded style={styles.homeSearch}>
                     <Item style={styles.searchBox}>
@@ -111,6 +111,9 @@ export default class App extends React.Component {
                         {/* <ScrollView>
                         
                 </ScrollView> */}
+
+
+
                         <Text>Guide Feed: </Text>
                         <Content style={styles.guideContainer} ref={c => (this.component = c)}>
                             <View style={styles.dayGuide} >
@@ -166,12 +169,11 @@ export default class App extends React.Component {
 
                                 </View>
                             </View>
+                            {/* <View style={styles.dayGuide} ></View>
                             <View style={styles.dayGuide} ></View>
                             <View style={styles.dayGuide} ></View>
-                            <View style={styles.dayGuide} ></View>
-                            <View style={styles.dayGuide} ></View>
-                            <View style={styles.dayGuide} ></View>
-                            <View style={styles.dayGuide} ></View>
+                            <View style={styles.dayGuide} ></View> */}
+
                         </Content>
 
                     </Tab>
@@ -184,27 +186,6 @@ export default class App extends React.Component {
 
                     </Tab>
                 </Tabs>
-
-
-
-
-
-                {/* <Grid>
-                    <Row>
-                        <Col><CardItem><Text>hello</Text></CardItem></Col><Col><CardItem><Text>hello</Text></CardItem></Col><Col><CardItem><Text>hello</Text></CardItem></Col>
-                    </Row>
-                </Grid> */}
-
-
-
-                {/* <TouchableHighlight
-                    style={styles.categoryButton}
-                // onPress={this.onPress}
-                >
-                    <Text> Touch Here </Text>
-                </TouchableHighlight> */}
-
-
 
             </Container >
         );
