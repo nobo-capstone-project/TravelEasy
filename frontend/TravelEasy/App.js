@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Platform, Text, View, Image } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { AsyncStorage } from 'react-native';
 // import { Text, View } from 'react-native';
@@ -18,7 +18,9 @@ import { Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Foote
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
 
 
-import { NativeRouter, Switch, Route } from 'react-router-native';
+// import { NativeRouter, Switch, Route } from 'react-router-native';
+import { createBottomTabNavigator, createAppContainer } from "react-navigation";
+import SvgUri from 'react-native-svg-uri';
 
 import { Router, Scene } from 'react-native-router-flux';
 import { logger } from 'react-native-logger'
@@ -31,10 +33,12 @@ import LoginPage from './Pages/LoginPage';
 import RoutePage from './Pages/RoutePage';
 import ProfilePage from './Pages/ProfilePage';
 import SignUpPage from './Pages/SignUpPage';
+import Favorites from './Pages/FavoritesPage';
+import Plans from './Pages/PlansPage';
 
 
 
-import AppNav from './Components/createAppNavigator';
+// import AppNav from './Components/createAppNavigator';
 
 const TabIcon = ({ selected, title }) => {
   return (
@@ -42,110 +46,96 @@ const TabIcon = ({ selected, title }) => {
   );
 }
 
+const TabNavigator = createBottomTabNavigator(
+  {
+    Home: {
+      screen: HomePage,
+      navigationOptions: {
+        tabBarLabel: 'RoutePage',
+        tabBarIcon: ({ tintColor, activeTintColor }) => (
+          <SvgUri width="28" height="28" fill={tintColor} source={require('./imgs/explore.svg')} />
+        )
+      },
+    },
+    Favorites: {
+      screen: Favorites,
+      navigationOptions: {
+        tabBarLabel: 'Favorites',
+        tabBarIcon: ({ tintColor, activeTintColor }) => (
+          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/favorites.svg')} />
+        )
+      },
+    },
+    Plans: {
+      screen: Plans,
+      navigationOptions: {
+        tabBarLabel: 'Plans',
+        tabBarIcon: ({ tintColor, activeTintColor }) => (
+          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
+        )
+      },
+    },
+    AddGuide: {
+      screen: AddGuidePage,
+      navigationOptions: {
+        tabBarLabel: 'Create',
+        tabBarIcon: ({ tintColor, activeTintColor }) => (
+          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/new.svg')} />
+        )
+      },
+    },
+    Profile: {
+      screen: ProfilePage,
+      navigationOptions: {
+        tabBarLabel: 'Profile',
+        tabBarIcon: ({ tintColor, activeTintColor }) => (
+          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/profile.svg')} />
+        )
+      },
+    },
+    // for testing
+    Route: {
+      screen: RoutePage,
+      navigationOptions: {
+        tabBarLabel: 'RoutePage',
+        tabBarIcon: ({ tintColor, activeTintColor }) => (
+          <SvgUri width="28" height="28" fill={tintColor} source={require('./imgs/explore.svg')} />
+        )
+      },
+    },
+    Login: {
+      screen: LoginPage,
+      navigationOptions: {
+        tabBarLabel: 'Login',
+        tabBarIcon: ({ tintColor, activeTintColor }) => (
+          <SvgUri width="28" height="28" fill={tintColor} source={require('./imgs/explore.svg')} />
+        )
+      },
+    },
+    SignUp: {
+      screen: SignUpPage,
+      navigationOptions: {
+        tabBarLabel: 'Sign Up',
+        tabBarIcon: ({ tintColor, activeTintColor }) => (
+          <SvgUri width="28" height="28" fill={tintColor} source={require('./imgs/explore.svg')} />
+        )
+      },
+    },
+  },
+  {
+    initialRouteName: 'Home',
+    tabBarOptions: {
+      activeTintColor: '#F7B633',
+      inactiveTintColor: '#022C43',
+    }
+  }
+);
+
+const AppContainer = createAppContainer(TabNavigator);
+
 export default class App extends React.Component {
   render() {
-
-    // return (
-    //   <Container>
-    //     {/* <AddGuidePage></AddGuidePage> */}
-    //     {/* <HomePage /> */}
-    //     {/* <AppNav></AppNav> */}
-
-
-    //     {/* <Login></Login> */}
-    //     <RoutePage></RoutePage>
-
-    return (
-
-
-      <Router>
-        <Scene key="root">
-          <Scene
-            key="tabbar"
-            tabs
-            tabBarStyle={{ backgroundColor: '#FFFFFF', margin: 0, padding: 0 }}
-          >
-            <Scene key="home" title="home" icon={TabIcon}>
-              <Scene
-                key="HomePage"
-                component={HomePage}
-                title="HomePage"
-                initial
-              />
-            </Scene>
-
-            <Scene key="addGuide" title="addGuide" icon={TabIcon}>
-              <Scene
-                key="AddGuidePage"
-                component={AddGuidePage}
-                title="AddGuide"
-              />
-            </Scene>
-
-            <Scene key="login" title="login" icon={TabIcon}>
-              <Scene
-                key="LoginPage"
-                component={LoginPage}
-                title="LoginGuide"
-              />
-            </Scene>
-
-            <Scene key="signUp" title="signUp" icon={TabIcon}>
-              <Scene
-                key="SignUp"
-                component={SignUpPage}
-                title="SignUpPage"
-              />
-            </Scene>
-
-            <Scene key="route" title="route" icon={TabIcon}>
-              <Scene
-                key="RoutePage"
-                component={RoutePage}
-                title="RouteGuide"
-              />
-            </Scene>
-
-            <Scene key="profle" title="profile" icon={TabIcon}>
-              <Scene
-                key="ProfilePage"
-                component={ProfilePage}
-                title="ProfilePage"
-              />
-            </Scene>
-
-
-          </Scene>
-
-        </Scene>
-      </Router>
-
-    );
+    return <AppContainer />;
   }
 }
 
-
-
-const styles = StyleSheet.create({
-  // container: {
-  //   // paddingTop: 200
-  // },
-  // footer: {
-  //   position: 'absolute',
-  //   bottom: 0
-  // },
-  // guideContainer: {
-  //   backgroundColor: 'blue',
-  //   height: 100,
-  //   // width: 100,
-  //   // position: 'absolute',
-  //   // top: 100,
-  //   // left: 0
-  // },
-  // tabs: {
-  //   // marginTop: 0,
-  //   backgroundColor: 'red',
-  //   height: 50
-
-  // }
-})
