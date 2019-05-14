@@ -7,10 +7,9 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, Text, View, ScrollView, Image } from 'react-native';
+import { Platform, Text, View, ScrollView, Image, TextInput } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { Alert, AppRegistry, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
-// import { Text, View } from 'react-native';
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowUp, faArrowDown, faChevronLeft, faMapMarkerAlt, faEllipsisH, faShareSquare, faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -19,158 +18,15 @@ import SvgUri from 'react-native-svg-uri';
 
 // import { Button } from 'react-native';
 
-import { Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
-import { whileStatement } from '@babel/types';
+import { Form, Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
 
-// import { Tab, Tabs } from 'native-base';
-// import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
-// import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
-
-const styles = StyleSheet.create({
-    container: {
-        // paddingTop: 200
-    },
-    cover: {
-        position: 'relative'
-    },
-    topLeftBottom: {
-        position: 'absolute',
-        top: 34,
-        left: 15
-    },
-    topRightBottom: {
-        position: 'absolute',
-        top: 36,
-        right: 15
-    },
-    coverHeader: {
-        position: 'absolute',
-        top: 143,
-        left: 15
-    },
-    coverTextH1: {
-        fontSize: 20,
-        fontWeight: "500",
-        fontStyle: "normal",
-        color: "#ffffff"
-    },
-    coverTextH2: {
-        fontSize: 15,
-        fontWeight: "500",
-        fontStyle: "normal",
-        color: "#ffffff"
-    },
-    coverVote: {
-        position: 'absolute',
-        top: 205,
-        left: 15,
-        flex: 1,
-        flexDirection: 'row'
-    },
-    cover_img: {
-        flex: 1,
-        height: 245,
-        width: "100%",
-        resizeMode: "cover"
-    },
-    coverIcon: {
-        width: 21,
-        height: 21,
-        color: 'white',
-        marginBottom: 2
-    },
-    userImg: {
-        height: 70,
-        width: 70,
-        borderRadius: 70 / 2
-    },
-    button: {
-        width: 93,
-        height: 27,
-        backgroundColor: '#F7B633',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 10,
-        fontWeight: "500",
-        // fontFamily: "Roboto"
-    },
-    bioText: {
-        // fontFamily: "Roboto",
-        fontSize: 12,
-        fontWeight: "500",
-        fontStyle: "normal",
-        color: "#757575"
-    },
-    introView: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginLeft: 15,
-        marginRight: 10,
-        marginTop: 10
-    },
-    description: {
-        margin: 10,
-        marginLeft: 15,
-        marginRight: 15
-    },
-    descriptionText: {
-        // fontFamily: "Roboto",
-        fontSize: 14,
-        fontWeight: "normal",
-        fontStyle: "normal",
-        color: "#6d6d6d"
-    },
-    iconImg: {
-        width: 16,
-        height: 16,
-        opacity: 0.5,
-        marginLeft: 20,
-        marginRight: 5
-    },
-    tag: {
-        marginRight: 10,
-        paddingLeft: 5,
-        paddingRight: 5,
-        height: 22,
-        borderRadius: 2,
-        backgroundColor: "#5893d4",
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    tagText: {
-        fontSize: 12,
-        fontWeight: "normal",
-        fontStyle: "normal",
-        color: "#ffffff"
-    },
-    card: {
-        width: 350,
-        borderRadius: 4,
-        backgroundColor: "#ffffff",
-        shadowColor: "rgba(0, 0, 0, 0.1)",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowRadius: 2,
-        shadowOpacity: 1,
-        borderStyle: "solid",
-        borderWidth: 0.3,
-        borderColor: "#666666",
-        padding: 10,
-        marginBottom: 10
-    }
-})
+const Dimensions = require('Dimensions');
+const window = Dimensions.get('window');
 
 export default class Route extends React.Component {
     constructor(props) {
         super(props);
+        this.updateComments = this.updateComments.bind(this);
         this.state = {
             tags: ['Campus', 'Seattle', 'University', "Historic"],
             stops: [
@@ -192,8 +48,21 @@ export default class Route extends React.Component {
                     time: "30mins ~ 1hrs",
                     desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris'
                 }
+            ],
+            comments: [
+
             ]
         };
+    }
+
+    updateComments(newComment) {
+        // this.setState({
+        //   someVar: someValue
+        // })
+
+        this.setState(prevState => ({
+            comments: [newComment, ...prevState.comments]
+        }))
     }
 
     render() {
@@ -204,6 +73,8 @@ export default class Route extends React.Component {
                     <RouteIntro tags={this.state.tags}></RouteIntro>
                     <RouteDetail stops={this.state.stops}></RouteDetail>
                 </View>
+                <PostComment update={this.updateComments}></PostComment>
+                {console.log(this.state.comments)}
             </ScrollView>
         );
     }
@@ -379,19 +250,18 @@ class StopCard extends React.Component {
     _renderDetail() {
         return (
             <View>
-                <View style={{ flex: 1, flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
                     <Text style={styles.descriptionText}>{this.props.stop.price}</Text>
 
                     <Image source={require('../imgs/time.png')} style={styles.iconImg} />
                     <Text style={styles.descriptionText}>{this.props.stop.time}</Text>
                 </View>
-                <Text style={[styles.descriptionText, {marginBottom: 10}]}>{this.props.stop.desc}</Text>
+                <Text style={[styles.descriptionText, { marginBottom: 10 }]}>{this.props.stop.desc}</Text>
             </View>
         )
     }
 
     _onPress() {
-        
         this.setState((prevState) => ({
             isSelected: !prevState.isSelected
         }));
@@ -405,7 +275,7 @@ class StopCard extends React.Component {
             iconSource = require("../imgs/arrow-right.svg");
         }
         return (
-            <View>
+            <View style={{ width: '100%' }}>
                 <View style={styles.card}>
                     <TouchableWithoutFeedback onPress={this._onPress}>
                         <View style={{
@@ -430,10 +300,237 @@ class StopCard extends React.Component {
     }
 }
 
-class RouteComment extends React.Component {
+class RouteComments extends React.Component {
     render() {
-        <View>
+        return (
+            <View>
 
-        </View>
+            </View>
+        );
     }
 }
+
+class PostComment extends React.Component {
+
+    // _onSubmitEdit() {
+    //     // whatever you want to do on submit
+    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            text: ''
+        }
+        this._onPress = this._onPress.bind(this);
+    }
+
+    _onPress() {
+        if (this.state.text.length != 0) {
+            this.textInput.clear();
+            let updateComments = this.props.update;
+            updateComments(this.state.text);
+        }
+    }
+
+    render() {
+
+        // let updateComments = this.props.update;
+        // console.log(updateComments);
+
+        return (
+            <View style={{ marginTop: 10 }}>
+                <Text style={{
+                    marginLeft: 15,
+                    fontSize: 14,
+                    fontWeight: "500",
+                    fontStyle: "normal",
+                    color: "#666666"
+                }}>Add A Comment</Text>
+                <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Type here"
+                        editable={true}
+                        multiline={true}
+                        maxLength={200}
+                        onChangeText={(text) => this.setState({ text })}
+                        ref={input => { this.textInput = input }}
+                    />
+                    <TouchableHighlight style={styles.commentSubmit} onPress={() => this._onPress()}>
+                        <Text style={styles.commentSubmitText}>Submit</Text>
+                    </TouchableHighlight>
+                </View>
+            </View>
+        );
+    }
+}
+
+
+const styles = StyleSheet.create({
+    container: {
+        // paddingTop: 200
+    },
+    cover: {
+        position: 'relative'
+    },
+    topLeftBottom: {
+        position: 'absolute',
+        top: 34,
+        left: 15
+    },
+    topRightBottom: {
+        position: 'absolute',
+        top: 36,
+        right: 15
+    },
+    coverHeader: {
+        position: 'absolute',
+        top: 143,
+        left: 15
+    },
+    coverTextH1: {
+        fontSize: 20,
+        fontWeight: "500",
+        fontStyle: "normal",
+        color: "#ffffff"
+    },
+    coverTextH2: {
+        fontSize: 15,
+        fontWeight: "500",
+        fontStyle: "normal",
+        color: "#ffffff"
+    },
+    coverVote: {
+        position: 'absolute',
+        top: 205,
+        left: 15,
+        flex: 1,
+        flexDirection: 'row'
+    },
+    cover_img: {
+        flex: 1,
+        height: 245,
+        width: "100%",
+        resizeMode: "cover"
+    },
+    coverIcon: {
+        width: 21,
+        height: 21,
+        color: 'white',
+        marginBottom: 2
+    },
+    userImg: {
+        height: 70,
+        width: 70,
+        borderRadius: 70 / 2
+    },
+    button: {
+        width: 93,
+        height: 27,
+        backgroundColor: '#F7B633',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 10,
+        fontWeight: "500",
+        // fontFamily: "Roboto"
+    },
+    bioText: {
+        // fontFamily: "Roboto",
+        fontSize: 12,
+        fontWeight: "500",
+        fontStyle: "normal",
+        color: "#757575"
+    },
+    introView: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 15,
+        marginRight: 10,
+        marginTop: 10
+    },
+    description: {
+        margin: 10,
+        marginLeft: 15,
+        marginRight: 15
+    },
+    descriptionText: {
+        // fontFamily: "Roboto",
+        fontSize: 14,
+        fontWeight: "normal",
+        fontStyle: "normal",
+        color: "#6d6d6d"
+    },
+    iconImg: {
+        width: 16,
+        height: 16,
+        opacity: 0.5,
+        marginLeft: 20,
+        marginRight: 5
+    },
+    tag: {
+        marginRight: 10,
+        paddingLeft: 5,
+        paddingRight: 5,
+        height: 22,
+        borderRadius: 2,
+        backgroundColor: "#5893d4",
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    tagText: {
+        fontSize: 12,
+        fontWeight: "normal",
+        fontStyle: "normal",
+        color: "#ffffff"
+    },
+    card: {
+        marginLeft: 15,
+        marginRight: 15,
+        borderRadius: 4,
+        backgroundColor: "#ffffff",
+        shadowColor: "rgba(0, 0, 0, 0.1)",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowRadius: 2,
+        shadowOpacity: 1,
+        borderStyle: "solid",
+        borderWidth: 0.3,
+        borderColor: "#666666",
+        padding: 10,
+        marginBottom: 10
+    },
+    textInput: {
+        height: 70,
+        width: window.width - 30,
+        marginTop: 10,
+        marginBottom: 10,
+        borderRadius: 4,
+        backgroundColor: "#ffffff",
+        borderStyle: "solid",
+        borderWidth: 0.3,
+        borderColor: "#666666",
+        padding: 10
+    },
+    commentSubmit: {
+        width: 93,
+        height: 27,
+        backgroundColor: '#666666',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    commentSubmitText: {
+        color: 'white',
+        fontSize: 12,
+        fontWeight: "400",
+        fontStyle: "normal"
+    }
+
+})
