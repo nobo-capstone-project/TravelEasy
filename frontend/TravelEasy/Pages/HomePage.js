@@ -161,18 +161,56 @@ export default class App extends React.Component {
                             source={require('./myButton.png')}
                         /> */}
                                     </TouchableHighlight>
-
-
                                 </ScrollView>
-
-                                <View>
-
-                                </View>
                             </View>
-                            {/* <View style={styles.dayGuide} ></View>
-                            <View style={styles.dayGuide} ></View>
-                            <View style={styles.dayGuide} ></View>
-                            <View style={styles.dayGuide} ></View> */}
+
+                            <View style={styles.dayGuide} >
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={{ width: 230 }}>UW 1 Day Tour</Text>
+                                    <Button success style={{ width: 130 }}>
+                                        <Text>Add to Planned Trips</Text>
+                                    </Button>
+                                </View>
+
+                                <ScrollView horizontal style={styles.categContainer}  >
+                                    <TouchableHighlight style={styles.categView}>
+                                        <Text>Picture of Location</Text>
+                                        {/* <Image source={require('../imgs/singaSky.jpg')} style={styles.iconImg} /> */}
+                                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={styles.categView}>
+                                        <Text>Picture of Location</Text>
+                                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={styles.categView}>
+                                        <Text>Picture of Location</Text>
+                                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={styles.categView}>
+                                        <Text>Picture of Location</Text>
+                                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={styles.categView}>
+                                        <Text>Picture of Location</Text>
+                                        {/* <Image
+                            style={styles.button}
+                            source={require('./myButton.png')}
+                        /> */}
+                                    </TouchableHighlight>
+                                </ScrollView>
+                            </View>
 
                         </Content>
 

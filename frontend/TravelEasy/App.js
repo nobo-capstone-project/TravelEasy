@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import { Platform, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { AsyncStorage } from 'react-native';
+
 // import { Text, View } from 'react-native';
 
 import { Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';

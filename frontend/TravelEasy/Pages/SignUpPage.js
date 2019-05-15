@@ -19,6 +19,8 @@ import { Item, Grid, Col, Row, Card, CardItem, Container, Header, Input, Content
 
 import { Form } from 'native-base';
 
+import { AsyncStorage } from 'react-native';
+
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
@@ -37,9 +39,9 @@ function signUpUser() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            "username": "COOKIEMONSTER122",
-            "password": "12345656",
-            "email": "qwert123@gmail.com",
+            "username": "COOKIEMONSTER12232111",
+            "password": "123456561111",
+            "email": "COOKIEMONSTER122132@gmail.com",
             "firstname": "cookie",
             "lastname": "monster",
             "dob": "2019-04-26T14:34:00.913032-07:00",
@@ -55,16 +57,20 @@ function signUpUser() {
             // if (!res.ok) {
             //     throw Error(res.statusText + " " + res.status);
             // }
+            console.log(res);
+            console.log(res.headers.get("Authorization"));
+            AsyncStorage.setItem("authKey", res.headers.get("Authorization"));
 
-            console.log(res.headers.get("authorization"));
-            // AsyncStorage.setItem("auth", res.headers.get("Authorization"));
+            const test = AsyncStorage.getItem('authKey');
+
+            test.then(function (result) {
+                console.log(result);
+            });
+
+
             return res.json();
 
-
             console.log("what2.5");
-
-
-
         })
         .then(data => {
             console.log(data);
