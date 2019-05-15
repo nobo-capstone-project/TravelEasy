@@ -33,7 +33,7 @@ import { logger } from 'react-native-logger';
 // import { skyline } from './imgs/singaSky.jpg';
 
 
-export default class App extends React.Component {
+export default class HomePage extends React.Component {
 
     render() {
 
