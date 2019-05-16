@@ -20,6 +20,7 @@ import { Item, Grid, Col, Row, Card, CardItem, Container, Header, Input, Content
 import { Form } from 'native-base';
 
 import { AsyncStorage } from 'react-native';
+import { conditionalExpression } from '@babel/types';
 
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
@@ -30,18 +31,18 @@ import { AsyncStorage } from 'react-native';
 
 // session storage vs local storage
 
-function signUpUser() {
-    // evt.preventDefault();
-    console.log("what1");
-    fetch("https://gateway-ldw2m5nesa-uc.a.run.app/user/create/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            "username": "COOKIEMONSTER12232111",
+
+
+
+
+export default class SignUpPage extends React.Component {
+    signUpUser(signUpObj) {
+
+
+        let testJson = JSON.stringify({
+            "username": "COOKIEMONSTER1223211112111",
             "password": "123456561111",
-            "email": "COOKIEMONSTER122132@gmail.com",
+            "email": "COOKIEMONSTER1221322111@gmail.com",
             "firstname": "cookie",
             "lastname": "monster",
             "dob": "2019-04-26T14:34:00.913032-07:00",
@@ -51,52 +52,93 @@ function signUpUser() {
             "locationCountry": "US",
             "picture": "123"
         })
-    })
-        .then(res => {
-            console.log("what2");
-            // if (!res.ok) {
-            //     throw Error(res.statusText + " " + res.status);
-            // }
-            console.log(res);
-            console.log(res.headers.get("Authorization"));
-            AsyncStorage.setItem("authKey", res.headers.get("Authorization"));
 
-            const test = AsyncStorage.getItem('authKey');
-
-            test.then(function (result) {
-                console.log(result);
-            });
+        console.log("THIS IS THE TEST JSON" + testJson);
+        console.log("THIS IS STRINGIFIGED STATE" + JSON.stringify(this.state));
+        console.log("THIS IS THE STATE: " + this.state);
 
 
-            return res.json();
+        // // evt.preventDefault();
+        // console.log("what1");
 
-            console.log("what2.5");
+        fetch("https://gateway-ldw2m5nesa-uc.a.run.app/user/create/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            // body: JSON.stringify({
+            //     "username": "COOKIEMONSTER1223211112111",
+            //     "password": "123456561111",
+            //     "email": "COOKIEMONSTER1221322111@gmail.com",
+            //     "firstname": "cookie",
+            //     "lastname": "monster",
+            //     "dob": "2019-04-26T14:34:00.913032-07:00",
+            //     "gender": "M",
+            //     "locationCity": "LA",
+            //     "locationState": "WA",
+            //     "locationCountry": "US",
+            //     "picture": "123"
+            // })
+            body: JSON.stringify(this.state)
+
         })
-        .then(data => {
-            console.log(data);
-            localStorage.setItem("userid", data.id);
-            localStorage.setItem("username", data.userName);
-            this.props.history.push({ pathname: "/getPet" });
+            .then(res => {
+                console.log("if you get nsvalue error, then..");
+                console.log("User name and Email is prob not unique");
 
-        })
+                console.log("what2");
+                // if (!res.ok) {
+                //     throw Error(res.statusText + " " + res.status);
+                // }
+                console.log(res);
+                console.log(res.headers.get("Authorization"));
 
-        .catch(function (error) {
-            alert(error);
-            console.log("what3");
-        });
-}
+                try {
+                    AsyncStorage.setItem("authKey", res.headers.get("Authorization"));
+                }
+                catch (err) {
+                    console.log(err);
+                    console.log("User name and Email is prob not unique");
+                }
 
-export default class SignUpPage extends React.Component {
+
+                Console.log("whats not working?");
+
+                const test = AsyncStorage.getItem('authKey');
+
+                test.then(function (result) {
+                    console.log(result);
+                });
+            })
+
+    };
+
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            username: '', password: '', email: '', firstname: '',
+            lastname: '', dob: '', gender: '', locationCity: '', locationState: '', locationCountry: '',
+            picture: ''
+        };
+
+        // this.signUpUser = this.signUpUser.bind(this);
+        this.signUpUser = this.signUpUser.bind(this);
+    }
 
 
     componentDidMount() {
-        signUpUser();
+        // signUpUser();
         console.log("WHOA");
         // logger.log("WHOA");
+        // console.log(this.state.dob);
+
+
     }
 
     render() {
-        console.log("hello");
+        console.log(this.state);
 
         function printHello() {
             console.log("hello");
@@ -104,10 +146,6 @@ export default class SignUpPage extends React.Component {
         }
         return (
             <Container style={styles.container}>
-
-
-                {/* <View><Text>Hello</Text></View> */}
-                {/* <View></View> */}
 
                 <Header>
 
@@ -120,24 +158,50 @@ export default class SignUpPage extends React.Component {
 
                 <Form>
                     <Item>
-                        <Input placeholder="First Name" onChange={signUpUser} />
+                        <Input placeholder="First Name" onChangeText={(data) => this.setState({ firstname: data })} />
                     </Item>
                     <Item>
-                        <Input placeholder="Last Name" onChange={printHello} />
+                        <Input placeholder="Last Name" onChangeText={(data) => this.setState({ lastname: data })} />
                     </Item>
                     <Item>
-                        <Input placeholder="Username" onChange={printHello} />
+                        <Input placeholder="DOB" onChangeText={(data) => this.setState({ dob: data })} />
                     </Item>
                     <Item>
-                        <Input placeholder="Password" />
+                        <Input placeholder="Username" onChangeText={(data) => this.setState({ username: data })} />
+                    </Item>
+                    <Item>
+                        <Input placeholder="Email" onChangeText={(data) => this.setState({ email: data })} />
+                    </Item>
+                    <Item>
+                        <Input placeholder="Password" onChangeText={(data) => this.setState({ password: data })} />
                     </Item>
                     <Item last>
-                        <Input placeholder="Confirm Password" />
+                        <Input placeholder="Confirm Password" onChangeText={(data) => this.setState({ password: data })} />
+                    </Item>
+                    <Item last>
+                        <Input placeholder="Gender(M or F)" onChangeText={(data) => this.setState({ gender: data })} />
+                    </Item>
+                    <Item last>
+                        <Input placeholder="Location City" onChangeText={(data) => this.setState({ locationCity: data })} />
+                    </Item>
+
+                    <Item last>
+                        <Input placeholder="Location State" onChangeText={(data) => this.setState({ locationState: data })} />
+                    </Item>
+
+                    <Item last>
+                        <Input placeholder="Location Country" onChangeText={(data) => this.setState({ locationCountry: data })} />
+                    </Item>
+
+                    <Item last>
+                        <Input placeholder="Picture" onChangeText={(data) => this.setState({ locationCountry: data })} />
                     </Item>
 
                 </Form>
 
-                <Button title="Solid Button"><Text>HELLO</Text></Button>
+
+
+                <Button onPress={this.signUpUser} title="Solid Button"><Text>HELLO</Text></Button>
 
             </Container >
         );
@@ -148,6 +212,5 @@ const styles = StyleSheet.create({
         // paddingTop: 200
         margin: 0,
         padding: 0
-    },
-
+    }
 })
