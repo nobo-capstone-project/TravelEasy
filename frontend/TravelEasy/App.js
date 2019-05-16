@@ -35,7 +35,7 @@ import ProfilePage from './Pages/ProfilePage';
 import SignUpPage from './Pages/SignUpPage';
 import Favorites from './Pages/FavoritesPage';
 import Plans from './Pages/PlansPage';
-
+import GuideItinerary from './Pages/GuideIninerary';
 
 
 // import AppNav from './Components/createAppNavigator';
@@ -70,6 +70,15 @@ const TabNavigator = createBottomTabNavigator(
       screen: Plans,
       navigationOptions: {
         tabBarLabel: 'Plans',
+        tabBarIcon: ({ tintColor, activeTintColor }) => (
+          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
+        )
+      },
+    },
+    Itinerary: {
+      screen: GuideItinerary,
+      navigationOptions: {
+        tabBarLabel: 'Itinerary(after "Japan 5-28" trip is clicked',
         tabBarIcon: ({ tintColor, activeTintColor }) => (
           <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
         )
