@@ -57,7 +57,7 @@ export default class HomePage extends React.Component {
 
                 {/* <View style={styles.tabHeader}> */}
 
-                <Tabs tabStyle={{ backgroundColor: 'green' }} >
+                <Tabs tabStyle={{ backgroundColor: 'green' }} locked={true}>
 
                     <Tab style={styles.tab} heading="All">
                         {/* <Tab1 /> */}
