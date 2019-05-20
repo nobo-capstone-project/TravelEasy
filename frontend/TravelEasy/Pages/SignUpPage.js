@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, Text, View, TouchableHighlight, ScrollView } from 'react-native';
+import { Image, Platform, Text, View, TouchableHighlight, ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native';
 // import { Text, View } from 'react-native';
 
@@ -163,6 +163,13 @@ export default class SignUpPage extends React.Component {
                     <Text>TravelEasy</Text>
 
                 </Header>
+                {/* 
+                <TouchableHighlight>
+                    <View>
+                        <Image source={require('../imgs/singaSky.jpg')} style={styles.stopImg} />
+                    </View>
+                </TouchableHighlight> */}
+
 
                 <Text>Sign Up</Text>
                 <DatePicker

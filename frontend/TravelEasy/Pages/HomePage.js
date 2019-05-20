@@ -7,10 +7,11 @@
  */
 
 import React, { Component } from 'react';
-import { Image, Platform, Text, View, TouchableHighlight, ScrollView } from 'react-native';
+import { ImageBackground, Image, Platform, Text, View, TouchableHighlight, ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native';
 
-
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowUp, faArrowDown, faChevronLeft, faMapMarkerAlt, faEllipsisH, faShareSquare, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 
 const Dimensions = require('Dimensions');
@@ -25,6 +26,7 @@ import BottomNav from "../Components/BottomNav";
 import { Item, Grid, Col, Row, Card, CardItem, Container, Header, Input, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, Right, } from 'native-base';
 import { Reducer } from 'react-native-router-flux';
 import { logger } from 'react-native-logger';
+import { faBold } from '@fortawesome/free-solid-svg-icons';
 // import { console } from 'console';
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
@@ -60,12 +62,12 @@ export default class HomePage extends React.Component {
                 <Tabs tabStyle={{ backgroundColor: 'green' }} locked={true}>
 
                     <Tab style={styles.tab} heading="All">
-                        {/* <Tab1 /> */}
 
+                        {/* --------------------------------------------------------------------*/}
+                        {/* --------------------- CATEGORIES SECTION -----------------------*/}
+                        {/* --------------------------------------------------------------------*/}
                         <Text style={styles.centerText}>Categories:</Text>
-
-
-                        <View style={{ height: 120 }} >
+                        <View style={{ height: 90 }} >
                             <ScrollView horizontal style={styles.categContainer}  >
                                 <TouchableHighlight style={styles.categView}>
                                     <Text>Click here</Text>
@@ -106,111 +108,216 @@ export default class HomePage extends React.Component {
                             </ScrollView>
                         </View>
 
+                        {/* --------------------------------------------------------------------*/}
+                        {/* --------------------- GUIDE SECTION -----------------------*/}
+                        {/* --------------------------------------------------------------------*/}
 
-
-                        {/* <ScrollView>
-                        
-                </ScrollView> */}
-
-
-
-                        <Text>Guide Feed: </Text>
+                        <Text style={styles.centerText}>Popular Guides At The Moment: </Text>
                         <Content style={styles.guideContainer} ref={c => (this.component = c)}>
                             <View style={styles.dayGuide} >
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={{ width: 230 }}>UW 1 Day Tour</Text>
-                                    <Button success style={{ width: 130 }}>
-                                        <Text>Add to Planned Trips</Text>
+                                    <Text style={styles.guideTitle}>Singapore Madness</Text>
+                                    <Button success style={styles.addPlanButton}>
+                                        <Text style={styles.addPlanText}>Add to Plans</Text>
                                     </Button>
                                 </View>
 
-                                <ScrollView horizontal style={styles.categContainer}  >
-                                    <TouchableHighlight style={styles.categView}>
-                                        <Text>Picture of Location</Text>
-                                        {/* <Image source={require('../imgs/singaSky.jpg')} style={styles.iconImg} /> */}
-                                        {/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+                                <View><Text style={styles.salesPitch}>Sales Pitch</Text>
+                                    <Text> "Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more.." </Text></View>
+
+                                {/* ------------------------------------------------ */}
+                                {/* pictures of the stops in this day guide */}
+                                {/* ------------------------------------------------ */}
+                                <ScrollView horizontal style={styles.stopContainer}  >
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Breakfast {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
                                     </TouchableHighlight>
-                                    <TouchableHighlight style={styles.categView}>
-                                        <Text>Picture of Location</Text>
-                                        {/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Hiking at Temple {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
                                     </TouchableHighlight>
-                                    <TouchableHighlight style={styles.categView}>
-                                        <Text>Picture of Location</Text>
-                                        {/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Lunch {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
                                     </TouchableHighlight>
-                                    <TouchableHighlight style={styles.categView}>
-                                        <Text>Picture of Location</Text>
-                                        {/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
-                                    </TouchableHighlight>
-                                    <TouchableHighlight style={styles.categView}>
-                                        <Text>Picture of Location</Text>
-                                        {/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Singapore {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
                                     </TouchableHighlight>
                                 </ScrollView>
+
+                                <View style={styles.guideActionsCont}>
+                                    <View style={[styles.upvAndDownv, styles.guideAction]}>
+                                        <FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5 }} />
+                                        <Text style={{
+                                            fontSize: 13,
+                                            // fontWeight: "900",
+                                            fontStyle: "normal",
+                                            color: "black"
+                                        }}>23,880</Text>
+                                        <FontAwesomeIcon icon={faArrowDown} style={{ color: 'black', marginLeft: 5 }} />
+                                    </View>
+
+                                    <Button style={styles.guideAction}>
+                                        <Text>Comment</Text>
+                                    </Button>
+                                    <Button style={styles.guideAction}>
+                                        <Text>Read More</Text>
+                                    </Button>
+                                </View>
                             </View>
 
                             <View style={styles.dayGuide} >
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={{ width: 230 }}>UW 1 Day Tour</Text>
-                                    <Button success style={{ width: 130 }}>
-                                        <Text>Add to Planned Trips</Text>
+                                    <Text style={styles.guideTitle}>Singapore Madness</Text>
+                                    <Button success style={styles.addPlanButton}>
+                                        <Text style={styles.addPlanText}>Add to Plans</Text>
                                     </Button>
                                 </View>
 
-                                <ScrollView horizontal style={styles.categContainer}  >
-                                    <TouchableHighlight style={styles.categView}>
-                                        <Text>Picture of Location</Text>
-                                        {/* <Image source={require('../imgs/singaSky.jpg')} style={styles.iconImg} /> */}
-                                        {/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+                                <View><Text style={styles.salesPitch}>Sales Pitch</Text>
+                                    <Text> "Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more.." </Text></View>
+
+                                {/* ------------------------------------------------ */}
+                                {/* pictures of the stops in this day guide */}
+                                {/* ------------------------------------------------ */}
+                                <ScrollView horizontal style={styles.stopContainer}  >
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Singapore {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
                                     </TouchableHighlight>
-                                    <TouchableHighlight style={styles.categView}>
-                                        <Text>Picture of Location</Text>
-                                        {/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Singapore {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
                                     </TouchableHighlight>
-                                    <TouchableHighlight style={styles.categView}>
-                                        <Text>Picture of Location</Text>
-                                        {/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Singapore {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
                                     </TouchableHighlight>
-                                    <TouchableHighlight style={styles.categView}>
-                                        <Text>Picture of Location</Text>
-                                        {/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
-                                    </TouchableHighlight>
-                                    <TouchableHighlight style={styles.categView}>
-                                        <Text>Picture of Location</Text>
-                                        {/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Singapore {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
                                     </TouchableHighlight>
                                 </ScrollView>
+
+                                <View style={styles.guideActionsCont}>
+                                    <View style={[styles.upvAndDownv, styles.guideAction]}>
+                                        <FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5 }} />
+                                        <Text style={{
+                                            fontSize: 13,
+                                            // fontWeight: "900",
+                                            fontStyle: "normal",
+                                            color: "black"
+                                        }}>23,880</Text>
+                                        <FontAwesomeIcon icon={faArrowDown} style={{ color: 'black', marginLeft: 5 }} />
+                                    </View>
+
+                                    <Button style={styles.guideAction}>
+                                        <Text>Comment</Text>
+                                    </Button>
+                                    <Button style={styles.guideAction}>
+                                        <Text>Read More</Text>
+                                    </Button>
+                                </View>
                             </View>
+                            <View style={styles.dayGuide} >
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={styles.guideTitle}>Singapore Madness</Text>
+                                    <Button success style={styles.addPlanButton}>
+                                        <Text style={styles.addPlanText}>Add to Plans</Text>
+                                    </Button>
+                                </View>
+
+                                <View><Text style={styles.salesPitch}>Sales Pitch</Text>
+                                    <Text> "Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more.." </Text></View>
+
+                                {/* ------------------------------------------------ */}
+                                {/* pictures of the stops in this day guide */}
+                                {/* ------------------------------------------------ */}
+                                <ScrollView horizontal style={styles.stopContainer}  >
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Singapore {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
+                                    </TouchableHighlight>
+
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Singapore {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
+                                    </TouchableHighlight>
+
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Singapore {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={styles.stopViews}>
+                                        <View>
+                                            <ImageBackground source={require('../imgs/singaSky.jpg')} style={{ width: '100%', height: '100%' }}>
+                                                <Text style={styles.nameOfStop}>Singapore {this.state}</Text>
+                                            </ImageBackground>
+                                        </View>
+                                    </TouchableHighlight>
+                                </ScrollView>
+
+                                <View style={styles.guideActionsCont}>
+                                    <View style={[styles.upvAndDownv, styles.guideAction]}>
+                                        <FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5 }} />
+                                        <Text style={{
+                                            fontSize: 13,
+                                            // fontWeight: "900",
+                                            fontStyle: "normal",
+                                            color: "black"
+                                        }}>23,880</Text>
+                                        <FontAwesomeIcon icon={faArrowDown} style={{ color: 'black', marginLeft: 5 }} />
+                                    </View>
+
+                                    <Button style={styles.guideAction}>
+                                        <Text>Comment</Text>
+                                    </Button>
+                                    <Button style={styles.guideAction}>
+                                        <Text>Read More</Text>
+                                    </Button>
+                                </View>
+                            </View>
+
+
 
                         </Content>
 
@@ -230,16 +337,68 @@ export default class HomePage extends React.Component {
     }
 }
 const styles = StyleSheet.create({
-
-
+    // stopImg: {
+    //     width: 30,
+    //     height: 30
+    // },
+    // voteArrows: {
+    //     height: 50
+    // },
+    guideAction: {
+        width: '33%',
+        height: 30,
+        backgroundColor: '#f2f2f2'
+    },
+    guideActionsCont: {
+        flexDirection: 'row'
+    },
+    upvAndDownv: {
+        flexDirection: 'row'
+    },
+    salesPitch: {
+        fontWeight: 'bold'
+    },
+    nameOfStop: {
+        backgroundColor: 'rgba(229, 230, 232,.3)'
+    },
+    stopViews: {
+        height: 70,
+        width: "36%",
+        backgroundColor: 'white',
+        margin: 3,
+        // padding: 3
+    },
+    guideContainer: {
+        backgroundColor: '#2B2B2B',
+        height: 100,
+    },
     dayGuide: {
+        marginTop: 2,
+        padding: 5,
         backgroundColor: '#FFFFFF',
-        height: 180,
+        // height: 180,
         marginBottom: 10,
         width: "100%"
     },
+    addPlanButton: {
+        width: 100,
+        height: 30
+    },
+    addPlanText: {
+        // marginLeft: 5
+        textAlign: 'center',
+        width: '100%'
+    },
+    guideTitle: {
+        fontWeight: "bold",
+        fontSize: 18,
+        marginRight: "20%"
+    },
+
     centerText: {
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize: 20
+
     },
     categContainer: {
         backgroundColor: 'red',
@@ -253,7 +412,7 @@ const styles = StyleSheet.create({
 
     },
     categView: {
-        height: 100,
+        height: 80,
         width: "32%",
         backgroundColor: 'white',
         margin: 3
@@ -284,14 +443,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0
     },
-    guideContainer: {
-        backgroundColor: 'blue',
-        height: 100,
-        // width: 100,
-        // position: 'absolute',
-        // top: 100,
-        // left: 0
-    },
+
     tabs: {
         // marginTop: 0,
         backgroundColor: 'red',
