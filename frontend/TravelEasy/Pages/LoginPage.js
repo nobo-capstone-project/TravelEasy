@@ -36,9 +36,7 @@ export default class LoginPage extends React.Component {
                 {/* <View></View> */}
 
                 <Header>
-
                     <Text>TravelEasy</Text>
-
                 </Header>
 
                 <Text>Login</Text>

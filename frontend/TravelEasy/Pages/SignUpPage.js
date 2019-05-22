@@ -50,24 +50,8 @@ export default class SignUpPage extends React.Component {
         this.setState({ dob: utcDob }, () => { console.log(this.state.dob) });
     }
 
-    signUpUser(signUpObj) {
-        // let testJson = JSON.stringify({
-        //     "username": "COOKIEMONSTER1223211112111",
-        //     "password": "123456561111",
-        //     "email": "COOKIEMONSTER1221322111@gmail.com",
-        //     "firstname": "cookie",
-        //     "lastname": "monster",
-        //     "dob": "2019-04-26T14:34:00.913032-07:00",
-        //     "gender": "M",
-        //     "locationCity": "LA",
-        //     "locationState": "WA",
-        //     "locationCountry": "US",
-        //     "picture": "123"
-        // })
+    signUpUser() {
 
-        // console.log("THIS IS THE TEST JSON" + testJson);
-        // console.log("THIS IS STRINGIFIGED STATE" + JSON.stringify(this.state));
-        // console.log("THIS IS THE STATE: " + this.state);
 
 
         this.dobIsoConvert(this.state.dob);
@@ -110,32 +94,48 @@ export default class SignUpPage extends React.Component {
                 console.log(res);
                 console.log(res.headers.get("Authorization"));
 
-                // try {
-                //     AsyncStorage.setItem("authKey", res.headers.get("Authorization"));
-                // }
-                // catch (err) {
-                //     console.log(err);
-                //     console.log("User name and Email is prob not unique");
-                // }
+                // AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
+
+
+                _storeData = async () => {
+                    try {
+                        await AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
+                    } catch (error) {
+                        console.log(error);
+                        // Error saving data
+                    }
+                };
+
+                _retrieveData = async () => {
+                    try {
+                        const value = await AsyncStorage.getItem('bearerKey');
+                        if (value !== null) {
+                            // We have data!!
+                            console.log(value);
+                        }
+                    } catch (error) {
+                        // Error retrieving data
+                    }
+                };
+
+                console.log(_storeData);
+                console.log(_retrieveData);
+
+                const bearerProm = AsyncStorage.getItem('bearerKey');
+
+                bearerProm.then(function (value) {
+                    console.log(value);
+                });
+
+
+                console.log(value);
+                // AsyncStorage.setItem('', 'I like to save it.');
             }
             )
-
-
-
     };
 
-
-    //1997-02-21T08:00:00.000Z
-
-
-
     componentDidMount() {
-        // signUpUser();
         console.log("WHOA");
-        // logger.log("WHOA");
-        // console.log(this.state.dob);
-
-        // console.log("dob should have been updated " + this.state.dob);
     }
 
     render() {
@@ -147,19 +147,9 @@ export default class SignUpPage extends React.Component {
         }
         return (
             <Container style={styles.container}>
-
                 <Header>
-
                     <Text>TravelEasy</Text>
-
                 </Header>
-                {/* 
-                <TouchableHighlight>
-                    <View>
-                        <Image source={require('../imgs/singaSky.jpg')} style={styles.stopImg} />
-                    </View>
-                </TouchableHighlight> */}
-
 
                 <Text>Sign Up</Text>
                 <DatePicker
@@ -221,10 +211,7 @@ export default class SignUpPage extends React.Component {
 
                 </Form>
 
-
-
                 <Button onPress={this.signUpUser} title="Solid Button"><Text>HELLO</Text></Button>
-
             </Container >
         );
     }
