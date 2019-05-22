@@ -3,13 +3,12 @@ package main
 import (
 	"TravelEasy/svr/src/common"
 	"TravelEasy/svr/src/db"
-	"dazzling/session"
 	"fmt"
+	"github.com/bryoco/dazzling/session"
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
 	"log"
 	"net/http"
-	"time"
 )
 
 type gatewayContext struct {
@@ -27,7 +26,7 @@ func main() {
 	// NOTE: route and stop on the same server
 	routeStopSvrAddr := common.GetEnvRouteStopSvrAddr()
 	authSvrAddr := common.GetEnvAuthSvrAddr()
-	redisAddr := common.GetEnvRedisAddr()
+	//redisAddr := common.GetEnvRedisAddr()
 
 	fs, err := db.NewApp(context.Background(), firestoreKeyPath)
 	if err != nil {
@@ -39,7 +38,7 @@ func main() {
 	ctx := gatewayContext{
 		firebaseStore: fs,
 		key:           sessionKey,
-		redis:         session.NewRedisStore(session.NewRedisClient(redisAddr), time.Hour * 24 * 30),
+		//redis:         session.NewRedisStore(session.NewRedisClient(redisAddr), time.Hour * 24 * 30),
 	}
 
 	r.HandleFunc("/gateway/ok/", ctx.OkHandler)

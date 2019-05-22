@@ -24,8 +24,8 @@ var (
 )
 
 type FirestoreStore struct {
-	AppClient		*firestore.Client
-	Context			*context.Context
+	AppClient *firestore.Client
+	Context   *context.Context
 }
 
 // establishes connection with firestore and returns a FirestoreStore struct pointer
@@ -325,6 +325,7 @@ func (fs *FirestoreStore) isIdentifierUnused(user *model.UserProfile) error {
 
 	return nil
 }
+
 // ===========================
 // parsers and utility methods
 // ===========================
