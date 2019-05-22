@@ -18,6 +18,14 @@ export default class Plans extends React.Component {
     render() {
         return (
             <Container style={styles.container}>
+                <Text> List of Saved Trips (click on japan 5-28) -> Guide itinerary:ToDO list</Text>
+                <Text> List of Saved Trips (click on japan 5-28) -> ToDO list</Text>
+                <Text> List of Saved Trips (click on japan 5-28) -> ToDO list</Text>
+                <Text> List of Saved Trips (click on japan 5-28) -> ToDO list</Text>
+                <Text> List of Saved Trips (click on japan 5-28) -> ToDO list</Text>
+                <Text> List of Saved Trips (click on japan 5-28) -> ToDO list</Text>
+                <Text> List of Saved Trips (click on japan 5-28) -> ToDO list</Text>
+                <Text> List of Saved Trips (click on japan 5-28) -> Guide itinerary:ToDO list</Text><Text> List of Saved Trips (click on japan 5-28) -> Guide itinerary:ToDO list</Text><Text> List of Saved Trips (click on japan 5-28) -> Guide itinerary:ToDO list</Text><Text> List of Saved Trips (click on japan 5-28) -> Guide itinerary:ToDO list</Text>
             </Container >
         );
     }
