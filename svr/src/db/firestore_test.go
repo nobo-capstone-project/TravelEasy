@@ -9,7 +9,6 @@ import (
 	"time"
 )
 
-
 var (
 	validProfile = model.UserProfile{
 		Username:        "username",

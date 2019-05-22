@@ -11,8 +11,8 @@ package main
 import (
 	"TravelEasy/svr/src/common"
 	"TravelEasy/svr/src/db"
-	"dazzling/session"
 	"fmt"
+	"github.com/bryoco/dazzling/session"
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
 	"log"
@@ -42,9 +42,9 @@ func main() {
 	defer fs.CloseClient()
 
 	ctx := AuthContext{
-		redis: session.NewRedisStore(session.NewRedisClient(redisAddr), time.Hour * 24 * 30),
-		key: sessionKey,
-		db: fs,
+		redis: session.NewRedisStore(session.NewRedisClient(redisAddr), time.Hour*24*30),
+		key:   sessionKey,
+		db:    fs,
 	}
 
 	r := mux.NewRouter()
@@ -56,4 +56,3 @@ func main() {
 	log.Printf("serving redis at port %s!", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), common.NewLogger(r)))
 }
-

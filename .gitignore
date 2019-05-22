@@ -3,8 +3,6 @@
 
 # User-specific stuff
 .idea
-.idea/**
-.idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
@@ -164,3 +162,4 @@ fabric.properties
 /svr/src/serveRouteStop/firestore_key.json
 svr/src/serveAuth/firestore_key.json
 svr/src/serveGateway/firestore_key.json
+/frontend/TravelEasy/lib/db/firestore_key.json
