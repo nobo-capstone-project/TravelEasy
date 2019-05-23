@@ -3,8 +3,8 @@ package main
 import (
 	"TravelEasy/svr/src/common"
 	"TravelEasy/svr/src/db"
-	"dazzling/session"
 	"fmt"
+	"github.com/bryoco/dazzling/session"
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
 	"log"
@@ -12,14 +12,12 @@ import (
 	"time"
 )
 
-// context for authentication server
 type RouteContext struct {
 	redis *session.RedisStore
 	db    *db.FirestoreStore
 	key   string
 }
 
-// serve authentication server
 func main() {
 
 	port := common.GetEnvPort()

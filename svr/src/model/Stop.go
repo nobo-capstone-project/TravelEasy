@@ -5,7 +5,7 @@ import (
 )
 
 type StopLoc struct {
-	DocumentID	 string		   `json:"documentID"`
+	DocumentID   string        `json:"documentID"`
 	StopID       string        `json:"stopID"`
 	OrderID      int8          `json:"orderID"`
 	Latitude     float64       `json:"latitude"`
@@ -21,7 +21,7 @@ type StopLoc struct {
 }
 
 type StopComment struct {
-	DocumentID  string    `json:"documentID"`
+	DocumentID     string    `json:"documentID"`
 	StopID         string    `json:"stopID"`
 	Comment        string    `json:"comment"`
 	CreatorID      string    `json:"creatorID"`

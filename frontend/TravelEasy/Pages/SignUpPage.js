@@ -28,39 +28,35 @@ import { conditionalExpression } from '@babel/types';
 // session storage vs local storage
 
 export default class SignUpPage extends React.Component {
-    convertDateToIso() {
-        var dobString = this.state.dob;
-        var dobString = '02/21/1997';
-        var utcDob = new Date(dobString).toISOString()
-        this.setState({ dob: utcDob }, () => { console.log(this.state.dob) });
-        console.log("utc format" + utcDob);
-        // console.log("whatt 32");
-        console.log(this.state.dob);
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            username: 'COOKIEMONSTER11', password: '1234565', email: 'COOKIEMONSTER1@gmail.com', firstname: 'Rob',
+            lastname: 'Kim', dob: '2019-04-26T14:34:00.913032-07:00', gender: 'M', locationCity: 'Seattle', locationState: 'WA', locationCountry: 'US',
+            picture: '123'
+        };
+
+        // this.signUpUser = this.signUpUser.bind(this);
+        this.signUpUser = this.signUpUser.bind(this);
+        // this.convertDateToIso = this.convertDateToIso.bind(this);
+        this.dobIsoConvert = this.dobIsoConvert.bind(this);
     }
 
-    signUpUser(signUpObj) {
-        // let testJson = JSON.stringify({
-        //     "username": "COOKIEMONSTER1223211112111",
-        //     "password": "123456561111",
-        //     "email": "COOKIEMONSTER1221322111@gmail.com",
-        //     "firstname": "cookie",
-        //     "lastname": "monster",
-        //     "dob": "2019-04-26T14:34:00.913032-07:00",
-        //     "gender": "M",
-        //     "locationCity": "LA",
-        //     "locationState": "WA",
-        //     "locationCountry": "US",
-        //     "picture": "123"
-        // })
-
-        // console.log("THIS IS THE TEST JSON" + testJson);
-        // console.log("THIS IS STRINGIFIGED STATE" + JSON.stringify(this.state));
-        // console.log("THIS IS THE STATE: " + this.state);
 
 
-        this.convertDateToIso();
+    dobIsoConvert(dateStr) {
+        var utcDob = new Date(dateStr).toISOString()
+        this.setState({ dob: utcDob }, () => { console.log(this.state.dob) });
+    }
 
-        console.log(this.state.dob);
+    signUpUser() {
+
+
+
+        this.dobIsoConvert(this.state.dob);
+
+        console.log(this.state);
 
 
         fetch("https://gateway-ldw2m5nesa-uc.a.run.app/user/create/", {
@@ -98,54 +94,48 @@ export default class SignUpPage extends React.Component {
                 console.log(res);
                 console.log(res.headers.get("Authorization"));
 
-                // try {
-                //     AsyncStorage.setItem("authKey", res.headers.get("Authorization"));
-                // }
-                // catch (err) {
-                //     console.log(err);
-                //     console.log("User name and Email is prob not unique");
-                // }
+                // AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
+
+
+                _storeData = async () => {
+                    try {
+                        await AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
+                    } catch (error) {
+                        console.log(error);
+                        // Error saving data
+                    }
+                };
+
+                _retrieveData = async () => {
+                    try {
+                        const value = await AsyncStorage.getItem('bearerKey');
+                        if (value !== null) {
+                            // We have data!!
+                            console.log(value);
+                        }
+                    } catch (error) {
+                        // Error retrieving data
+                    }
+                };
+
+                console.log(_storeData);
+                console.log(_retrieveData);
+
+                const bearerProm = AsyncStorage.getItem('bearerKey');
+
+                bearerProm.then(function (value) {
+                    console.log(value);
+                });
+
+
+                console.log(value);
+                // AsyncStorage.setItem('', 'I like to save it.');
             }
             )
-
-
-
-        //     Console.log("whats not working?");
-
-        //     const test = AsyncStorage.getItem('authKey');
-
-        //     test.then(function (result) {
-        //         console.log(result);
-        //     });
-        // })
-
     };
 
-
-    //1997-02-21T08:00:00.000Z
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            username: 'COOKIEMONSTER11', password: '1234565', email: 'COOKIEMONSTER1@gmail.com', firstname: 'Rob',
-            lastname: 'Kim', dob: '2019-04-26T14:34:00.913032-07:00', gender: 'M', locationCity: 'Seattle', locationState: 'WA', locationCountry: 'US',
-            picture: '123'
-        };
-
-        // this.signUpUser = this.signUpUser.bind(this);
-        this.signUpUser = this.signUpUser.bind(this);
-        this.convertDateToIso = this.convertDateToIso.bind(this);
-    }
-
-
     componentDidMount() {
-        // signUpUser();
         console.log("WHOA");
-        // logger.log("WHOA");
-        // console.log(this.state.dob);
-
-        // console.log("dob should have been updated " + this.state.dob);
     }
 
     render() {
@@ -157,19 +147,9 @@ export default class SignUpPage extends React.Component {
         }
         return (
             <Container style={styles.container}>
-
                 <Header>
-
                     <Text>TravelEasy</Text>
-
                 </Header>
-                {/* 
-                <TouchableHighlight>
-                    <View>
-                        <Image source={require('../imgs/singaSky.jpg')} style={styles.stopImg} />
-                    </View>
-                </TouchableHighlight> */}
-
 
                 <Text>Sign Up</Text>
                 <DatePicker
@@ -190,51 +170,48 @@ export default class SignUpPage extends React.Component {
 
                 <Form>
                     <Item>
-                        <Input placeholder="First Name" onChangeText={(data) => this.setState({ firstname: data })} />
+                        <Input style={styles.signUpFields} placeholder="First Name" onChangeText={(data) => this.setState({ firstname: data })} />
                     </Item>
                     <Item>
-                        <Input placeholder="Last Name" onChangeText={(data) => this.setState({ lastname: data })} />
+                        <Input style={styles.signUpFields} placeholder="Last Name" onChangeText={(data) => this.setState({ lastname: data })} />
                     </Item>
                     <Item>
-                        <Input placeholder="DOB" onChangeText={(data) => this.setState({ dob: data })} />
+                        <Input style={styles.signUpFields} placeholder="DOB" onChangeText={(data) => this.setState({ dob: data })} />
                     </Item>
                     <Item>
-                        <Input placeholder="Username" onChangeText={(data) => this.setState({ username: data })} />
+                        <Input style={styles.signUpFields} placeholder="Username" onChangeText={(data) => this.setState({ username: data })} />
                     </Item>
                     <Item>
-                        <Input placeholder="Email" onChangeText={(data) => this.setState({ email: data })} />
+                        <Input style={styles.signUpFields} placeholder="Email" onChangeText={(data) => this.setState({ email: data })} />
                     </Item>
                     <Item>
-                        <Input placeholder="Password" onChangeText={(data) => this.setState({ password: data })} />
+                        <Input style={styles.signUpFields} placeholder="Password" onChangeText={(data) => this.setState({ password: data })} />
                     </Item>
                     <Item last>
-                        <Input placeholder="Confirm Password" onChangeText={(data) => this.setState({ password: data })} />
+                        <Input style={styles.signUpFields} placeholder="Confirm Password" onChangeText={(data) => this.setState({ password: data })} />
                     </Item>
                     <Item last>
-                        <Input placeholder="Gender(M or F)" onChangeText={(data) => this.setState({ gender: data })} />
+                        <Input style={styles.signUpFields} placeholder="Gender(M or F)" onChangeText={(data) => this.setState({ gender: data })} />
                     </Item>
                     <Item last>
-                        <Input placeholder="Location City" onChangeText={(data) => this.setState({ locationCity: data })} />
+                        <Input style={styles.signUpFields} placeholder="Location City" onChangeText={(data) => this.setState({ locationCity: data })} />
                     </Item>
 
                     <Item last>
-                        <Input placeholder="Location State" onChangeText={(data) => this.setState({ locationState: data })} />
+                        <Input style={styles.signUpFields} placeholder="Location State" onChangeText={(data) => this.setState({ locationState: data })} />
                     </Item>
 
                     <Item last>
-                        <Input placeholder="Location Country" onChangeText={(data) => this.setState({ locationCountry: data })} />
+                        <Input style={styles.signUpFields} placeholder="Location Country" onChangeText={(data) => this.setState({ locationCountry: data })} />
                     </Item>
 
                     <Item last>
-                        <Input placeholder="Picture" onChangeText={(data) => this.setState({ locationCountry: data })} />
+                        <Input style={styles.signUpFields} placeholder="Picture" onChangeText={(data) => this.setState({ locationCountry: data })} />
                     </Item>
 
                 </Form>
 
-
-
                 <Button onPress={this.signUpUser} title="Solid Button"><Text>HELLO</Text></Button>
-
             </Container >
         );
     }
@@ -244,5 +221,8 @@ const styles = StyleSheet.create({
         // paddingTop: 200
         margin: 0,
         padding: 0
+    },
+    signUpFields: {
+        height: 25,
     }
 })

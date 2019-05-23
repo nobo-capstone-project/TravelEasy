@@ -22,8 +22,32 @@ import { Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, Tabs, 
 
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Upon pressing the add guide button, it will add stop to database, and saves stopIDs for the guide: 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 export default class AddGuidePage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            creatorID: 'COOKIEMONSTER11', password: '1234565', email: 'COOKIEMONSTER1@gmail.com', firstname: 'Rob',
+            lastname: 'Kim', dob: '2019-04-26T14:34:00.913032-07:00', gender: 'M', locationCity: 'Seattle', locationState: 'WA', locationCountry: 'US',
+            picture: '123'
+        };
+
+        // this.convertDateToIso = this.convertDateToIso.bind(this);
+        this.dobIsoConvert = this.dobIsoConvert.bind(this);
+    }
+
+
+
+    dobIsoConvert(dateStr) {
+        var utcDob = new Date(dateStr).toISOString()
+        this.setState({ dob: utcDob }, () => { console.log(this.state.dob) });
+    }
+
     render() {
         return (
             <Container style={styles.container}>
@@ -34,7 +58,6 @@ export default class AddGuidePage extends React.Component {
 
                 {/* <Header hasTabs /> */}
                 <Header>
-
 
                     <Tabs style={styles.tabs}>
                         <Tab heading="All">
@@ -54,7 +77,7 @@ export default class AddGuidePage extends React.Component {
                     </Row>
                     <Text>Guide Name</Text>
                     <TextInput
-                        style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
+                        style={{ height: 25, borderColor: 'gray', borderWidth: 1, padding: 5, }}
                     />
 
                     <Text>Project Description </Text>
@@ -63,8 +86,6 @@ export default class AddGuidePage extends React.Component {
                         multiline={true}
                         numberOfLines={4}
                     />
-
-
 
                     <Text> Add Stops: </Text>
 

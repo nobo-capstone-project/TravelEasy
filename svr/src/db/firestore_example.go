@@ -42,10 +42,10 @@ func addAndModifyUser() {
 
 	// modify this user
 	modifyUser := model.UserProfile{
-		DocumentID:      up.DocumentID,
-		FirstName:       "Rick",
-		LastName:        "Winslow",
-		Picture:         "no pic",
+		DocumentID: up.DocumentID,
+		FirstName:  "Rick",
+		LastName:   "Winslow",
+		Picture:    "no pic",
 	}
 	up, err = fs.ModifyUser(&modifyUser)
 	if err != nil {

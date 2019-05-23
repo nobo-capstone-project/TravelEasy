@@ -3,9 +3,9 @@ package main
 import (
 	"TravelEasy/svr/src/common"
 	"TravelEasy/svr/src/model"
-	"dazzling/session"
 	"encoding/json"
 	"fmt"
+	"github.com/bryoco/dazzling/session"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -34,7 +34,7 @@ func (ctx *RouteContext) okHandler(w http.ResponseWriter, r *http.Request) {
 func (ctx *RouteContext) routeCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
-	_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
 	log.Println(ctx.key)
 	if err != nil {
 		log.Println(err.Error())
@@ -80,11 +80,11 @@ func (ctx *RouteContext) routeCreateHandler(w http.ResponseWriter, r *http.Reque
 func (ctx *RouteContext) stopCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
-	_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusUnauthorized)
-			return
-		}
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
 
 	switch r.Method {
 	case http.MethodPost:
@@ -124,11 +124,11 @@ func (ctx *RouteContext) stopCreateHandler(w http.ResponseWriter, r *http.Reques
 func (ctx *RouteContext) routeCommentCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
-		_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusUnauthorized)
-			return
-		}
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
 
 	switch r.Method {
 	case http.MethodPost:
@@ -177,7 +177,7 @@ func (ctx *RouteContext) routeCommentCreateHandler(w http.ResponseWriter, r *htt
 func (ctx *RouteContext) stopCommentCreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
-	_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
@@ -227,7 +227,7 @@ func (ctx *RouteContext) stopCommentCreateHandler(w http.ResponseWriter, r *http
 func (ctx *RouteContext) specificRouteHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
-	_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
@@ -270,7 +270,7 @@ func (ctx *RouteContext) specificRouteHandler(w http.ResponseWriter, r *http.Req
 func (ctx *RouteContext) specificStopHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
-	_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
@@ -312,7 +312,7 @@ func (ctx *RouteContext) specificStopHandler(w http.ResponseWriter, r *http.Requ
 func (ctx *RouteContext) specificRouteCommentHandler(w http.ResponseWriter, r *http.Request) {
 
 	// check session
-	_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
@@ -330,7 +330,7 @@ func (ctx *RouteContext) specificRouteCommentHandler(w http.ResponseWriter, r *h
 
 func (ctx *RouteContext) specificStopCommentHandler(w http.ResponseWriter, r *http.Request) {
 	// check session
-	_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return

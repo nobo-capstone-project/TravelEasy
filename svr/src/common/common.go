@@ -82,7 +82,7 @@ func GetEnvAuthSvrAddr() string {
 
 func GetEnvRouteStopSvrAddr() string {
 	routeStopSvrAddr := os.Getenv(EnvRouteStopServerAddr)
-	if len(routeStopSvrAddr ) == 0 {
+	if len(routeStopSvrAddr) == 0 {
 		return "routeStop:8081"
 	} else {
 		return routeStopSvrAddr
@@ -115,4 +115,3 @@ func GetEnvUserSvrAddr() string {
 		return userSvrAddr
 	}
 }
-
