@@ -1,14 +1,44 @@
 const admin = require("firebase-admin");
-
-const serviceAccount = require("./firestore_key.json");
-
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    storageBucket: "traveleasy-1554765588100.appspot.com"
+	credential: admin.credential.cert("./firestore_key.json"),
+	databaseURL: "traveleasy-1554765588100.appspot.com",
+	storageBucket: "tern-images"
 });
 
-const bucket = admin.storage().bucket();
+function uploadImage(imagePath) {
 
-bucket.getId()
+	if (!admin.app) {
+		return Error("storage not initialized.");
+	}
 
+	admin.storage().bucket().upload(imagePath, function (err, file) {
+		if (err) {
+			return Error("cannot upload image: " + err)
+		}
 
+		if (file) {
+			return file.id;
+		}
+	});
+}
+
+// uploadImage("2.png");
+
+function downloadImage(imagePath) {
+	if (!admin.app) {
+		return Error("storage not initialized.");
+	}
+
+	let file = admin.storage().bucket().file(imagePath);
+	if (file) {
+		file.download()
+			.then(function (buf) {
+				return buf;
+			})
+			.catch(function (err) {
+				return Error("cannot download image: " + err);
+			});
+	}
+}
+
+// downloadImage("2.png");
