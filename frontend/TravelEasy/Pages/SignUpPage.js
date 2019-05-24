@@ -32,7 +32,7 @@ export default class SignUpPage extends React.Component {
         super(props);
 
         this.state = {
-            username: 'COOKIEMONSTER11', password: '1234565', email: 'COOKIEMONSTER1@gmail.com', firstname: 'Rob',
+            username: 'User3', password: 'User3', email: 'user3@gmail.com', firstname: 'Rob',
             lastname: 'Kim', dob: '2019-04-26T14:34:00.913032-07:00', gender: 'M', locationCity: 'Seattle', locationState: 'WA', locationCountry: 'US',
             picture: '123'
         };
@@ -59,24 +59,12 @@ export default class SignUpPage extends React.Component {
         console.log(this.state);
 
 
-        fetch("https://gateway-ldw2m5nesa-uc.a.run.app/user/create/", {
+        fetch("https://gateway-full-ldw2m5nesa-uc.a.run.app/user/create/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            // body: JSON.stringify({
-            //     "username": "COOKIEMONSTER1223211112",
-            //     "password": "123456561111",
-            //     "email": "COOKIEMONSTER1221321@gmail.com",
-            //     "firstname": "cookie",
-            //     "lastname": "monster",
-            //     "dob": "2019-04-26T14:34:00.913032-07:00",
-            //     "gender": "M",
-            //     "locationCity": "LA",
-            //     "locationState": "WA",
-            //     "locationCountry": "US",
-            //     "picture": "123"
-            // })
+
             body: JSON.stringify(this.state)
 
         })
@@ -211,7 +199,7 @@ export default class SignUpPage extends React.Component {
 
                 </Form>
 
-                <Button onPress={this.signUpUser} title="Solid Button"><Text>HELLO</Text></Button>
+                <Button onPress={this.signUpUser} title="Solid Button"><Text>Sign Up!</Text></Button>
             </Container >
         );
     }

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "react-devtools": "react-devtools"
+    "react-devtools": "react-devtools",
+    "preinstall": "rm -rf node_modules/react-native-safe-area-view/.git"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
@@ -22,6 +23,7 @@
     "react-native-collapsible": "^1.4.0",
     "react-native-elements": "^1.1.0",
     "react-native-gesture-handler": "^1.2.1",
+    "react-native-image-picker": "^0.28.1",
     "react-native-logger": "^1.0.3",
     "react-native-material-bottom-navigation": "^1.0.3",
     "react-native-router-flux": "^4.0.6",

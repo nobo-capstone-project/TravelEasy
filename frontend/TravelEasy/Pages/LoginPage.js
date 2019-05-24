@@ -41,9 +41,6 @@ export default class LoginPage extends React.Component {
 
                 <Text>Login</Text>
 
-
-
-
                 <Form>
                     <Item>
                         <Input placeholder="Username" />
