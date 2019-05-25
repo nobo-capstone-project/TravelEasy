@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^2.5.0",
+    "firebase": "^6.0.2",
     "firebase-admin": "^7.4.0"
   }
 }

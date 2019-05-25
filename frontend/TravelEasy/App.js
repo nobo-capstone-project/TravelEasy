@@ -46,6 +46,9 @@ const TabIcon = ({ selected, title }) => {
   );
 }
 
+// if no bearerkey, then go to login page 
+// login -> router -> home 
+
 const TabNavigator = createBottomTabNavigator(
   {
     Home: {

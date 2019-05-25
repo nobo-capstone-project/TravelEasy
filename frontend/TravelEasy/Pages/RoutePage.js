@@ -50,7 +50,21 @@ export default class Route extends React.Component {
                 }
             ],
             comments: [
-
+                {
+                    user: "yourseattletourvisitors",
+                    time: "2019-04-23T18:25:43.511Z",
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                },
+                {
+                    user: "yourseattletourvisitors",
+                    time: "2018-04-23T18:25:43.511Z",
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                },
+                {
+                    user: "yourseattletourvisitors",
+                    time: "2017-04-23T18:25:43.511Z",
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                }
             ]
         };
     }
@@ -75,6 +89,7 @@ export default class Route extends React.Component {
                 </View>
                 <PostComment update={this.updateComments}></PostComment>
                 {console.log(this.state.comments)}
+                <RouteComments comments={this.state.comments}></RouteComments>
             </ScrollView>
         );
     }
@@ -287,7 +302,7 @@ class StopCard extends React.Component {
                                 fontSize: 14,
                                 fontWeight: "500",
                                 fontStyle: "normal",
-                                color: "#666666",
+                                color: "#6d6d6d",
                                 flex: 1
                             }}>{this.props.stop.title}</Text>
                             <SvgUri width="21" height="21" source={iconSource} />
@@ -301,11 +316,84 @@ class StopCard extends React.Component {
 }
 
 class RouteComments extends React.Component {
-    render() {
-        return (
-            <View>
+    constructor(props) {
+        super(props);
+    }
 
+    render() {
+        let len = this.props.comments.length;
+        let saperateLine = function (i) {
+            if (i != len - 1) {
+                return (<View
+                    style={{
+                        borderBottomColor: '#666666',
+                        borderBottomWidth: 0.3,
+                        borderStyle: "solid",
+                        marginBottom: 5,
+                        marginTop: 5
+                    }}
+                />
+                )
+            }
+        }
+
+        return (
+            <View style={{
+                flex: 1,
+                flexDirection: 'column',
+                alignItems: 'center',
+                marginTop: 10,
+                marginBottom: 10,
+                marginLeft: 15,
+                marginRight: 15
+            }}>
+                {this.props.comments.map((comment, i) => {
+                    return (
+                        <View>
+                            <CommentCard comment={comment} key={i}></CommentCard>
+                            {saperateLine(i)}
+                        </View>
+                    )
+                })}
             </View>
+        );
+    }
+}
+
+class CommentCard extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        let date = new Date(this.props.comment.time);
+        let now = new Date(Date.now());
+        let sec_num = Math.abs(now.getTime() - date.getTime()) / 1000;
+
+        let days = Math.floor(sec_num / (3600 * 24));
+        let hours = Math.floor((sec_num - (days * (3600 * 24))) / 3600);
+        let minutes = Math.floor((sec_num - (days * (3600 * 24)) - (hours * 3600)) / 60);
+        let seconds = Math.floor(sec_num - (days * (3600 * 24)) - (hours * 3600) - (minutes * 60));
+        console.log(days + "d" + hours + "hr" + minutes + "m" + seconds + "s");
+
+        let diff = '';
+
+        if (days != 0) {
+            diff = days + 'd';
+        } else if (hours != 0) {
+            diff = hours + 'hr';
+        } else if (minutes != 0) {
+            diff = minutes + 'min';
+        } else {
+            diff = seconds + 's';
+        }
+
+        return (
+            <View style={{width: window.width - 30}}>
+                <Text style={styles.commentText}>{this.props.comment.user}   {diff} ago</Text>
+                <Text style={styles.commentText}>{this.props.comment.content}</Text>
+            </View>
+
         );
     }
 }
@@ -318,24 +406,22 @@ class PostComment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: ''
+            user: 'user1',
+            time: '',
+            content: ''
         }
         this._onPress = this._onPress.bind(this);
     }
 
     _onPress() {
-        if (this.state.text.length != 0) {
+        if (this.state.content.length != 0) {
             this.textInput.clear();
             let updateComments = this.props.update;
-            updateComments(this.state.text);
+            updateComments(this.state);
         }
     }
 
     render() {
-
-        // let updateComments = this.props.update;
-        // console.log(updateComments);
-
         return (
             <View style={{ marginTop: 10 }}>
                 <Text style={{
@@ -352,7 +438,10 @@ class PostComment extends React.Component {
                         editable={true}
                         multiline={true}
                         maxLength={200}
-                        onChangeText={(text) => this.setState({ text })}
+                        onChangeText={(content) => this.setState({
+                            content: content,
+                            time: new Date(Date.now()).toString()
+                        })}
                         ref={input => { this.textInput = input }}
                     />
                     <TouchableHighlight style={styles.commentSubmit} onPress={() => this._onPress()}>
@@ -531,6 +620,12 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: "400",
         fontStyle: "normal"
+    },
+    commentText: {
+        fontSize: 14,
+        fontWeight: "500",
+        fontStyle: "normal",
+        color: "#6d6d6d",
+        marginBottom: 5
     }
-
 })
