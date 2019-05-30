@@ -17,7 +17,7 @@ import { faArrowUp, faArrowDown, faChevronLeft, faMapMarkerAlt, faEllipsisH, faS
 const Dimensions = require('Dimensions');
 
 const window = Dimensions.get('window');
-// import { Text, View } from 'react-native';
+import {withNavigation} from 'react-navigation';
 
 import BottomNav from "../Components/BottomNav";
 
@@ -35,12 +35,19 @@ import { faBold } from '@fortawesome/free-solid-svg-icons';
 // import { skyline } from './imgs/singaSky.jpg';
 
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
+    constructor(props) {
+        super(props);
+        // this._onPress.bind(this);
+    }
+
+    // _onPress() {
+    //     this.props.navigation.navigate('Route');
+    // }
 
     render() {
-
         // console.log('hello');
-
+        console.log(this.props.navigation);
 
         return (
             <Container style={styles.homeSearch}>
@@ -116,7 +123,7 @@ export default class HomePage extends React.Component {
                         <Content style={styles.guideContainer} ref={c => (this.component = c)}>
                             <View style={styles.dayGuide} >
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={styles.guideTitle}>Singapore Madness</Text>
+                                    <Text style={styles.guideTitle} onPress={() => this.props.navigation.navigate('Route')}>Singapore Madness</Text>
                                     <Button success style={styles.addPlanButton}>
                                         <Text style={styles.addPlanText}>Add to Plans</Text>
                                     </Button>
@@ -336,6 +343,9 @@ export default class HomePage extends React.Component {
         );
     }
 }
+
+export default withNavigation(HomePage);
+
 const styles = StyleSheet.create({
     // stopImg: {
     //     width: 30,

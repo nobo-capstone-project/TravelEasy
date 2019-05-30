@@ -23,7 +23,7 @@ import { Form, Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, 
 const Dimensions = require('Dimensions');
 const window = Dimensions.get('window');
 
-export default class Route extends React.Component {
+export default class RoutePage extends React.Component {
     constructor(props) {
         super(props);
         this.updateComments = this.updateComments.bind(this);
@@ -97,22 +97,25 @@ export default class Route extends React.Component {
 
 class RouteHeader extends React.Component {
     render() {
+        // console.log(this.props.navigation);
         return (
             <View>
                 <View style={styles.cover}>
                     <Image source={require('../imgs/cover.jpg')} style={styles.cover_img} />
                     <View style={styles.topLeftBottom}>
-                        <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                            <FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black', marginRight: 5 }} />
-                            <Text style={{
-                                width: 77,
-                                height: 23,
-                                fontSize: 14,
-                                fontWeight: "500",
-                                fontStyle: "normal",
-                                color: "#000000"
-                            }}>EXPLORE</Text>
-                        </View>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('BottomBar')}>
+                            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                                <FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black', marginRight: 5 }} />
+                                <Text style={{
+                                    width: 77,
+                                    height: 23,
+                                    fontSize: 14,
+                                    fontWeight: "500",
+                                    fontStyle: "normal",
+                                    color: "#000000"
+                                }}>EXPLORE</Text>
+                            </View>
+                        </TouchableHighlight>
                     </View>
                     <View style={styles.topRightBottom}>
                         <FontAwesomeIcon icon={faEllipsisH} style={{ color: 'black' }} />
@@ -389,7 +392,7 @@ class CommentCard extends React.Component {
         }
 
         return (
-            <View style={{width: window.width - 30}}>
+            <View style={{ width: window.width - 30 }}>
                 <Text style={styles.commentText}>{this.props.comment.user}   {diff} ago</Text>
                 <Text style={styles.commentText}>{this.props.comment.content}</Text>
             </View>
