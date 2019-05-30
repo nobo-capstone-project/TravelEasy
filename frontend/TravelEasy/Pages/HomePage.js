@@ -38,12 +38,12 @@ import { faBold } from '@fortawesome/free-solid-svg-icons';
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
-        // this._onPress.bind(this);
+        this._navigateTo = this._navigateTo.bind(this);
     }
 
-    // _onPress() {
-    //     this.props.navigation.navigate('Route');
-    // }
+    _navigateTo() {
+        this.props.navigation.navigate('Route');
+    }
 
     render() {
         // console.log('hello');
@@ -123,7 +123,7 @@ class HomePage extends React.Component {
                         <Content style={styles.guideContainer} ref={c => (this.component = c)}>
                             <View style={styles.dayGuide} >
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={styles.guideTitle} onPress={() => this.props.navigation.navigate('Route')}>Singapore Madness</Text>
+                                    <Text style={styles.guideTitle} onPress={this._navigateTo}>Singapore Madness</Text>
                                     <Button success style={styles.addPlanButton}>
                                         <Text style={styles.addPlanText}>Add to Plans</Text>
                                     </Button>

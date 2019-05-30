@@ -27,6 +27,7 @@ export default class RoutePage extends React.Component {
     constructor(props) {
         super(props);
         this.updateComments = this.updateComments.bind(this);
+        this.navigateTo = this.navigateTo.bind(this);
         this.state = {
             tags: ['Campus', 'Seattle', 'University', "Historic"],
             stops: [
@@ -79,10 +80,15 @@ export default class RoutePage extends React.Component {
         }))
     }
 
+
+    navigateTo() {
+        this.props.navigation.navigate('Home');
+    }
+
     render() {
         return (
             <ScrollView>
-                <RouteHeader></RouteHeader>
+                <RouteHeader navigateTo={this.navigateTo}></RouteHeader>
                 <View style={{ backgroundColor: '#F3F7FF' }}>
                     <RouteIntro tags={this.state.tags}></RouteIntro>
                     <RouteDetail stops={this.state.stops}></RouteDetail>
@@ -96,6 +102,10 @@ export default class RoutePage extends React.Component {
 }
 
 class RouteHeader extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         // console.log(this.props.navigation);
         return (
@@ -103,7 +113,7 @@ class RouteHeader extends React.Component {
                 <View style={styles.cover}>
                     <Image source={require('../imgs/cover.jpg')} style={styles.cover_img} />
                     <View style={styles.topLeftBottom}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('BottomBar')}>
+                        <TouchableWithoutFeedback onPress={this.props.navigateTo}>
                             <View style={{ flexDirection: 'row', marginTop: 10 }}>
                                 <FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black', marginRight: 5 }} />
                                 <Text style={{
@@ -115,7 +125,7 @@ class RouteHeader extends React.Component {
                                     color: "#000000"
                                 }}>EXPLORE</Text>
                             </View>
-                        </TouchableHighlight>
+                        </TouchableWithoutFeedback>
                     </View>
                     <View style={styles.topRightBottom}>
                         <FontAwesomeIcon icon={faEllipsisH} style={{ color: 'black' }} />
