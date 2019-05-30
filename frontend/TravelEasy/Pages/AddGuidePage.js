@@ -10,51 +10,16 @@ import React, { Component } from 'react';
 import { Platform, Text, View } from 'react-native';
 import { StyleSheet, TextInput } from 'react-native';
 // import { Text, View } from 'react-native';
-import { Button } from 'react-native';
-
+import { Button, ScrollView } from 'react-native';
 import { CheckBox } from 'react-native-elements';
-
 
 import { List, ListItem, Grid, Col, Row, Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Footer, Icon, } from 'native-base';
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
 
-
 import ImagePicker from 'react-native-image-picker';
 import { tsThisType } from '@babel/types';
-
-const options = {
-    title: 'Select Avatar',
-    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-    storageOptions: {
-        skipBackup: true,
-        path: 'images',
-    },
-};
-
-
-
-// ImagePicker.showImagePicker(options, (response) => {
-//     console.log('Response = ', response);
-
-//     if (response.didCancel) {
-//         console.log('User cancelled image picker');
-//     } else if (response.error) {
-//         console.log('ImagePicker Error: ', response.error);
-//     } else if (response.customButton) {
-//         console.log('User tapped custom button: ', response.customButton);
-//     } else {
-//         const source = { uri: response.uri };
-
-//         // You can also display the image using data:
-//         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-//         this.setState({
-//             avatarSource: source,
-//         });
-//     }
-// });
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -66,8 +31,6 @@ const options = {
 // adding a stop should return a stopID 
 
 // when pressing "add guide", it will add all of the stops and the guide to the database
-
-
 
 // 1. adding a stop will aded a stop object to the "stops" array
 // 2. fill out guide info, fill out stops info
@@ -105,48 +68,28 @@ export default class AddGuidePage extends React.Component {
 
         // this.dobIsoConvert = this.dobIsoConvert.bind(this);
 
-        this.uploadPhoto = this.uploadPhoto.bind(this);
-        this.changeFood = this.changeFood.bind(this);
+        // this.uploadPhoto = this.uploadPhoto.bind(this);
 
+
+        this.handleChoosePhoto = this.handleChoosePhoto.bind(this);
     }
 
-    changeFood() {
-        this.setState({ categFood: !categFood });
-        // if (this.state.category.includes("Mango");
+    handleChoosePhoto = () => {
+        console.log("its being called");
+        const options = {};
+        ImagePicker.launchImageLibrary(options, response => {
+            console.log("response", response.uri);
 
-        // console.log("hello");
-        // this.
+            this.uploadImage(response.uri);
+        })
     }
 
-    uploadPhoto() {
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
+    uploadImage(imagePath) {
 
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                const source = { uri: response.uri };
-
-                // You can also display the image using data:
-                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-                this.setState({
-                    avatarSource: source,
-                });
-            }
-        });
     }
 
     render() {
-
-
         return (
-
-
             <View style={styles.container}>
                 {/* <Header hasTabs /> */}
                 <Header>
@@ -217,12 +160,15 @@ export default class AddGuidePage extends React.Component {
                 // checked={this.state.checked}
                 />
 
+                <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
+
                 <Text style={styles.currStopsTitle}>Current Stops Added </Text>
 
-                <View style={styles.stopsListCont}>
+                <ScrollView style={styles.stopsListCont}>
                     <View style={styles.listItem}>
                         <View style={styles.stopName}><Text>Din Tai Fung</Text></View>
                         <View style={styles.stopTimes}><Text>2pm - 3pm</Text></View>
+
                     </View>
                     <View style={styles.listItem}>
                         <View style={styles.stopName}><Text>Din Tai Fung</Text></View>
@@ -234,44 +180,61 @@ export default class AddGuidePage extends React.Component {
                     </View>
 
 
-                </View>
+                </ScrollView>
 
 
                 <View style={styles.stopsCont}>
                     <Text style={styles.stopsTitle}> Add Stops to the Guide </Text>
 
-                    <Text>Stop Name</Text>
 
-                    <TextInput
-                        style={styles.guideFields}
-                    />
+                    <View style={styles.stopRow}>
+                        <View style={styles.stopInputCont}>
+                            <Text>Stop Name</Text>
 
-                    <Text>Stop Address</Text>
+                            <TextInput
+                                style={styles.guideFields}
+                            />
+                        </View>
 
-                    <TextInput
-                        style={styles.guideFields}
-                    />
+                        <View style={styles.stopInputCont}>
+                            <Text>Stop Address</Text>
 
-                    <TextInput
-                        multiline={true}
-                        numberOfLines={4}
-                    />
+                            <TextInput
+                                style={styles.guideFields}
+                            />
+                        </View>
+                    </View>
 
-                    <Text>Start Time</Text>
 
-                    <TextInput
-                        multiline={true}
-                        numberOfLines={4}
-                        style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
-                    />
+                    <View style={styles.stopRow}>
+                        <View style={styles.stopInputCont}>
+                            <Text>Start Time</Text>
 
-                    <Text>End Time</Text>
+                            <TextInput
+                                multiline={true}
+                                numberOfLines={4}
+                                style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
+                            />
 
-                    <TextInput
-                        multiline={true}
-                        numberOfLines={4}
-                        style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
-                    />
+                        </View>
+                        <View style={styles.stopInputCont}>
+                            <Text>End Time</Text>
+
+                            <TextInput
+                                multiline={true}
+                                numberOfLines={4}
+                                style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
+                            />
+
+                        </View>
+                    </View>
+
+
+
+
+
+
+
 
 
 
@@ -298,9 +261,6 @@ export default class AddGuidePage extends React.Component {
                             accessibilityLabel="Learn more about this purple button"
                         /> */}
 
-
-
-
                     <Button
                         // onPress={onPressLearnMore}
                         title="Submit guide"
@@ -309,10 +269,6 @@ export default class AddGuidePage extends React.Component {
                     />
 
                 </View>
-
-
-
-
             </View>
         );
     }
@@ -325,13 +281,25 @@ const styles = StyleSheet.create({
         margin: 0,
         textAlign: 'center',
         flex: 1,
+        flexDirection: 'row'
         // padding: '3 10'
     },
     stopsTitle: {
         textAlign: 'center',
         fontWeight: 'bold',
         backgroundColor: '#e5e5e5',
-        padding: 10
+        padding: 10,
+        // width: '45%'
+    },
+    stopName: {
+        width: '45%'
+    },
+    stopName: {
+        padding: 0,
+        margin: 0,
+        marginLeft: 20,
+        marginRight: 10,
+        width: '45%'
     },
     stopsListsCont: {
         backgroundColor: 'white', flex: 1, flexDirection: 'row'
@@ -350,15 +318,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#e5e5e5'
     },
     currStopsList: {
-
         backgroundColor: 'white'
     },
-    stopName: {
-        padding: 0,
-        margin: 0,
-        marginLeft: 20,
-        marginRight: 10
-    },
+
 
     guideStopsList: {
         flex: 1
@@ -391,6 +353,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         width: '100%',
         // backgroundColor: 'blue'
+    },
+
+    stopRow: {
+        flexDirection: 'row'
+    },
+    stopInputCont: {
+        width: '45%',
+        marginRight: 5
     },
 
     stopType: {
