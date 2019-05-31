@@ -66,18 +66,18 @@ class HomePage extends React.Component {
 
                 {/* <View style={styles.tabHeader}> */}
 
-                <Tabs tabStyle={{ backgroundColor: 'green' }} locked={true}>
+                <Tabs tabStyle={{ backgroundColor: '#FAD05A' }} locked={true}>
 
                     <Tab style={styles.tab} heading="All">
 
                         {/* --------------------------------------------------------------------*/}
                         {/* --------------------- CATEGORIES SECTION -----------------------*/}
                         {/* --------------------------------------------------------------------*/}
-                        <Text style={styles.centerText}>Categories:</Text>
+                        <Text style={styles.trendingText}>Trending Today</Text>
                         <View style={{ height: 90 }} >
                             <ScrollView horizontal style={styles.categContainer}  >
                                 <TouchableHighlight style={styles.categView}>
-                                    <Text>Click here</Text>
+                                    <Text style={styles.categName}>Click here</Text>
                                     {/* <Image
                             style={styles.button}
                             source={require('./myButton.png')}
@@ -85,28 +85,28 @@ class HomePage extends React.Component {
                                 </TouchableHighlight>
 
                                 <TouchableHighlight style={styles.categView} >
-                                    <Text>Click here</Text>
+                                    <Text style={styles.categName}>Click here</Text>
                                     {/* <Image
                             style={styles.button}
                             source={require('./myButton.png')}
                         /> */}
                                 </TouchableHighlight>
                                 <TouchableHighlight style={styles.categView}>
-                                    <Text>Click here</Text>
+                                    <Text style={styles.categName}>Click here</Text>
                                     {/* <Image
                             style={styles.button}
                             source={require('./myButton.png')}
                         /> */}
                                 </TouchableHighlight>
                                 <TouchableHighlight style={styles.categView}>
-                                    <Text>Click here</Text>
+                                    <Text style={styles.categName}>Click here</Text>
                                     {/* <Image
                             style={styles.button}
                             source={require('./myButton.png')}
                         /> */}
                                 </TouchableHighlight>
                                 <TouchableHighlight style={styles.categView}>
-                                    <Text>Click here</Text>
+                                    <Text style={styles.categName}>Click here</Text>
                                     {/* <Image
                             style={styles.button}
                             source={require('./myButton.png')}
@@ -119,7 +119,7 @@ class HomePage extends React.Component {
                         {/* --------------------- GUIDE SECTION -----------------------*/}
                         {/* --------------------------------------------------------------------*/}
 
-                        <Text style={styles.centerText}>Popular Guides At The Moment: </Text>
+                        {/* <Text style={styles.centerText}>Popular Guides At The Moment: </Text> */}
                         <Content style={styles.guideContainer} ref={c => (this.component = c)}>
                             <View style={styles.dayGuide} >
                                 <View style={{ flexDirection: 'row' }}>
@@ -391,8 +391,12 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     addPlanButton: {
-        width: 100,
-        height: 30
+        width: 120,
+        height: 30,
+        borderRadius: 15,
+        marginRight: 0,
+        backgroundColor: '#FAD05A',
+        marginTop: 10,
     },
     addPlanText: {
         // marginLeft: 5
@@ -402,17 +406,25 @@ const styles = StyleSheet.create({
     guideTitle: {
         fontWeight: "bold",
         fontSize: 18,
-        marginRight: "20%"
+        marginRight: "20%",
+        marginTop: 10
     },
 
-    centerText: {
-        textAlign: 'center',
-        fontSize: 20
-
+    trendingText: {
+        textAlign: 'left',
+        fontSize: 12,
+        fontWeight: '500',
+        paddingTop: 6,
+        paddingBottom: 6,
+        backgroundColor: "#FFF",
+        marginTop: 6,
+        paddingLeft: 16,
+        color: '#666666'
     },
     categContainer: {
         backgroundColor: 'red',
-        backgroundColor: 'black',
+        backgroundColor: 'white',
+        
         height: 50,
         margin: 0,
         padding: 0,
@@ -423,9 +435,13 @@ const styles = StyleSheet.create({
     },
     categView: {
         height: 80,
-        width: "32%",
-        backgroundColor: 'white',
-        margin: 3
+        width: 136,
+        height: 92,
+        backgroundColor: '#FAD05A',
+        marginBottom: 10,
+        // marginTop: 10,
+        marginLeft: 10,
+        paddingBottom: 10
 
         // flex: .33,
         // // flexDirection: 'row',
@@ -438,10 +454,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#F6F8FC'
     },
     homeSearch: {
-        backgroundColor: '#F6B633'
+        backgroundColor: '#FAD05A'
     },
     searchBox: {
-        backgroundColor: '#F1E3A7'
+        backgroundColor: '#FFFFFF'
     },
 
     container: {
@@ -468,5 +484,11 @@ const styles = StyleSheet.create({
     tabHeader: {
         height: '515%',
         backgroundColor: 'red'
+    },
+    categName: {
+        color: "white",
+        fontWeight: "bold",
+        paddingTop: 65,
+        paddingLeft: 10
     }
 })
