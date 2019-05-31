@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import {ImageBackground, ScrollView, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {ImageBackground, ScrollView, StyleSheet, Text, TouchableHighlight, View, Image} from 'react-native';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
@@ -66,7 +66,9 @@ class HomePage extends React.Component {
 						{/* --------------------------------------------------------------------*/}
 						{/* --------------------- CATEGORIES SECTION -----------------------*/}
 						{/* --------------------------------------------------------------------*/}
-						<Text style={styles.trendingText}>Trending Today</Text>
+						<Image source={require('../imgs/trend.svg')}/>
+
+                        <Text style={styles.trendingText}>Trending Today</Text>
 						<View style={{height: 90}}>
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>

@@ -7,8 +7,8 @@
  */
 
 import React from 'react';
-import {AsyncStorage, StyleSheet, Text} from 'react-native';
-import {Button, Container, DatePicker, Form, Header, Input, Item,} from 'native-base';
+import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
+import { Button, Container, DatePicker, Form, Header, Input, Item, TextInput } from 'native-base';
 // import { Text, View } from 'react-native';
 
 // import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
@@ -45,7 +45,7 @@ export default class SignUpPage extends React.Component {
 
 	dobIsoConvert(dateStr) {
 		var utcDob = new Date(dateStr).toISOString();
-		this.setState({dob: utcDob}, () => {
+		this.setState({ dob: utcDob }, () => {
 			console.log(this.state.dob)
 		});
 	}
@@ -73,53 +73,53 @@ export default class SignUpPage extends React.Component {
 
 
 			.then(res => {
-					console.log("if you get nsvalue error, then..");
-					console.log("User name and Email is prob not unique");
+				console.log("if you get nsvalue error, then..");
+				console.log("User name and Email is prob not unique");
 
-					console.log("what2");
-					// if (!res.ok) {
-					//     throw Error(res.statusText + " " + res.status);
-					// }
-					console.log(res);
-					console.log(res.headers.get("Authorization"));
+				console.log("what2");
+				// if (!res.ok) {
+				//     throw Error(res.statusText + " " + res.status);
+				// }
+				console.log(res);
+				console.log(res.headers.get("Authorization"));
 
-					// AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
+				// AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
 
 
-					_storeData = async () => {
-						try {
-							await AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
-						} catch (error) {
-							console.log(error);
-							// Error saving data
+				_storeData = async () => {
+					try {
+						await AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
+					} catch (error) {
+						console.log(error);
+						// Error saving data
+					}
+				};
+
+				_retrieveData = async () => {
+					try {
+						const value = await AsyncStorage.getItem('bearerKey');
+						if (value !== null) {
+							// We have data!!
+							console.log(value);
 						}
-					};
+					} catch (error) {
+						// Error retrieving data
+					}
+				};
 
-					_retrieveData = async () => {
-						try {
-							const value = await AsyncStorage.getItem('bearerKey');
-							if (value !== null) {
-								// We have data!!
-								console.log(value);
-							}
-						} catch (error) {
-							// Error retrieving data
-						}
-					};
+				console.log(_storeData);
+				console.log(_retrieveData);
 
-					console.log(_storeData);
-					console.log(_retrieveData);
+				const bearerProm = AsyncStorage.getItem('bearerKey');
 
-					const bearerProm = AsyncStorage.getItem('bearerKey');
-
-					bearerProm.then(function (value) {
-						console.log(value);
-					});
-
-
+				bearerProm.then(function (value) {
 					console.log(value);
-					// AsyncStorage.setItem('', 'I like to save it.');
-				}
+				});
+
+
+				console.log(value);
+				// AsyncStorage.setItem('', 'I like to save it.');
+			}
 			)
 	};
 
@@ -137,12 +137,12 @@ export default class SignUpPage extends React.Component {
 
 		return (
 			<Container style={styles.container}>
-				<Header>
-					<Text>TravelEasy</Text>
-				</Header>
+				{/* <Header style={{backgroundColor: '#FAD05A'}}>
+					<Text style={{marginTop: 14, fontSize: 16, fontWeight: '500', color: '#424242'}}>Sign Up</Text>
+				</Header> */}
 
-				<Text>Sign Up</Text>
-				<DatePicker
+				{/* <Text>Sign Up</Text> */}
+				{/* <DatePicker
 					defaultDate={new Date(2018, 4, 4)}
 					minimumDate={new Date(2018, 1, 1)}
 					maximumDate={new Date(2018, 12, 31)}
@@ -156,64 +156,81 @@ export default class SignUpPage extends React.Component {
 					placeHolderTextStyle={{color: "#d3d3d3"}}
 					onDateChange={this.setDate}
 					disabled={false}
-				/>
+				/> */}
+
+				{/* <Form>
+
+					<Text style={styles.createText}>
+						Create {"\n"}
+						Account
+						</Text>
+
+					
+					<TextInput style={styles.signUpFields} placeholder="First Name"
+						onChangeText={(data) => this.setState({ firstname: data })} />
+
+
+				</Form> */}
 
 				<Form>
-					<Item>
-						<Input style={styles.signUpFields} placeholder="First Name"
-						       onChangeText={(data) => this.setState({firstname: data})}/>
+					<Text style={styles.createText}>
+						Create {"\n"}
+						Account
+					</Text>
+					<Item style={styles.textView} >
+						<Input 
+							style={styles.textInput}
+							editable={true}
+							maxLength={20}
+							placeholder="First Name"
+							onChangeText={(data) => this.setState({firstname: data})}/>
 					</Item>
-					<Item>
-						<Input style={styles.signUpFields} placeholder="Last Name"
-						       onChangeText={(data) => this.setState({lastname: data})}/>
+					<Item style={styles.textView}>
+						<Input 
+							style={styles.textInput} 
+							editable={true}
+							maxLength={200}
+							placeholder="Last Name"
+							onChangeText={(data) => this.setState({ lastname: data })} />
 					</Item>
-					<Item>
-						<Input style={styles.signUpFields} placeholder="DOB"
-						       onChangeText={(data) => this.setState({dob: data})}/>
+					<Item style={styles.textView}>
+						<Input 
+							style={styles.textInput}
+							editable={true}
+							maxLength={200}
+							placeholder="Username"
+							onChangeText={(data) => this.setState({ username: data })} />
 					</Item>
-					<Item>
-						<Input style={styles.signUpFields} placeholder="Username"
-						       onChangeText={(data) => this.setState({username: data})}/>
+					<Item style={styles.textView}>
+						<Input 
+							style={styles.textInput}
+							editable={true}
+							maxLength={200}
+							placeholder="Email"
+							onChangeText={(data) => this.setState({ email: data })} />
 					</Item>
-					<Item>
-						<Input style={styles.signUpFields} placeholder="Email"
-						       onChangeText={(data) => this.setState({email: data})}/>
+					<Item style={styles.textView}>
+						<Input 
+							style={styles.textInput}
+							editable={true}
+							maxLength={200}
+							placeholder="Password"
+							onChangeText={(data) => this.setState({ password: data })} />
 					</Item>
-					<Item>
-						<Input style={styles.signUpFields} placeholder="Password"
-						       onChangeText={(data) => this.setState({password: data})}/>
-					</Item>
-					<Item last>
-						<Input style={styles.signUpFields} placeholder="Confirm Password"
-						       onChangeText={(data) => this.setState({password: data})}/>
-					</Item>
-					<Item last>
-						<Input style={styles.signUpFields} placeholder="Gender(M or F)"
-						       onChangeText={(data) => this.setState({gender: data})}/>
-					</Item>
-					<Item last>
-						<Input style={styles.signUpFields} placeholder="Location City"
-						       onChangeText={(data) => this.setState({locationCity: data})}/>
-					</Item>
-
-					<Item last>
-						<Input style={styles.signUpFields} placeholder="Location State"
-						       onChangeText={(data) => this.setState({locationState: data})}/>
-					</Item>
-
-					<Item last>
-						<Input style={styles.signUpFields} placeholder="Location Country"
-						       onChangeText={(data) => this.setState({locationCountry: data})}/>
-					</Item>
-
-					<Item last>
-						<Input style={styles.signUpFields} placeholder="Picture"
-						       onChangeText={(data) => this.setState({locationCountry: data})}/>
-					</Item>
-
+					
+					
 				</Form>
 
-				<Button onPress={this.signUpUser} title="Solid Button"><Text>Sign Up!</Text></Button>
+				<Button 
+					style={styles.button} 
+					onPress={this.signUpUser} 
+					title="Solid Button"
+				>
+					<Text style={styles.btnText}>
+						Sign Up!
+					</Text>
+					
+				</Button>
 			</Container>
 		);
 	}
@@ -222,9 +239,68 @@ const styles = StyleSheet.create({
 	container: {
 		// paddingTop: 200
 		margin: 0,
-		padding: 0
+		padding: 0,
+		backgroundColor: '#F6F8FC'
 	},
-	signUpFields: {
-		height: 25,
-	}
+
+	textView: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		borderBottomColor: '#f7b633',
+		borderBottomWidth: 0.5,
+		borderStyle: "solid",
+		marginLeft: 50,
+		marginRight: 50
+	},
+
+
+	createText: {
+		fontSize: 36,
+		marginTop: '40%',
+		marginLeft: 50,
+		color: '#FAD05A',
+		fontWeight: '600',
+		marginBottom: '10%'
+
+	},
+
+	textInput: {
+		paddingLeft: 10,
+		height: 50,
+		width: '60%',
+		fontSize: 14,
+		fontWeight: "600",
+		fontStyle: "normal",
+		letterSpacing: 0,
+		color: '#828282'
+	},
+
+	button: {
+		marginTop: 50,
+		width: '50%',
+		height: 50,
+		borderRadius: 50,
+		backgroundColor: "#fecd00",
+		shadowColor: "rgba(109, 109, 109, 0.24)",
+		shadowOffset: {
+			width: 0,
+			height: 4
+		},
+		shadowRadius: 6,
+		shadowOpacity: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginLeft: '25%',
+		// marginRight: 'auto',
+		alignItems: 'center',
+	},
+
+	btnText: {
+		fontSize: 18,
+		fontWeight: "500",
+		fontStyle: "normal",
+		letterSpacing: 0,
+		color: "white",
+	},
 });

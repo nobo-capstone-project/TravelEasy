@@ -116,7 +116,7 @@ const AppNavigator = createStackNavigator({
   Route: RoutePage
 },
 {
-  initialRouteName: 'BottomBar',
+  initialRouteName: 'Login',
   headerMode: 'none'
 });
 
