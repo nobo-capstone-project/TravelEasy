@@ -379,8 +379,10 @@ const styles = StyleSheet.create({
         // padding: 3
     },
     guideContainer: {
-        backgroundColor: '#2B2B2B',
+        marginTop: 20,
+        backgroundColor: '#F6F8FC',
         height: 100,
+        shadowColor: '#000000',
     },
     dayGuide: {
         marginTop: 2,
@@ -425,12 +427,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         backgroundColor: 'white',
         
-        height: 50,
-        margin: 0,
-        padding: 0,
-        // flex: 1,
-        // flexDirection: 'row'
-        width: "100%"
+        height: 70,
+        // margin: 10,
+        paddingBottom: 100,
+        width: "100%",
+        shadowColor: '#000000',
+        shadowOpacity: 1
 
     },
     categView: {
