@@ -6,217 +6,217 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { Platform, Text, View, TouchableHighlight, Button, ScrollView, TextInput, AlertIOS } from 'react-native';
-import { StyleSheet } from 'react-native';
-// import { Text, View } from 'react-native';
-
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import {AlertIOS, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faKey, faUser} from '@fortawesome/free-solid-svg-icons';
 import SvgUri from 'react-native-svg-uri';
 
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { withNavigation } from 'react-navigation';
+import {withNavigation} from 'react-navigation';
+// import { Text, View } from 'react-native';
 
 // import { Item, Grid, Col, Row, Card, CardItem, Container, Header, Input, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
-
-import { Form } from 'native-base';
 
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
 
 class LoginPage extends React.Component {
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
 
-        this.state = {
-            username: '',
-            password: ''
-        };
+		this.state = {
+			username: '',
+			password: ''
+		};
 
-        this._onPress = this._onPress.bind(this);
-    }
+		this._onPress = this._onPress.bind(this);
+	}
 
-    _errorType(status) {
-        if (status == 415) {
-            return 'Username or Pasword in wrong format';
-        } else if (status == 500) {
-            return 'Server Error'
-        } else if (status == 403) {
-            return 'Username and Password Not Match';
-        } else {
-            return 'error';
-        }
-    };
+	_errorType(status) {
+		if (status == 415) {
+			return 'Username or Pasword in wrong format';
+		} else if (status == 500) {
+			return 'Server Error'
+		} else if (status == 403) {
+			return 'Username and Password Not Match';
+		} else {
+			return 'error';
+		}
+	};
 
-    _onPress() {
-        if (this.state.username.length != 0 & this.state.password.length != 0) {
-            fetch("https://gateway-full-ldw2m5nesa-uc.a.run.app/user/auth/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: this.state.username,
-                    password: this.state.password
-                })
+	_onPress() {
+		if (this.state.username.length != 0 & this.state.password.length != 0) {
+			fetch("https://gateway-full-ldw2m5nesa-uc.a.run.app/user/auth/", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					username: this.state.username,
+					password: this.state.password
+				})
 
-            })
+			})
 
-                .then(res => {
-                    if (!res.ok) {
-                        AlertIOS.alert('Error', this._errorType(res.status), [{ text: 'Cancel', onPress: () => console.log('fail') }]);
-                    }
+				.then(res => {
+					if (!res.ok) {
+						AlertIOS.alert('Error', this._errorType(res.status), [{
+							text: 'Cancel',
+							onPress: () => console.log('fail')
+						}]);
+					}
 
-                    console.log(res);
-                    console.log(res.headers.get("Authorization"));
+					console.log(res);
+					console.log(res.headers.get("Authorization"));
 
-                    _storeData = async () => {
-                        try {
-                            await AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
-                        } catch (error) {
-                            console.log(error);
-                        }
-                    };
-                    return res.json();
-                })
-                .then(data => {
-                    _storeData = async () => {
-                        try {
-                            await AsyncStorage.setItem('username', data.username);
-                        } catch (error) {
-                            console.log(error);
-                        }
-                    };
-                    this.props.navigation.navigate('Home');
-                })
-                .catch(error => { console.log(error) });
-        }
-    }
+					_storeData = async () => {
+						try {
+							await AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
+						} catch (error) {
+							console.log(error);
+						}
+					};
+					return res.json();
+				})
+				.then(data => {
+					_storeData = async () => {
+						try {
+							await AsyncStorage.setItem('username', data.username);
+						} catch (error) {
+							console.log(error);
+						}
+					};
+					this.props.navigation.navigate('Home');
+				})
+				.catch(error => {
+					console.log(error)
+				});
+		}
+	}
 
-    render() {
-        console.log(this.props.navigation);
-        return (
-            <View style={styles.container}>
-                <Text style={styles.header}>TERN</Text>
-                <View>
-                    <SvgUri width="150" height="150" source={require('../imgs/logo_yellownobackground.svg')} />
-                </View>
-                <View style={styles.textView}>
-                    <FontAwesomeIcon icon={faUser} style={{ color: '#828282' }} />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Username"
-                        editable={true}
-                        maxLength={200}
-                        onChangeText={(username) => this.setState({
-                            username: username
-                        })}
-                    />
-                </View>
+	render() {
+		console.log(this.props.navigation);
+		return (
+			<View style={styles.container}>
+				<Text style={styles.header}>TERN</Text>
+				<View>
+					<SvgUri width="150" height="150" source={require('../imgs/logo_yellownobackground.svg')}/>
+				</View>
+				<View style={styles.textView}>
+					<FontAwesomeIcon icon={faUser} style={{color: '#828282'}}/>
+					<TextInput
+						style={styles.textInput}
+						placeholder="Username"
+						editable={true}
+						maxLength={200}
+						onChangeText={(username) => this.setState({
+							username: username
+						})}
+					/>
+				</View>
 
 
-                <View style={styles.textView}>
-                    <FontAwesomeIcon icon={faKey} style={{ color: '#828282' }} />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Passward"
-                        editable={true}
-                        password={true}
-                        secureTextEntry={true}
-                        maxLength={20}
-                        onChangeText={(password) => this.setState({
-                            password: password
-                        })}
-                    />
-                </View>
+				<View style={styles.textView}>
+					<FontAwesomeIcon icon={faKey} style={{color: '#828282'}}/>
+					<TextInput
+						style={styles.textInput}
+						placeholder="Passward"
+						editable={true}
+						password={true}
+						secureTextEntry={true}
+						maxLength={20}
+						onChangeText={(password) => this.setState({
+							password: password
+						})}
+					/>
+				</View>
 
-                <TouchableHighlight style={styles.button} onPress={() => this._onPress()}>
-                    <Text style={{
-                        fontSize: 18,
-                        fontWeight: "500",
-                        fontStyle: "normal",
-                        letterSpacing: 0,
-                        color: "#333333"
-                    }}>Login</Text>
-                </TouchableHighlight>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 25 }}>
-                    <Text style={styles.bottomText}>Don't have account? </Text>
-                    <TouchableHighlight onPress={() => this.props.navigation.navigate('SignUp')}>
-                        <Text style={styles.signupText}>Sign Up</Text>
-                    </TouchableHighlight>
-                </View>
-            </View>
-        );
-    }
+				<TouchableHighlight style={styles.button} onPress={() => this._onPress()}>
+					<Text style={{
+						fontSize: 18,
+						fontWeight: "500",
+						fontStyle: "normal",
+						letterSpacing: 0,
+						color: "#333333"
+					}}>Login</Text>
+				</TouchableHighlight>
+				<View style={{flexDirection: 'row', alignItems: 'center', marginTop: 25}}>
+					<Text style={styles.bottomText}>Don't have account? </Text>
+					<TouchableHighlight onPress={() => this.props.navigation.navigate('SignUp')}>
+						<Text style={styles.signupText}>Sign Up</Text>
+					</TouchableHighlight>
+				</View>
+			</View>
+		);
+	}
 }
 
 export default withNavigation(LoginPage);
 
 const styles = StyleSheet.create({
-    container: {
-        // paddingTop: 200
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center'
-    },
-    header: {
-        marginTop: 150,
-        fontSize: 56,
-        fontWeight: "bold",
-        fontStyle: "normal",
-        // lineHeight: 50.6,
-        letterSpacing: 10.8,
-        color: "#f7b633"
-    },
-    textView: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderBottomColor: '#f7b633',
-        borderBottomWidth: 0.5,
-        borderStyle: "solid"
-    },
-    textInput: {
-        paddingLeft: 10,
-        height: 50,
-        width: '60%',
-        fontSize: 14,
-        fontWeight: "normal",
-        fontStyle: "normal",
-        letterSpacing: 0,
-    },
-    button: {
-        marginTop: 50,
-        width: '65%',
-        height: 50,
-        borderRadius: 50,
-        backgroundColor: "#fecd00",
-        shadowColor: "rgba(109, 109, 109, 0.24)",
-        shadowOffset: {
-            width: 0,
-            height: 8
-        },
-        shadowRadius: 6,
-        shadowOpacity: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    bottomText: {
-        fontSize: 16,
-        fontWeight: "500",
-        fontStyle: "normal",
-        letterSpacing: 0,
-        color: "#828282"
-    },
-    signupText: {
-        fontSize: 16,
-        fontWeight: "500",
-        fontStyle: "normal",
-        letterSpacing: 0,
-        color: "#5893D4"
-    }
+	container: {
+		// paddingTop: 200
+		flex: 1,
+		flexDirection: 'column',
+		alignItems: 'center'
+	},
+	header: {
+		marginTop: 150,
+		fontSize: 56,
+		fontWeight: "bold",
+		fontStyle: "normal",
+		// lineHeight: 50.6,
+		letterSpacing: 10.8,
+		color: "#f7b633"
+	},
+	textView: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		borderBottomColor: '#f7b633',
+		borderBottomWidth: 0.5,
+		borderStyle: "solid"
+	},
+	textInput: {
+		paddingLeft: 10,
+		height: 50,
+		width: '60%',
+		fontSize: 14,
+		fontWeight: "normal",
+		fontStyle: "normal",
+		letterSpacing: 0,
+	},
+	button: {
+		marginTop: 50,
+		width: '65%',
+		height: 50,
+		borderRadius: 50,
+		backgroundColor: "#fecd00",
+		shadowColor: "rgba(109, 109, 109, 0.24)",
+		shadowOffset: {
+			width: 0,
+			height: 8
+		},
+		shadowRadius: 6,
+		shadowOpacity: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	bottomText: {
+		fontSize: 16,
+		fontWeight: "500",
+		fontStyle: "normal",
+		letterSpacing: 0,
+		color: "#828282"
+	},
+	signupText: {
+		fontSize: 16,
+		fontWeight: "500",
+		fontStyle: "normal",
+		letterSpacing: 0,
+		color: "#5893D4"
+	}
 
 
-})
+});
