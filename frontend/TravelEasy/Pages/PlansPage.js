@@ -6,9 +6,9 @@
  * @flow
  */
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
-import {Container,} from 'native-base';
+import { Container, } from 'native-base';
 
 
 export default class Plans extends React.Component {
