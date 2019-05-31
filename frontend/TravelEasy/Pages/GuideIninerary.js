@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
-import {ListView} from 'react-native';
-import {Button, Container, Content, Header, Icon, List, ListItem, Text} from 'native-base';
+import React, { Component } from 'react';
+import { ListView } from 'react-native';
+import { Button, Container, Content, Header, Icon, List, ListItem, Text } from 'native-base';
 
 const datas = [
 	'Breakfest Ramen - 8am',
 	'SUshi - 12p',
 	'Hiking - 2p',
 ];
-export default class GuideItinerary extends Component {
+export default class GuideInfo extends Component {
 	constructor(props) {
 		super(props);
-		this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 		this.state = {
 			basic: true,
 			listViewData: datas,
@@ -21,14 +21,14 @@ export default class GuideItinerary extends Component {
 		rowMap[`${secId}${rowId}`].props.closeRow();
 		const newData = [...this.state.listViewData];
 		newData.splice(rowId, 1);
-		this.setState({listViewData: newData});
+		this.setState({ listViewData: newData });
 	}
 
 	render() {
-		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 		return (
 			<Container>
-				<Header/>
+				<Header />
 				<Text>Osaka Day Guide - 5/30/19</Text>
 				<Content>
 					<List
@@ -41,11 +41,11 @@ export default class GuideItinerary extends Component {
 							</ListItem>}
 						renderLeftHiddenRow={data =>
 							<Button full onPress={() => alert(data)}>
-								<Icon active name="information-circle"/>
+								<Icon active name="information-circle" />
 							</Button>}
 						renderRightHiddenRow={(data, secId, rowId, rowMap) =>
 							<Button full danger onPress={_ => this.deleteRow(secId, rowId, rowMap)}>
-								<Icon active name="trash"/>
+								<Icon active name="trash" />
 							</Button>}
 					/>
 				</Content>
