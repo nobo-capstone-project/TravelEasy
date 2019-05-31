@@ -100,7 +100,7 @@ func (ctx *AuthContext) AuthHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println(r.Header.Get("Authorization"))
 
 		// `state` is discarded
-		_, err := session.GetState(r, ctx.key, ctx.redis, &session.State{})
+		_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusUnauthorized)
 			return
@@ -174,7 +174,7 @@ func (ctx *AuthContext) UserIdHandler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodGet:
 
 		currentState := &session.State{}
-		_, err := session.GetState(r, ctx.key, ctx.redis, currentState)
+		_, err := session.GetState(r, ctx.key, *ctx.redis, currentState)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusForbidden)
 			return
@@ -202,7 +202,7 @@ func (ctx *AuthContext) UserIdHandler(w http.ResponseWriter, r *http.Request) {
 
 		currentState := &session.State{}
 
-		_, err := session.GetState(r, ctx.key, ctx.redis, currentState)
+		_, err := session.GetState(r, ctx.key, *ctx.redis, currentState)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusForbidden)
 			return

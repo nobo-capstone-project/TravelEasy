@@ -21,7 +21,6 @@ type UserProfile struct {
 	Picture         string    `json:"picture,omitempty"`
 }
 
-// TODO
 type UserFollower struct {
 	DocumentID string   `json:"documentID"`
 	UserID     string   `json:"userID"`

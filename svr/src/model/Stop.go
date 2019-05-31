@@ -18,6 +18,8 @@ type StopLoc struct {
 	TimeSpent    time.Duration `json:"timeSpent"`
 	Picture      []string      `json:"picture"`
 	ADA          bool          `json:"ADA"`
+	StartTime    string        `json:"startTime"`
+	EndTime      string        `json:"endTime"`
 }
 
 type StopComment struct {

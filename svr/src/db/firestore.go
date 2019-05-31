@@ -9,6 +9,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
+	"sort"
 )
 
 const (
@@ -120,6 +121,35 @@ func (fs *FirestoreStore) AddStopComment(stopComment *model.StopComment) (*model
 		stopComment.DocumentID = ref.ID
 		return stopComment, nil
 	}
+}
+
+func (fs *FirestoreStore) GetAllRoutes() ([]*model.RouteLoc, error) {
+	var routes []*model.RouteLoc
+	query := fs.AppClient.Collection(routeDB)
+
+	docs := query.Documents(*fs.Context)
+	for {
+		doc, err := docs.Next()
+		if err == iterator.Done {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+
+		rl, err := parseDataSnapshotToRoute(doc)
+		if err != nil {
+			return nil, err
+		}
+
+		rl.DocumentID = doc.Ref.ID
+		routes = append(routes, rl)
+	}
+
+	sort.Slice(routes, func(i, j int) bool {
+		return routes[i].Vote < routes[j].Vote
+	})
+
+	return routes, nil
 }
 
 func (fs *FirestoreStore) GetAllRouteComment(routeID string) ([]*model.RouteComment, error) {
