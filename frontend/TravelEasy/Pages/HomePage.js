@@ -429,7 +429,7 @@ const styles = StyleSheet.create({
 		color: '#666666'
 	},
 	categContainer: {
-		backgroundColor: 'red',
+		// backgroundColor: 'red',
 		backgroundColor: 'white',
 
 		height: 50,
