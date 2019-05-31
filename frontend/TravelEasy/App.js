@@ -19,10 +19,9 @@ import { Card, CardItem, Container, Header, Content, Tab, Tabs, FooterTab, Foote
 
 
 // import { NativeRouter, Switch, Route } from 'react-router-native';
-import { createBottomTabNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
 import SvgUri from 'react-native-svg-uri';
 
-import { Router, Scene } from 'react-native-router-flux';
 import { logger } from 'react-native-logger'
 
 // IMPORT COMPONENTS: 
@@ -40,18 +39,15 @@ import GuideItinerary from './Pages/GuideIninerary';
 
 // import AppNav from './Components/createAppNavigator';
 
-const TabIcon = ({ selected, title }) => {
-  return (
-    <Text style={{ color: selected ? 'red' : 'black' }}>{title}</Text>
-  );
-}
 
+// if no bearerkey, then go to login page 
+// login -> router -> home
 const TabNavigator = createBottomTabNavigator(
   {
     Home: {
       screen: HomePage,
       navigationOptions: {
-        tabBarLabel: 'RoutePage',
+        tabBarLabel: 'HomePage',
         tabBarIcon: ({ tintColor, activeTintColor }) => (
           <SvgUri width="28" height="28" fill={tintColor} source={require('./imgs/explore.svg')} />
         )
@@ -102,45 +98,29 @@ const TabNavigator = createBottomTabNavigator(
         )
       },
     },
-    // for testing
-    Route: {
-      screen: RoutePage,
-      navigationOptions: {
-        tabBarLabel: 'RoutePage',
-        tabBarIcon: ({ tintColor, activeTintColor }) => (
-          <SvgUri width="28" height="28" fill={tintColor} source={require('./imgs/explore.svg')} />
-        )
-      },
-    },
-    Login: {
-      screen: LoginPage,
-      navigationOptions: {
-        tabBarLabel: 'Login',
-        tabBarIcon: ({ tintColor, activeTintColor }) => (
-          <SvgUri width="28" height="28" fill={tintColor} source={require('./imgs/explore.svg')} />
-        )
-      },
-    },
-    SignUp: {
-      screen: SignUpPage,
-      navigationOptions: {
-        tabBarLabel: 'Sign Up',
-        tabBarIcon: ({ tintColor, activeTintColor }) => (
-          <SvgUri width="28" height="28" fill={tintColor} source={require('./imgs/explore.svg')} />
-        )
-      },
-    },
   },
   {
     initialRouteName: 'Home',
     tabBarOptions: {
       activeTintColor: '#F7B633',
       inactiveTintColor: '#022C43',
+      
     }
   }
 );
 
-const AppContainer = createAppContainer(TabNavigator);
+const AppNavigator = createStackNavigator({
+  Login: LoginPage,
+  SignUp: SignUpPage,
+  BottomBar: TabNavigator,
+  Route: RoutePage
+},
+{
+  initialRouteName: 'BottomBar',
+  headerMode: 'none'
+});
+
+const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
   render() {

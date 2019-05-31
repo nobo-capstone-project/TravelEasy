@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, Text, View, TouchableHighlight, ScrollView, TextInput } from 'react-native';
+import { Platform, Text, View, TouchableHighlight, Button, ScrollView, TextInput, AlertIOS } from 'react-native';
 import { StyleSheet } from 'react-native';
 // import { Text, View } from 'react-native';
 
@@ -15,9 +15,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 import SvgUri from 'react-native-svg-uri';
 
-// import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 
-import { Item, Grid, Col, Row, Card, CardItem, Container, Header, Input, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
+// import { Item, Grid, Col, Row, Card, CardItem, Container, Header, Input, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
 
 import { Form } from 'native-base';
 
@@ -25,59 +26,78 @@ import { Form } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
 
-
-
-
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             username: '',
-            email: '',
             password: ''
         };
 
         this._onPress = this._onPress.bind(this);
     }
 
-    _onPress() {
-        if (this.state.email.length != 0 & this.state.password.length != 0) {
+    _errorType(status) {
+        if (status == 415) {
+            return 'Username or Pasword in wrong format';
+        } else if (status == 500) {
+            return 'Server Error'
+        } else if (status == 403) {
+            return 'Username and Password Not Match';
+        } else {
+            return 'error';
+        }
+    };
 
+    _onPress() {
+        if (this.state.username.length != 0 & this.state.password.length != 0) {
+            fetch("https://gateway-full-ldw2m5nesa-uc.a.run.app/user/auth/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: this.state.username,
+                    password: this.state.password
+                })
+
+            })
+
+                .then(res => {
+                    if (!res.ok) {
+                        AlertIOS.alert('Error', this._errorType(res.status), [{ text: 'Cancel', onPress: () => console.log('fail') }]);
+                    }
+
+                    console.log(res);
+                    console.log(res.headers.get("Authorization"));
+
+                    _storeData = async () => {
+                        try {
+                            await AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    };
+                    return res.json();
+                })
+                .then(data => {
+                    _storeData = async () => {
+                        try {
+                            await AsyncStorage.setItem('username', data.username);
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    };
+                    this.props.navigation.navigate('Home');
+                })
+                .catch(error => { console.log(error) });
         }
     }
 
     render() {
+        console.log(this.props.navigation);
         return (
-            // <Container style={styles.container}>
-
-
-            //     {/* <View><Text>Hello</Text></View> */}
-            //     {/* <View></View> */}
-
-            //     <Header>
-
-            //         <Text>TravelEasy</Text>
-
-            //     </Header>
-
-            //     <Text>Login</Text>
-
-
-
-
-            //     <Form>
-            //         <Item>
-            //             <Input placeholder="Username" />
-            //         </Item>
-            //         <Item last>
-            //             <Input placeholder="Password" />
-            //         </Item>
-            //     </Form>
-
-            //     <Button title="Solid Button"><Text>HELLO</Text></Button>
-
-            // </Container >
             <View style={styles.container}>
                 <Text style={styles.header}>TERN</Text>
                 <View>
@@ -87,11 +107,11 @@ export default class LoginPage extends React.Component {
                     <FontAwesomeIcon icon={faUser} style={{ color: '#828282' }} />
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Email"
+                        placeholder="Username"
                         editable={true}
                         maxLength={200}
-                        onChangeText={(email) => this.setState({
-                            email: email
+                        onChangeText={(username) => this.setState({
+                            username: username
                         })}
                     />
                 </View>
@@ -121,11 +141,19 @@ export default class LoginPage extends React.Component {
                         color: "#333333"
                     }}>Login</Text>
                 </TouchableHighlight>
-                <Text style={styles.bottomText}>Don't have account? Sign Up</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 25 }}>
+                    <Text style={styles.bottomText}>Don't have account? </Text>
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate('SignUp')}>
+                        <Text style={styles.signupText}>Sign Up</Text>
+                    </TouchableHighlight>
+                </View>
             </View>
         );
     }
 }
+
+export default withNavigation(LoginPage);
+
 const styles = StyleSheet.create({
     container: {
         // paddingTop: 200
@@ -176,12 +204,18 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     bottomText: {
-        marginTop: 25,
         fontSize: 16,
         fontWeight: "500",
         fontStyle: "normal",
         letterSpacing: 0,
         color: "#828282"
+    },
+    signupText: {
+        fontSize: 16,
+        fontWeight: "500",
+        fontStyle: "normal",
+        letterSpacing: 0,
+        color: "#5893D4"
     }
 
 

@@ -5,12 +5,15 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "react-devtools": "react-devtools"
+    "react-devtools": "react-devtools",
+    "preinstall": "rm -rf node_modules/react-native-safe-area-view/.git"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-native-fontawesome": "^0.1.0",
+    "firebase": "^6.1.0",
+    "firebase-admin": "^8.0.0",
     "i": "^0.3.6",
     "install": "^0.12.2",
     "native-base": "^2.12.1",
@@ -22,8 +25,10 @@
     "react-native-collapsible": "^1.4.0",
     "react-native-elements": "^1.1.0",
     "react-native-gesture-handler": "^1.2.1",
+    "react-native-image-picker": "^0.28.1",
     "react-native-logger": "^1.0.3",
     "react-native-material-bottom-navigation": "^1.0.3",
+    "react-native-photo-upload": "^1.3.0",
     "react-native-router-flux": "^4.0.6",
     "react-native-svg": "^9.4.0",
     "react-native-svg-uri": "^1.2.3",
