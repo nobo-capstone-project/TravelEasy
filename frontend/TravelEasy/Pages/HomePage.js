@@ -133,7 +133,7 @@ class HomePage extends React.Component {
 									<TouchableHighlight style={styles.stopViews}>
 										<View>
 											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
+											                 style={{width: 100, height: 100}}>
 												<Text style={styles.nameOfStop}>Breakfast {this.state}</Text>
 											</ImageBackground>
 										</View>
@@ -386,8 +386,9 @@ const styles = StyleSheet.create({
 		// padding: 3
 	},
 	guideContainer: {
-		backgroundColor: '#2B2B2B',
-		height: 100,
+		backgroundColor: '#F6F8FC',
+        height: 100,
+        marginTop: 20
 	},
 	dayGuide: {
 		marginTop: 2,
@@ -411,11 +412,13 @@ const styles = StyleSheet.create({
 		width: '100%'
 	},
 	guideTitle: {
-		fontWeight: "bold",
+		fontWeight: "500",
 		fontSize: 18,
-		marginRight: "20%",
-		marginTop: 10
-	},
+		marginRight: 50,
+        marginTop: 10,
+        marginLeft: 10,
+        color: "#424242"
+    },
 
 	trendingText: {
 		textAlign: 'left',
@@ -433,8 +436,8 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 
 		height: 50,
-		margin: 0,
-		padding: 0,
+		// margin: 0,
+		paddingBottom: 100,
 		// flex: 1,
 		// flexDirection: 'row'
 		width: "100%"
