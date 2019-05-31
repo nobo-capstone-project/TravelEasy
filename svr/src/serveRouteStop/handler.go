@@ -30,6 +30,102 @@ func (ctx *RouteContext) okHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (ctx *RouteContext) routeGetAllHandler(w http.ResponseWriter, r *http.Request) {
+	// check session
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
+	log.Println(ctx.key)
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	switch r.Method {
+	case http.MethodGet:
+
+		res, err := ctx.db.GetAllRoutes()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// write to client
+		b, _ := json.Marshal(res)
+		common.HttpWriter(http.StatusOK, b, common.MimeJSON, w)
+		return
+
+	default:
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		return
+	}
+}
+
+func (ctx *RouteContext) routeGetNearBy(w http.ResponseWriter, r *http.Request) {
+	// check session
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
+	log.Println(ctx.key)
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	switch r.Method {
+	case http.MethodGet:
+
+		vals := r.URL.Query()
+		lat := vals.Get("lat")
+		long := vals.Get("long")
+
+		if len(lat) == 0 {
+			body := "no lat"
+			common.HttpWriter(http.StatusBadRequest, []byte(body), common.MimeText, w)
+			return
+		} else if len(long) == 0 {
+			body := "no long"
+			common.HttpWriter(http.StatusBadRequest, []byte(body), common.MimeText, w)
+			return
+		}
+
+		// TODO: search by lat and long
+
+
+	default:
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		return
+	}
+}
+
+func (ctx *RouteContext) routeGetTag(w http.ResponseWriter, r *http.Request) {
+	// check session
+	_, err := session.GetState(r, ctx.key, *ctx.redis, &session.State{})
+	log.Println(ctx.key)
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	switch r.Method {
+	case http.MethodGet:
+
+		vals := r.URL.Query()
+		tag := vals.Get("q")
+
+		if len(tag) == 0 {
+			common.HttpWriter(http.StatusBadRequest, []byte("no tag"), common.MimeText, w)
+			return
+		}
+
+		// TODO: search by tag
+
+
+	default:
+		http.Error(w, common.ErrMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
+		return
+	}
+}
+
 // {domain}/route/create/: POST - create new route and save to db
 func (ctx *RouteContext) routeCreateHandler(w http.ResponseWriter, r *http.Request) {
 

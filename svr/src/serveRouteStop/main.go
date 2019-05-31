@@ -44,6 +44,9 @@ func main() {
 	// {domain}/route/create/: POST - create new route and save to db
 	r.HandleFunc("/route/create/", ctx.routeCreateHandler)
 
+	// {domain}/route/all/: GET - get all routes from the db
+	r.HandleFunc("/route/all/", ctx.routeGetAllHandler)
+
 	// {domain}/route/{id}: PATCH - modify existing route
 	// {domain}/route/{id}: GET - get route details
 	r.HandleFunc("/route/{route_id}", ctx.specificRouteHandler)
