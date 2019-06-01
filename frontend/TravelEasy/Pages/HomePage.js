@@ -13,6 +13,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {withNavigation} from 'react-navigation';
 import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
+import App from "../App";
 
 
 const Dimensions = require('Dimensions');
@@ -26,7 +27,6 @@ const window = Dimensions.get('window');
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
 
 // import { skyline } from './imgs/singaSky.jpg';
-
 
 class HomePage extends React.Component {
 	constructor(props) {
@@ -439,7 +439,7 @@ const styles = StyleSheet.create({
 		fontFamily: 'Helvetica'
 	},
 	categContainer: {
-		backgroundColor: 'red',
+		// backgroundColor: 'red',
 		backgroundColor: 'white',
 
 		height: 50,
@@ -453,7 +453,7 @@ const styles = StyleSheet.create({
 	categView: {
 		height: 80,
 		width: 136,
-		height: 92,
+		// height: 92,
 		backgroundColor: '#FAD05A',
 		marginBottom: 10,
 		// marginTop: 10,

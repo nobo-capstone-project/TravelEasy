@@ -20,7 +20,7 @@ import ImagePicker from 'react-native-image-picker';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Upon pressing the add guide button, it will add stop to database, and saves an array of stopIDs for the guide: 
-// user id will be gatherered from leo's login page's async '
+// user id will be gathered from leo's login page's async '
 // Requires 3 stops
 // additional stops can be made by pressing "add stop"
 
