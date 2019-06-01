@@ -385,6 +385,7 @@ const styles = StyleSheet.create({
 		width: "36%",
 		backgroundColor: 'white',
 		margin: 3,
+		fontFamily: 'Helvetica'
 		// padding: 3
 	},
 	guideContainer: {
@@ -411,7 +412,10 @@ const styles = StyleSheet.create({
 	addPlanText: {
 		// marginLeft: 5
 		textAlign: 'center',
-		width: '100%'
+		width: '100%',
+		fontFamily: 'Helvetica',
+		fontWeight: '500',
+		fontSize: 14
 	},
 	guideTitle: {
 		fontWeight: "500",
@@ -431,7 +435,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "#FFF",
 		marginTop: 6,
 		paddingLeft: 16,
-		color: '#666666'
+		color: '#666666',
+		fontFamily: 'Helvetica'
 	},
 	categContainer: {
 		backgroundColor: 'red',
@@ -501,6 +506,7 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontWeight: "bold",
 		paddingTop: 65,
-		paddingLeft: 10
+		paddingLeft: 10,
+		fontFamily: 'Helvetica'
 	}
 });

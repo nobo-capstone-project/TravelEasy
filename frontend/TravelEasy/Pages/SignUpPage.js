@@ -7,7 +7,10 @@
  */
 
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import SvgUri from 'react-native-svg-uri';
+import { AsyncStorage, StyleSheet, Text, View,TouchableWithoutFeedback, } from 'react-native';
 import { Button, Container, DatePicker, Form, Header, Input, Item, TextInput } from 'native-base';
 // import { Text, View } from 'react-native';
 
@@ -40,6 +43,7 @@ export default class SignUpPage extends React.Component {
 		this.signUpUser = this.signUpUser.bind(this);
 		// this.convertDateToIso = this.convertDateToIso.bind(this);
 		this.dobIsoConvert = this.dobIsoConvert.bind(this);
+		this.navigateTo = this.navigateTo.bind(this);
 	}
 
 
@@ -48,6 +52,10 @@ export default class SignUpPage extends React.Component {
 		this.setState({ dob: utcDob }, () => {
 			console.log(this.state.dob)
 		});
+	}
+
+	navigateTo() {
+		this.props.navigation.navigate('Login');
 	}
 
 	signUpUser() {
@@ -137,8 +145,8 @@ export default class SignUpPage extends React.Component {
 
 		return (
 			<Container style={styles.container}>
-				{/* <Header style={{backgroundColor: '#FAD05A'}}>
-					<Text style={{marginTop: 14, fontSize: 16, fontWeight: '500', color: '#424242'}}>Sign Up</Text>
+				{/* <Header style={{backgroundColor: 'transparent'}}>
+				<
 				</Header> */}
 
 				{/* <Text>Sign Up</Text> */}
@@ -171,67 +179,85 @@ export default class SignUpPage extends React.Component {
 
 
 				</Form> */}
-
 				<Form>
-					<Text style={styles.createText}>
-						Create {"\n"}
-						Account
-					</Text>
-					<Item style={styles.textView} >
-						<Input 
-							style={styles.textInput}
-							editable={true}
-							maxLength={20}
-							placeholder="First Name"
-							onChangeText={(data) => this.setState({firstname: data})}/>
-					</Item>
-					<Item style={styles.textView}>
-						<Input 
-							style={styles.textInput} 
-							editable={true}
-							maxLength={200}
-							placeholder="Last Name"
-							onChangeText={(data) => this.setState({ lastname: data })} />
-					</Item>
-					<Item style={styles.textView}>
-						<Input 
-							style={styles.textInput}
-							editable={true}
-							maxLength={200}
-							placeholder="Username"
-							onChangeText={(data) => this.setState({ username: data })} />
-					</Item>
-					<Item style={styles.textView}>
-						<Input 
-							style={styles.textInput}
-							editable={true}
-							maxLength={200}
-							placeholder="Email"
-							onChangeText={(data) => this.setState({ email: data })} />
-					</Item>
-					<Item style={styles.textView}>
-						<Input 
-							style={styles.textInput}
-							editable={true}
-							maxLength={200}
-							placeholder="Password"
-							onChangeText={(data) => this.setState({ password: data })} />
-					</Item>
-					
-					
-				</Form>
+					<TouchableWithoutFeedback onPress={this.props.navigateTo}>
+					<Form style={{ flexDirection: 'row', marginTop: 60, marginLeft: 10 }}>
+						<FontAwesomeIcon icon={faChevronLeft} style={{ color: '#F67779' }} />
+						<Text style={{
+							width: 77,
+							height: 23,
+							fontSize: 14,
+							fontWeight: "500",
+							fontStyle: "normal",
+							color: "#F67779",
+							marginLeft: 4,
 
-				<Button 
-					style={styles.button} 
-					onPress={this.signUpUser} 
-					title="Solid Button"
-				>
-					<Text style={styles.btnText}>
-						Sign Up!
+						}}>
+							Login
 					</Text>
-					
-				</Button>
-			</Container>
+					</Form>
+				</TouchableWithoutFeedback>
+				</Form>
+			<Form>
+				<Text style={styles.createText}>
+					Create {"\n"}
+					Account
+					</Text>
+				<Item style={styles.textView} >
+					<Input
+						style={styles.textInput}
+						editable={true}
+						maxLength={20}
+						placeholder="First Name"
+						onChangeText={(data) => this.setState({ firstname: data })} />
+				</Item>
+				<Item style={styles.textView}>
+					<Input
+						style={styles.textInput}
+						editable={true}
+						maxLength={200}
+						placeholder="Last Name"
+						onChangeText={(data) => this.setState({ lastname: data })} />
+				</Item>
+				<Item style={styles.textView}>
+					<Input
+						style={styles.textInput}
+						editable={true}
+						maxLength={200}
+						placeholder="Username"
+						onChangeText={(data) => this.setState({ username: data })} />
+				</Item>
+				<Item style={styles.textView}>
+					<Input
+						style={styles.textInput}
+						editable={true}
+						maxLength={200}
+						placeholder="Email"
+						onChangeText={(data) => this.setState({ email: data })} />
+				</Item>
+				<Item style={styles.textView}>
+					<Input
+						style={styles.textInput}
+						editable={true}
+						maxLength={200}
+						placeholder="Password"
+						onChangeText={(data) => this.setState({ password: data })} />
+				</Item>
+
+
+			</Form>
+
+			<Button
+				style={styles.button}
+				onPress={this.signUpUser}
+				title="Solid Button"
+			>
+				<Text style={styles.btnText}>
+					Sign Up!
+					</Text>
+
+			</Button>
+			</Container >
 		);
 	}
 }
@@ -240,7 +266,9 @@ const styles = StyleSheet.create({
 		// paddingTop: 200
 		margin: 0,
 		padding: 0,
-		backgroundColor: '#F6F8FC'
+		backgroundColor: 'white',
+
+		// fontWeight: 'bold'
 	},
 
 	textView: {
@@ -250,29 +278,32 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 0.5,
 		borderStyle: "solid",
 		marginLeft: 50,
-		marginRight: 50
+		marginRight: 50,
+
 	},
 
 
 	createText: {
 		fontSize: 36,
-		marginTop: '40%',
+		marginTop: '24%',
 		marginLeft: 50,
 		color: '#FAD05A',
-		fontWeight: '600',
-		marginBottom: '10%'
+		fontWeight: '700',
+		marginBottom: '10%',
+		fontFamily: 'Futura',
 
 	},
 
 	textInput: {
 		paddingLeft: 10,
-		height: 50,
+		height: 46,
 		width: '60%',
 		fontSize: 14,
 		fontWeight: "600",
 		fontStyle: "normal",
 		letterSpacing: 0,
-		color: '#828282'
+		color: '#828282',
+		fontFamily: 'Futura',
 	},
 
 	button: {
@@ -280,7 +311,7 @@ const styles = StyleSheet.create({
 		width: '50%',
 		height: 50,
 		borderRadius: 50,
-		backgroundColor: "#fecd00",
+		backgroundColor: "#F67779",
 		shadowColor: "rgba(109, 109, 109, 0.24)",
 		shadowOffset: {
 			width: 0,
@@ -298,9 +329,11 @@ const styles = StyleSheet.create({
 
 	btnText: {
 		fontSize: 18,
-		fontWeight: "500",
+		fontWeight: "600",
 		fontStyle: "normal",
-		letterSpacing: 0,
+		letterSpacing: 1,
 		color: "white",
+		fontFamily: 'Futura',
+
 	},
 });

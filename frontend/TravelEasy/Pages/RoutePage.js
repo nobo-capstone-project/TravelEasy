@@ -130,7 +130,7 @@ class RouteHeader extends React.Component {
 									fontWeight: "500",
 									fontStyle: "normal",
 									color: "#000000"
-								}}>EXPLORE</Text>
+								}}>Explore</Text>
 							</View>
 						</TouchableWithoutFeedback>
 					</View>
