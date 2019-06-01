@@ -135,10 +135,12 @@ class LoginPage extends React.Component {
 				<TouchableHighlight style={styles.button} onPress={() => this._onPress()}>
 					<Text style={{
 						fontSize: 18,
-						fontWeight: "500",
+						fontWeight: "600",
 						fontStyle: "normal",
-						letterSpacing: 0,
-						color: "#333333"
+						letterSpacing: 1,
+						color: "white",
+						fontFamily: 'Futura',
+						
 					}}>Login</Text>
 				</TouchableHighlight>
 				<View style={{flexDirection: 'row', alignItems: 'center', marginTop: 25}}>
@@ -159,43 +161,49 @@ const styles = StyleSheet.create({
 		// paddingTop: 200
 		flex: 1,
 		flexDirection: 'column',
-		alignItems: 'center'
+		alignItems: 'center',
+		
 	},
 	header: {
 		marginTop: 150,
 		fontSize: 56,
-		fontWeight: "bold",
+		fontWeight: "800",
 		fontStyle: "normal",
 		// lineHeight: 50.6,
 		letterSpacing: 10.8,
-		color: "#f7b633"
+		color: "#f7b633",
+		fontFamily: 'Futura'
 	},
 	textView: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		borderBottomColor: '#f7b633',
 		borderBottomWidth: 0.5,
-		borderStyle: "solid"
+		borderStyle: "solid",
+		paddingBottom: 0
+		// paddingBottom: 0
 	},
 	textInput: {
 		paddingLeft: 10,
-		height: 50,
+		height: 46,
 		width: '60%',
 		fontSize: 14,
 		fontWeight: "normal",
 		fontStyle: "normal",
 		letterSpacing: 0,
+		fontFamily: 'Futura',
+		
 	},
 	button: {
-		marginTop: 50,
-		width: '65%',
-		height: 50,
+		marginTop: 60,
+		width: '50%',
+		height: 46,
 		borderRadius: 50,
-		backgroundColor: "#fecd00",
+		backgroundColor: "#F67779",
 		shadowColor: "rgba(109, 109, 109, 0.24)",
 		shadowOffset: {
 			width: 0,
-			height: 8
+			height: 4
 		},
 		shadowRadius: 6,
 		shadowOpacity: 1,
@@ -204,18 +212,20 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	bottomText: {
-		fontSize: 16,
+		fontSize: 14,
 		fontWeight: "500",
 		fontStyle: "normal",
 		letterSpacing: 0,
-		color: "#828282"
+		color: "#828282",
+		fontFamily: 'Futura',
 	},
 	signupText: {
-		fontSize: 16,
-		fontWeight: "500",
+		fontSize: 14,
+		fontWeight: "600",
 		fontStyle: "normal",
 		letterSpacing: 0,
-		color: "#5893D4"
+		color: "#F15A5C",
+		fontFamily: 'Futura',
 	}
 
 

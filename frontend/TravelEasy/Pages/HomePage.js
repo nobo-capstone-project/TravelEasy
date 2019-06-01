@@ -131,12 +131,22 @@ class HomePage extends React.Component {
 						{/* --------------------------------------------------------------------*/}
 						{/* --------------------- CATEGORIES SECTION -----------------------*/}
 						{/* --------------------------------------------------------------------*/}
+						
 						<Text style={styles.trendingText}>Trending Today</Text>
-						<View style={{ height: 90 }}>
+						<View style={{
+							height: 90,
+							shadowColor: "rgba(0, 0, 0, 0.25)",
+							shadowOffset: {
+								width: 0,
+								height: 2
+							},
+							shadowRadius: 2,
+							shadowOpacity: 1
+						}}>
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>
 									<View style={{ position: 'relative' }}>
-										<Image source={require('../imgs/singaSky.jpg')}
+										<Image source={require('../imgs/museum.jpg')}
 											style={{
 												width: 136,
 												height: 90
@@ -155,7 +165,7 @@ class HomePage extends React.Component {
 
 								<TouchableHighlight style={styles.categView}>
 									<View style={{ position: 'relative' }}>
-										<Image source={require('../imgs/singaSky.jpg')}
+										<Image source={require('../imgs/shopping.jpg')}
 											style={{
 												width: 136,
 												height: 90
@@ -171,8 +181,8 @@ class HomePage extends React.Component {
 									</View>
 								</TouchableHighlight>
 								<TouchableHighlight style={styles.categView}>
-								<View style={{ position: 'relative' }}>
-										<Image source={require('../imgs/singaSky.jpg')}
+									<View style={{ position: 'relative' }}>
+										<Image source={require('../imgs/park.jpg')}
 											style={{
 												width: 136,
 												height: 90
@@ -383,6 +393,7 @@ const styles = StyleSheet.create({
 		width: 100,
 		backgroundColor: 'white',
 		margin: 3,
+		fontFamily: 'Helvetica'
 		// padding: 3
 	},
 	guideContainer: {
@@ -414,7 +425,10 @@ const styles = StyleSheet.create({
 	addPlanText: {
 		// marginLeft: 5
 		textAlign: 'center',
-		width: '100%'
+		width: '100%',
+		fontFamily: 'Helvetica',
+		fontWeight: '500',
+		fontSize: 14
 	},
 	guideTitle: {
 		fontWeight: "500",
@@ -431,10 +445,11 @@ const styles = StyleSheet.create({
 		backgroundColor: "#FFF",
 		marginTop: 6,
 		paddingLeft: 16,
-		color: '#666666'
+		color: '#666666',
+		fontFamily: 'Helvetica'
 	},
 	categContainer: {
-		backgroundColor: 'red',
+		// backgroundColor: 'red',
 		backgroundColor: 'white',
 
 		height: 50,
@@ -500,6 +515,7 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontWeight: "bold",
 		paddingTop: 65,
-		paddingLeft: 10
+		paddingLeft: 10,
+		fontFamily: 'Helvetica'
 	}
 });

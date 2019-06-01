@@ -34,7 +34,9 @@ import ProfilePage from './Pages/ProfilePage';
 import SignUpPage from './Pages/SignUpPage';
 import Favorites from './Pages/FavoritesPage';
 import Plans from './Pages/PlansPage';
-import GuideItinerary from './Pages/GuideIninerary';
+
+
+import GuideInfo from './Pages/GuideIninerary';
 
 
 // import AppNav from './Components/createAppNavigator';
@@ -72,9 +74,9 @@ const TabNavigator = createBottomTabNavigator(
       },
     },
     Itinerary: {
-      screen: GuideItinerary,
+      screen: GuideInfo,
       navigationOptions: {
-        tabBarLabel: 'Itinerary(after "Japan 5-28" trip is clicked',
+        tabBarLabel: 'GuideInfo',
         tabBarIcon: ({ tintColor, activeTintColor }) => (
           <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
         )
@@ -104,7 +106,7 @@ const TabNavigator = createBottomTabNavigator(
     tabBarOptions: {
       activeTintColor: '#F7B633',
       inactiveTintColor: '#022C43',
-      
+
     }
   }
 );
@@ -115,16 +117,15 @@ const AppNavigator = createStackNavigator({
   BottomBar: TabNavigator,
   Route: RoutePage
 },
-{
-  initialRouteName: 'BottomBar',
-  headerMode: 'none'
-});
+  {
+    initialRouteName: 'BottomBar',
+    headerMode: 'none'
+  });
 
 const AppContainer = createAppContainer(AppNavigator);
-
 export default class App extends React.Component {
+
   render() {
     return <AppContainer />;
   }
 }
-

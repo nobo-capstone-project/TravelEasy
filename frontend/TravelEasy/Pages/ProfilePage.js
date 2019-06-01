@@ -36,7 +36,7 @@ export default class ProfilePage extends React.Component {
 					</Header>
 					<View style={styles.profile}>
 
-						<View style={{width: window.width, height: 20, backgroundColor: 'transparent'}}></View>
+						<View style={{width: window.width, height: 20, backgroundColor: 'transparent'}}/>
 
 						<View style={{flexDirection: 'row'}}>
 							<Image source={require('../imgs/user.png')} style={styles.userImg}/>
@@ -109,7 +109,7 @@ export default class ProfilePage extends React.Component {
 							{/* <View></View> */}
 							{/* </View> */}
 						</View>
-						<View style={{width: window.width, height: 10, backgroundColor: 'transparent'}}></View>
+						<View style={{width: window.width, height: 10, backgroundColor: 'transparent'}}/>
 						<View>
 							<Text style={styles.username}>
 								username
