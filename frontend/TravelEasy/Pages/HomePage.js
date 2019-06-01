@@ -7,13 +7,15 @@
  */
 
 import React from 'react';
-import {ImageBackground, ScrollView, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import { ImageBackground, ScrollView, StyleSheet, Text, TouchableHighlight, View, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
-import {withNavigation} from 'react-navigation';
-import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
 
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { withNavigation } from 'react-navigation';
+import { Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs, } from 'native-base';
+
+import SvgUri from 'react-native-svg-uri';
 
 const Dimensions = require('Dimensions');
 
@@ -27,15 +29,78 @@ const window = Dimensions.get('window');
 
 // import { skyline } from './imgs/singaSky.jpg';
 
-
 class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
 		this._navigateTo = this._navigateTo.bind(this);
+		this._voteUp = this._voteUp.bind(this);
+		this._voteDown = this._voteDown.bind(this);
+		this.state = {
+			cards: [
+				{
+					title: 'Singapore Madness',
+					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+					imgs: [
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Breakfast'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Hiking at Temple'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Lunch'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Lunch'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Lunch'
+						}
+					],
+					vote: 230
+				},
+				{
+					title: 'Singapore Madness',
+					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+					imgs: [
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Breakfast'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Hiking at Temple'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Lunch'
+						}
+					],
+					vote: 100
+				}
+			]
+		}
 	}
 
 	_navigateTo() {
 		this.props.navigation.navigate('Route');
+	}
+
+	_voteUp(index) {
+		let stateCopy = Object.assign({}, this.state);
+		stateCopy.cards[index].vote += 1;
+		this.setState(stateCopy);
+	}
+
+	_voteDown(index) {
+		let stateCopy = Object.assign({}, this.state);
+		stateCopy.cards[index].vote -= 1;
+		this.setState(stateCopy);
 	}
 
 	render() {
@@ -46,8 +111,8 @@ class HomePage extends React.Component {
 			<Container style={styles.homeSearch}>
 				<Header searchBar rounded style={styles.homeSearch}>
 					<Item style={styles.searchBox}>
-						<Icon name="ios-search"/>
-						<Input placeholder="Search"/>
+						<Icon name="ios-search" />
+						<Input placeholder="Search" />
 						{/* <Icon name="ios-people" /> */}
 					</Item>
 					<Button transparent>
@@ -59,7 +124,7 @@ class HomePage extends React.Component {
 
 				{/* <View style={styles.tabHeader}> */}
 
-				<Tabs tabStyle={{backgroundColor: '#FAD05A'}} locked={true}>
+				<Tabs tabStyle={{ backgroundColor: '#FAD05A' }} locked={true}>
 
 					<Tab style={styles.tab} heading="All">
 
@@ -67,43 +132,61 @@ class HomePage extends React.Component {
 						{/* --------------------- CATEGORIES SECTION -----------------------*/}
 						{/* --------------------------------------------------------------------*/}
 						<Text style={styles.trendingText}>Trending Today</Text>
-						<View style={{height: 90}}>
+						<View style={{ height: 90 }}>
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>
-									<Text style={styles.categName}>Click here</Text>
-									{/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+									<View style={{ position: 'relative' }}>
+										<Image source={require('../imgs/singaSky.jpg')}
+											style={{
+												width: 136,
+												height: 90
+											}} />
+
+										<Text style={{
+											position: 'absolute',
+											top: 60,
+											left: 5,
+											color: "white",
+											fontWeight: "bold"
+										}}>Museum Day</Text>
+
+									</View>
 								</TouchableHighlight>
 
 								<TouchableHighlight style={styles.categView}>
-									<Text style={styles.categName}>Click here</Text>
-									{/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+									<View style={{ position: 'relative' }}>
+										<Image source={require('../imgs/singaSky.jpg')}
+											style={{
+												width: 136,
+												height: 90
+											}} />
+
+										<Text style={{
+											position: 'absolute',
+											top: 60,
+											left: 5,
+											color: "white",
+											fontWeight: "bold"
+										}}>Shopping Festival</Text>
+									</View>
 								</TouchableHighlight>
 								<TouchableHighlight style={styles.categView}>
-									<Text style={styles.categName}>Click here</Text>
-									{/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
-								</TouchableHighlight>
-								<TouchableHighlight style={styles.categView}>
-									<Text style={styles.categName}>Click here</Text>
-									{/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
-								</TouchableHighlight>
-								<TouchableHighlight style={styles.categView}>
-									<Text style={styles.categName}>Click here</Text>
-									{/* <Image
-                            style={styles.button}
-                            source={require('./myButton.png')}
-                        /> */}
+								<View style={{ position: 'relative' }}>
+										<Image source={require('../imgs/singaSky.jpg')}
+											style={{
+												width: 136,
+												height: 90
+											}} />
+
+										<Text style={{
+											position: 'absolute',
+											top: 60,
+											left: 5,
+											color: "white",
+											fontWeight: "bold"
+										}}>National Park</Text>
+
+									</View>
 								</TouchableHighlight>
 							</ScrollView>
 						</View>
@@ -114,225 +197,11 @@ class HomePage extends React.Component {
 
 						{/* <Text style={styles.centerText}>Popular Guides At The Moment: </Text> */}
 						<Content style={styles.guideContainer} ref={c => (this.component = c)}>
-							<View style={styles.dayGuide}>
-								<View style={{flexDirection: 'row'}}>
-									<Text style={styles.guideTitle} onPress={this._navigateTo}>Singapore Madness</Text>
-									<Button success style={styles.addPlanButton}>
-										<Text style={styles.addPlanText}>Add to Plans</Text>
-									</Button>
-								</View>
-
-								<View><Text style={styles.salesPitch}>Sales Pitch</Text>
-									<Text> "Singapore is cocktail of the best clubs, the best foods, and the best views
-										in the world. Read more.." </Text></View>
-
-								{/* ------------------------------------------------ */}
-								{/* pictures of the stops in this day guide */}
-								{/* ------------------------------------------------ */}
-								<ScrollView horizontal style={styles.stopContainer}>
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: 100, height: 100}}>
-												<Text style={styles.nameOfStop}>Breakfast {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Hiking at Temple {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Lunch {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Singapore {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-								</ScrollView>
-
-								<View style={styles.guideActionsCont}>
-									<View style={[styles.upvAndDownv, styles.guideAction]}>
-										<FontAwesomeIcon icon={faArrowUp} style={{color: 'black', marginRight: 5}}/>
-										<Text style={{
-											fontSize: 13,
-											// fontWeight: "900",
-											fontStyle: "normal",
-											color: "black"
-										}}>23,880</Text>
-										<FontAwesomeIcon icon={faArrowDown} style={{color: 'black', marginLeft: 5}}/>
-									</View>
-
-									<Button style={styles.guideAction}>
-										<Text>Comment</Text>
-									</Button>
-									<Button style={styles.guideAction}>
-										<Text>Read More</Text>
-									</Button>
-								</View>
-							</View>
-
-							<View style={styles.dayGuide}>
-								<View style={{flexDirection: 'row'}}>
-									<Text style={styles.guideTitle}>Singapore Madness</Text>
-									<Button success style={styles.addPlanButton}>
-										<Text style={styles.addPlanText}>Add to Plans</Text>
-									</Button>
-								</View>
-
-								<View><Text style={styles.salesPitch}>Sales Pitch</Text>
-									<Text> "Singapore is cocktail of the best clubs, the best foods, and the best views
-										in the world. Read more.." </Text></View>
-
-								{/* ------------------------------------------------ */}
-								{/* pictures of the stops in this day guide */}
-								{/* ------------------------------------------------ */}
-								<ScrollView horizontal style={styles.stopContainer}>
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Singapore {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Singapore {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Singapore {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Singapore {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-								</ScrollView>
-
-								<View style={styles.guideActionsCont}>
-									<View style={[styles.upvAndDownv, styles.guideAction]}>
-										<FontAwesomeIcon icon={faArrowUp} style={{color: 'black', marginRight: 5}}/>
-										<Text style={{
-											fontSize: 13,
-											// fontWeight: "900",
-											fontStyle: "normal",
-											color: "black"
-										}}>23,880</Text>
-										<FontAwesomeIcon icon={faArrowDown} style={{color: 'black', marginLeft: 5}}/>
-									</View>
-
-									<Button style={styles.guideAction}>
-										<Text>Comment</Text>
-									</Button>
-									<Button style={styles.guideAction}>
-										<Text>Read More</Text>
-									</Button>
-								</View>
-							</View>
-							<View style={styles.dayGuide}>
-								<View style={{flexDirection: 'row'}}>
-									<Text style={styles.guideTitle}>Singapore Madness</Text>
-									<Button success style={styles.addPlanButton}>
-										<Text style={styles.addPlanText}>Add to Plans</Text>
-									</Button>
-								</View>
-
-								<View><Text style={styles.salesPitch}>Sales Pitch</Text>
-									<Text> "Singapore is cocktail of the best clubs, the best foods, and the best views
-										in the world. Read more.." </Text></View>
-
-								{/* ------------------------------------------------ */}
-								{/* pictures of the stops in this day guide */}
-								{/* ------------------------------------------------ */}
-								<ScrollView horizontal style={styles.stopContainer}>
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Singapore {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Singapore {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Singapore {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-									<TouchableHighlight style={styles.stopViews}>
-										<View>
-											<ImageBackground source={require('../imgs/singaSky.jpg')}
-											                 style={{width: '100%', height: '100%'}}>
-												<Text style={styles.nameOfStop}>Singapore {this.state}</Text>
-											</ImageBackground>
-										</View>
-									</TouchableHighlight>
-								</ScrollView>
-
-								<View style={styles.guideActionsCont}>
-									<View style={[styles.upvAndDownv, styles.guideAction]}>
-										<FontAwesomeIcon icon={faArrowUp} style={{color: 'black', marginRight: 5}}/>
-										<Text style={{
-											fontSize: 13,
-											// fontWeight: "900",
-											fontStyle: "normal",
-											color: "black"
-										}}>23,880</Text>
-										<FontAwesomeIcon icon={faArrowDown} style={{color: 'black', marginLeft: 5}}/>
-									</View>
-
-									<Button style={styles.guideAction}>
-										<Text>Comment</Text>
-									</Button>
-									<Button style={styles.guideAction}>
-										<Text>Read More</Text>
-									</Button>
-								</View>
-							</View>
-
-
+							<TourCards
+								cards={this.state.cards}
+								navigateTo={this._navigateTo}
+								voteUp={this._voteUp}
+								voteDown={this._voteDown}></TourCards>
 						</Content>
 
 					</Tab>
@@ -341,8 +210,6 @@ class HomePage extends React.Component {
 					</Tab>
 					<Tab style={styles.tab} heading="Following">
 						{/* <Tab2 /> */}
-
-
 					</Tab>
 				</Tabs>
 
@@ -350,6 +217,137 @@ class HomePage extends React.Component {
 		);
 	}
 }
+
+class TourCards extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		console.log(this.props.cards);
+		return (
+			<View>
+				{this.props.cards.map((card, i) => {
+					return <TourCard card={card}
+						key={i}
+						navigateTo={this.props.navigateTo}
+						voteUp={this.props.voteUp}
+						voteDown={this.props.voteDown}
+						index={i}></TourCard>
+				})}
+			</View>
+		)
+	}
+}
+
+
+class TourCard extends React.Component {
+	constructor(props) {
+		super(props);
+		this._onPressUp = this._onPressUp.bind(this);
+		this._onPressDown = this._onPressDown.bind(this);
+		this.state = {
+			buttomUp: false,
+			buttomDowm: false
+		}
+	}
+
+	_onPressUp() {
+		this.setState({
+			buttomUp: true
+		})
+		this.props.voteUp(this.props.index);
+	}
+
+	_onPressDown() {
+		this.setState({
+			buttomDowm: true
+		})
+		this.props.voteDown(this.props.index);
+	}
+
+	render() {
+		return (
+			<View style={styles.dayGuide}>
+				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 5 }}>
+					<Text style={styles.guideTitle} onPress={this.props.navigateTo}>{this.props.card.title}</Text>
+					<Button success style={styles.addPlanButton}>
+						<Text style={styles.addPlanText}>Add to Plans</Text>
+					</Button>
+				</View>
+
+				<View style={{ margin: 5 }}>
+					<Text>{this.props.card.desc}</Text>
+				</View>
+
+				{/* ------------------------------------------------ */}
+				{/* pictures of the stops in this day guide */}
+				{/* ------------------------------------------------ */}
+				<Gallery imgs={this.props.card.imgs}></Gallery>
+
+				<View style={styles.guideActionsCont}>
+					<View style={{ flexDirection: 'row', marginTop: 5 }}>
+						<TouchableWithoutFeedback
+							disabled={this.state.buttomUp}
+							onPress={this._onPressUp}>
+							<FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5 }} />
+						</TouchableWithoutFeedback>
+						<Text style={{
+							fontSize: 13,
+							// fontWeight: "900",
+							fontStyle: "normal",
+							color: "black"
+						}}>{this.props.card.vote}</Text>
+						<TouchableWithoutFeedback
+							disabled={this.state.buttomDowm}
+							onPress={this._onPressDown}>
+							<FontAwesomeIcon icon={faArrowDown} style={{ color: 'black', marginLeft: 5 }} />
+						</TouchableWithoutFeedback>
+					</View>
+
+					<Button style={{ backgroundColor: 'white', height: 30 }} onPress={this.props.navigateTo}>
+						<Text>Read More</Text>
+					</Button>
+				</View>
+			</View>
+		)
+	}
+}
+
+
+class Gallery extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		console.log(this.props.imgs);
+		return (
+			<ScrollView
+				horizontal={true}
+				showsHorizontalScrollIndicator={false}>
+				<View style={{ flexDirection: 'row', marginBottom: 5 }}>
+					{this.props.imgs.map((img, i) => {
+						return (
+							<TouchableHighlight style={styles.stopViews} key={i}>
+								<View>
+									{console.log(img.url)}
+									<ImageBackground source={img.url}
+										style={{
+											width: 100,
+											height: 70
+										}}>
+									</ImageBackground>
+								</View>
+							</TouchableHighlight>
+						);
+					})}
+				</View>
+			</ScrollView>
+		);
+	}
+}
+
 
 export default withNavigation(HomePage);
 
@@ -364,10 +362,12 @@ const styles = StyleSheet.create({
 	guideAction: {
 		width: '33%',
 		height: 30,
-		backgroundColor: '#f2f2f2'
 	},
 	guideActionsCont: {
-		flexDirection: 'row'
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-evenly',
+		alignItems: 'center'
 	},
 	upvAndDownv: {
 		flexDirection: 'row'
@@ -380,15 +380,15 @@ const styles = StyleSheet.create({
 	},
 	stopViews: {
 		height: 70,
-		width: "36%",
+		width: 100,
 		backgroundColor: 'white',
 		margin: 3,
 		// padding: 3
 	},
 	guideContainer: {
 		backgroundColor: '#F6F8FC',
-        height: 100,
-        marginTop: 20
+		height: 100,
+		marginTop: 20
 	},
 	dayGuide: {
 		marginTop: 2,
@@ -396,15 +396,20 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FFFFFF',
 		// height: 180,
 		marginBottom: 10,
-		width: "100%"
+		width: "100%",
+		shadowColor: "rgba(0, 0, 0, 0.25)",
+		shadowOffset: {
+			width: 0,
+			height: 2
+		},
+		shadowRadius: 2,
+		shadowOpacity: 1
 	},
 	addPlanButton: {
 		width: 120,
 		height: 30,
 		borderRadius: 15,
-		marginRight: 0,
-		backgroundColor: '#FAD05A',
-		marginTop: 10,
+		backgroundColor: '#FAD05A'
 	},
 	addPlanText: {
 		// marginLeft: 5
@@ -414,11 +419,8 @@ const styles = StyleSheet.create({
 	guideTitle: {
 		fontWeight: "500",
 		fontSize: 18,
-		marginRight: 50,
-        marginTop: 10,
-        marginLeft: 10,
-        color: "#424242"
-    },
+		color: "#424242"
+	},
 
 	trendingText: {
 		textAlign: 'left',
@@ -444,9 +446,8 @@ const styles = StyleSheet.create({
 
 	},
 	categView: {
-		height: 80,
 		width: 136,
-		height: 92,
+		height: 90,
 		backgroundColor: '#FAD05A',
 		marginBottom: 10,
 		// marginTop: 10,
