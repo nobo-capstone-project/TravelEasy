@@ -7,15 +7,24 @@
  */
 
 import React from 'react';
-import { ImageBackground, ScrollView, StyleSheet, Text, TouchableHighlight, View, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import {
+	ImageBackground,
+	ScrollView,
+	StyleSheet,
+	Text,
+	TouchableHighlight,
+	TouchableWithoutFeedback,
+	View
+} from 'react-native';
 
 
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { withNavigation } from 'react-navigation';
-import { Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs, } from 'native-base';
-
-import SvgUri from 'react-native-svg-uri';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
+import {withNavigation} from 'react-navigation';
+import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
+import {Route} from "../Model/Route";
+import {CardImage, TripCard} from "../Model/TripCard";
+import {routes} from "../Model/Routes";
 
 const Dimensions = require('Dimensions');
 
@@ -29,61 +38,71 @@ const window = Dimensions.get('window');
 
 // import { skyline } from './imgs/singaSky.jpg';
 
+const allRoutes = routes;
+const allCards: TripCard[] = [];
+
+allRoutes.getAllRoutes().forEach((r) => {
+	allCards.push(new TripCard(r));
+});
+
 class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
 		this._navigateTo = this._navigateTo.bind(this);
 		this._voteUp = this._voteUp.bind(this);
 		this._voteDown = this._voteDown.bind(this);
+
 		this.state = {
-			cards: [
-				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-					imgs: [
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 230
-				},
-				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-					imgs: [
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 100
-				}
-			]
+			cards: allCards
+			// TODO: loading card views from route model -- Rico
+			// cards: [
+			// 	{
+			// 		title: 'Singapore Madness',
+			// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+			// 		imgs: [
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Breakfast'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Hiking at Temple'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Lunch'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Lunch'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Lunch'
+			// 			}
+			// 		],
+			// 		vote: 230
+			// 	},
+			// 	{
+			// 		title: 'Singapore Madness',
+			// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+			// 		imgs: [
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Breakfast'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Hiking at Temple'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Lunch'
+			// 			}
+			// 		],
+			// 		vote: 100
+			// 	}
+			// ]
 		}
 	}
 
@@ -111,8 +130,8 @@ class HomePage extends React.Component {
 			<Container style={styles.homeSearch}>
 				<Header searchBar rounded style={styles.homeSearch}>
 					<Item style={styles.searchBox}>
-						<Icon name="ios-search" />
-						<Input placeholder="Search" />
+						<Icon name="ios-search"/>
+						<Input placeholder="Search"/>
 						{/* <Icon name="ios-people" /> */}
 					</Item>
 					<Button transparent>
@@ -124,14 +143,14 @@ class HomePage extends React.Component {
 
 				{/* <View style={styles.tabHeader}> */}
 
-				<Tabs tabStyle={{ backgroundColor: '#FAD05A' }} locked={true}>
+				<Tabs tabStyle={{backgroundColor: '#FAD05A'}} locked={true}>
 
 					<Tab style={styles.tab} heading="All">
 
 						{/* --------------------------------------------------------------------*/}
 						{/* --------------------- CATEGORIES SECTION -----------------------*/}
 						{/* --------------------------------------------------------------------*/}
-						
+
 						<Text style={styles.trendingText}>Trending Today</Text>
 						<View style={{
 							height: 90,
@@ -145,12 +164,12 @@ class HomePage extends React.Component {
 						}}>
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>
-									<View style={{ position: 'relative' }}>
-										<Image source={require('../imgs/museum.jpg')}
-											style={{
-												width: 136,
-												height: 90
-											}} />
+									<View style={{position: 'relative'}}>
+										<CardImage source={require('../imgs/museum.jpg')}
+										           style={{
+											           width: 136,
+											           height: 90
+										           }}/>
 
 										<Text style={{
 											position: 'absolute',
@@ -164,12 +183,12 @@ class HomePage extends React.Component {
 								</TouchableHighlight>
 
 								<TouchableHighlight style={styles.categView}>
-									<View style={{ position: 'relative' }}>
-										<Image source={require('../imgs/shopping.jpg')}
-											style={{
-												width: 136,
-												height: 90
-											}} />
+									<View style={{position: 'relative'}}>
+										<CardImage source={require('../imgs/shopping.jpg')}
+										           style={{
+											           width: 136,
+											           height: 90
+										           }}/>
 
 										<Text style={{
 											position: 'absolute',
@@ -181,12 +200,12 @@ class HomePage extends React.Component {
 									</View>
 								</TouchableHighlight>
 								<TouchableHighlight style={styles.categView}>
-									<View style={{ position: 'relative' }}>
-										<Image source={require('../imgs/park.jpg')}
-											style={{
-												width: 136,
-												height: 90
-											}} />
+									<View style={{position: 'relative'}}>
+										<CardImage source={require('../imgs/park.jpg')}
+										           style={{
+											           width: 136,
+											           height: 90
+										           }}/>
 
 										<Text style={{
 											position: 'absolute',
@@ -239,11 +258,11 @@ class TourCards extends React.Component {
 			<View>
 				{this.props.cards.map((card, i) => {
 					return <TourCard card={card}
-						key={i}
-						navigateTo={this.props.navigateTo}
-						voteUp={this.props.voteUp}
-						voteDown={this.props.voteDown}
-						index={i}></TourCard>
+					                 key={i}
+					                 navigateTo={this.props.navigateTo}
+					                 voteUp={this.props.voteUp}
+					                 voteDown={this.props.voteDown}
+					                 index={i}></TourCard>
 				})}
 			</View>
 		)
@@ -265,28 +284,28 @@ class TourCard extends React.Component {
 	_onPressUp() {
 		this.setState({
 			buttomUp: true
-		})
+		});
 		this.props.voteUp(this.props.index);
 	}
 
 	_onPressDown() {
 		this.setState({
 			buttomDowm: true
-		})
+		});
 		this.props.voteDown(this.props.index);
 	}
 
 	render() {
 		return (
 			<View style={styles.dayGuide}>
-				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 5 }}>
+				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 5}}>
 					<Text style={styles.guideTitle} onPress={this.props.navigateTo}>{this.props.card.title}</Text>
 					<Button success style={styles.addPlanButton}>
 						<Text style={styles.addPlanText}>Add to Plans</Text>
 					</Button>
 				</View>
 
-				<View style={{ margin: 5 }}>
+				<View style={{margin: 5}}>
 					<Text>{this.props.card.desc}</Text>
 				</View>
 
@@ -296,11 +315,11 @@ class TourCard extends React.Component {
 				<Gallery imgs={this.props.card.imgs}></Gallery>
 
 				<View style={styles.guideActionsCont}>
-					<View style={{ flexDirection: 'row', marginTop: 5 }}>
+					<View style={{flexDirection: 'row', marginTop: 5}}>
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomUp}
 							onPress={this._onPressUp}>
-							<FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5 }} />
+							<FontAwesomeIcon icon={faArrowUp} style={{color: 'black', marginRight: 5}}/>
 						</TouchableWithoutFeedback>
 						<Text style={{
 							fontSize: 13,
@@ -311,11 +330,11 @@ class TourCard extends React.Component {
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomDowm}
 							onPress={this._onPressDown}>
-							<FontAwesomeIcon icon={faArrowDown} style={{ color: 'black', marginLeft: 5 }} />
+							<FontAwesomeIcon icon={faArrowDown} style={{color: 'black', marginLeft: 5}}/>
 						</TouchableWithoutFeedback>
 					</View>
 
-					<Button style={{ backgroundColor: 'white', height: 30 }} onPress={this.props.navigateTo}>
+					<Button style={{backgroundColor: 'white', height: 30}} onPress={this.props.navigateTo}>
 						<Text>Read More</Text>
 					</Button>
 				</View>
@@ -336,17 +355,17 @@ class Gallery extends React.Component {
 			<ScrollView
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}>
-				<View style={{ flexDirection: 'row', marginBottom: 5 }}>
+				<View style={{flexDirection: 'row', marginBottom: 5}}>
 					{this.props.imgs.map((img, i) => {
 						return (
 							<TouchableHighlight style={styles.stopViews} key={i}>
 								<View>
 									{console.log(img.url)}
 									<ImageBackground source={img.url}
-										style={{
-											width: 100,
-											height: 70
-										}}>
+									                 style={{
+										                 width: 100,
+										                 height: 70
+									                 }}>
 									</ImageBackground>
 								</View>
 							</TouchableHighlight>

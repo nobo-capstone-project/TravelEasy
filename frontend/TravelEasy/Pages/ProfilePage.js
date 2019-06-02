@@ -9,6 +9,7 @@
 import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Header,} from 'native-base';
+import TouchableOpacity from "react-native-web/src/exports/TouchableOpacity";
 // import { Text, View } from 'react-native';
 
 // import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
@@ -35,7 +36,7 @@ export default class ProfilePage extends React.Component {
 						</Text>
 					</Header>
 					<View style={styles.profile}>
-
+						{/*this is a button which nowhere say it is*/}
 						<View style={{width: window.width, height: 20, backgroundColor: 'transparent'}}/>
 
 						<View style={{flexDirection: 'row'}}>
@@ -89,20 +90,22 @@ export default class ProfilePage extends React.Component {
 										</Text>
 									</View>
 								</View>
-								<View style={{
-									borderColor: "#F7B633",
-									borderWidth: 1,
-									borderRadius: 10,
-									marginTop: 14,
-									paddingLeft: 60,
-									paddingRight: 60,
-									paddingTop: 4,
-									paddingBottom: 4,
-									marginLeft: 50,
-									marginBottom: 0
-								}}>
-									<Text>Edit Profile</Text>
-								</View>
+								<TouchableOpacity>
+									<View style={{
+										borderColor: "#F7B633",
+										borderWidth: 1,
+										borderRadius: 10,
+										marginTop: 14,
+										paddingLeft: 60,
+										paddingRight: 60,
+										paddingTop: 4,
+										paddingBottom: 4,
+										marginLeft: 50,
+										marginBottom: 0
+									}}>
+										<Text>Edit Profile</Text>
+									</View>
+								</TouchableOpacity>
 							</View>
 
 							{/* <Button>Profile</Button> */}
