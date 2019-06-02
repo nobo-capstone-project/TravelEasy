@@ -53,56 +53,56 @@ class HomePage extends React.Component {
 		this._voteDown = this._voteDown.bind(this);
 
 		this.state = {
-			cards: allCards
+			// cards: allCards
 			// TODO: loading card views from route model -- Rico
-			// cards: [
-			// 	{
-			// 		title: 'Singapore Madness',
-			// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-			// 		imgs: [
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Breakfast'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Hiking at Temple'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Lunch'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Lunch'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Lunch'
-			// 			}
-			// 		],
-			// 		vote: 230
-			// 	},
-			// 	{
-			// 		title: 'Singapore Madness',
-			// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-			// 		imgs: [
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Breakfast'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Hiking at Temple'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Lunch'
-			// 			}
-			// 		],
-			// 		vote: 100
-			// 	}
-			// ]
+			cards: [
+				{
+					title: 'Singapore Madness',
+					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+					imgs: [
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Breakfast'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Hiking at Temple'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Lunch'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Lunch'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Lunch'
+						}
+					],
+					vote: 230
+				},
+				{
+					title: 'Singapore Madness',
+					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+					imgs: [
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Breakfast'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Hiking at Temple'
+						},
+						{
+							url: require('../imgs/singaSky.jpg'),
+							title: 'Lunch'
+						}
+					],
+					vote: 100
+				}
+			]
 		}
 	}
 
