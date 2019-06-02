@@ -173,7 +173,7 @@ class HomePage extends React.Component {
 
 										<Text style={{
 											position: 'absolute',
-											top: 60,
+											top: 65,
 											left: 5,
 											color: "white",
 											fontWeight: "bold"
@@ -192,7 +192,7 @@ class HomePage extends React.Component {
 
 										<Text style={{
 											position: 'absolute',
-											top: 60,
+											top: 65,
 											left: 5,
 											color: "white",
 											fontWeight: "bold"
@@ -209,7 +209,7 @@ class HomePage extends React.Component {
 
 										<Text style={{
 											position: 'absolute',
-											top: 60,
+											top: 65,
 											left: 5,
 											color: "white",
 											fontWeight: "bold"
@@ -305,21 +305,28 @@ class TourCard extends React.Component {
 					</Button>
 				</View>
 
-				<View style={{margin: 5}}>
-					<Text>{this.props.card.desc}</Text>
+				<View style={{ margin: 5 }}>
+					<Text style={{ color: '#424242', lineHeight: 16 }}>{this.props.card.desc}</Text>
 				</View>
 
 				{/* ------------------------------------------------ */}
 				{/* pictures of the stops in this day guide */}
 				{/* ------------------------------------------------ */}
 				<Gallery imgs={this.props.card.imgs}></Gallery>
-
+				<View
+					style={{
+						borderBottomColor: '#bdbdbd',
+						borderBottomWidth: 0.5,
+						marginTop: 4,
+						marginBottom: 4
+					}}
+				/>
 				<View style={styles.guideActionsCont}>
-					<View style={{flexDirection: 'row', marginTop: 5}}>
+					<View style={{ flexDirection: 'row', marginTop: 0 }}>
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomUp}
 							onPress={this._onPressUp}>
-							<FontAwesomeIcon icon={faArrowUp} style={{color: 'black', marginRight: 5}}/>
+							<FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5, marginTop:0 }} />
 						</TouchableWithoutFeedback>
 						<Text style={{
 							fontSize: 13,
@@ -396,7 +403,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
-		alignItems: 'center'
+		alignItems: 'center',
+		// marginBottom: 2
 	},
 	upvAndDownv: {
 		flexDirection: 'row'
@@ -422,7 +430,7 @@ const styles = StyleSheet.create({
 	},
 	dayGuide: {
 		marginTop: 2,
-		padding: 5,
+		padding: 10,
 		backgroundColor: '#FFFFFF',
 		// height: 180,
 		marginBottom: 10,
@@ -433,26 +441,30 @@ const styles = StyleSheet.create({
 			height: 2
 		},
 		shadowRadius: 2,
-		shadowOpacity: 1
+		shadowOpacity: 1,
+		paddingBottom: 0
 	},
 	addPlanButton: {
-		width: 120,
+		width: 90,
 		height: 30,
 		borderRadius: 15,
-		backgroundColor: '#FAD05A'
+		backgroundColor: '#F67779',
+		marginRight: 15,
 	},
 	addPlanText: {
 		// marginLeft: 5
 		textAlign: 'center',
 		width: '100%',
 		fontFamily: 'Helvetica',
-		fontWeight: '500',
-		fontSize: 14
+		fontWeight: '400',
+		fontSize: 12,
+		color: 'white',
 	},
 	guideTitle: {
 		fontWeight: "500",
 		fontSize: 18,
-		color: "#424242"
+		color: "#424242",
+		marginTop: 3,
 	},
 
 	trendingText: {
