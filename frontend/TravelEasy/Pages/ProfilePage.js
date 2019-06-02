@@ -30,7 +30,7 @@ export default class ProfilePage extends React.Component {
 					{/* <RouteIntro tags={this.state.tags}></RouteIntro>
                     <RouteDetail stops={this.state.stops}></RouteDetail> */}
 					<Header style={{backgroundColor: '#FAD05A'}}>
-						<Text style={{marginTop: 14, fontSize: 16, fontWeight: '500'}}>
+						<Text style={{marginTop: 14, fontSize: 18, fontWeight: '400', color: '#424242', fontFamily: 'Helvetica'}}>
 							Hi, username
 						</Text>
 					</Header>
