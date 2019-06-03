@@ -8,7 +8,7 @@
 
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { TouchableWithoutFeedback, } from 'react-native';
+import { TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Header } from 'native-base';
 
@@ -167,20 +167,22 @@ export default class ProfilePage extends React.Component {
 										</Text>
 									</View>
 								</View>
-								<View style={{
-									borderColor: "#F7B633",
-									borderWidth: 1,
-									borderRadius: 10,
-									marginTop: 14,
-									paddingLeft: 60,
-									paddingRight: 60,
-									paddingTop: 4,
-									paddingBottom: 4,
-									marginLeft: 50,
-									marginBottom: 0
-								}}>
-									<Text onPress={() => this.props.navigation.navigate('EditProfile', { refresh: this.refreshFunction })}>Edit Profile</Text>
-								</View>
+								<TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('EditProfile', { refresh: this.refreshFunction })}>
+									<View style={{
+										borderColor: "#F7B633",
+										borderWidth: 1,
+										borderRadius: 10,
+										marginTop: 14,
+										paddingLeft: 60,
+										paddingRight: 60,
+										paddingTop: 4,
+										paddingBottom: 4,
+										marginLeft: 50,
+										marginBottom: 0
+									}}>
+										<Text>Edit Profile</Text>
+									</View>
+								</TouchableWithoutFeedback>
 							</View>
 
 							{/* <Button>Profile</Button> */}
@@ -217,7 +219,7 @@ export default class ProfilePage extends React.Component {
 				</View>
 				{/* <PostComment update={this.updateComments}></PostComment> */}
 				{/* {console.log(this.state.comments)} */}
-			</ScrollView>
+			</ScrollView >
 
 
 		);

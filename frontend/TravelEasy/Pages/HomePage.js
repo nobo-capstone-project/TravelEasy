@@ -22,9 +22,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {withNavigation} from 'react-navigation';
 import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
-import {Route} from "../Model/Route";
-import {CardImage, TripCard} from "../Model/TripCard";
-import {routes} from "../Model/Routes";
+// import {Route} from "../Model/Route";
+// import {CardImage, TripCard} from "../Model/TripCard";
+// import {routes} from "../Model/Routes";
+
 
 const Dimensions = require('Dimensions');
 
@@ -38,12 +39,12 @@ const window = Dimensions.get('window');
 
 // import { skyline } from './imgs/singaSky.jpg';
 
-const allRoutes = routes;
+// const allRoutes = routes;
 // const allCards: TripCard[] = [];
 
-allRoutes.getAllRoutes().forEach((r) => {
-	allCards.push(new TripCard(r));
-});
+// allRoutes.getAllRoutes().forEach((r) => {
+// 	allCards.push(new TripCard(r));
+// });
 
 class HomePage extends React.Component {
 	constructor(props) {
@@ -165,7 +166,7 @@ class HomePage extends React.Component {
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
-										<CardImage source={require('../imgs/museum.jpg')}
+										<ImageBackground source={require('../imgs/museum.jpg')}
 										           style={{
 											           width: 136,
 											           height: 90
@@ -184,7 +185,7 @@ class HomePage extends React.Component {
 
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
-										<CardImage source={require('../imgs/shopping.jpg')}
+										<ImageBackground source={require('../imgs/shopping.jpg')}
 										           style={{
 											           width: 136,
 											           height: 90
@@ -201,7 +202,7 @@ class HomePage extends React.Component {
 								</TouchableHighlight>
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
-										<CardImage source={require('../imgs/park.jpg')}
+										<ImageBackground source={require('../imgs/park.jpg')}
 										           style={{
 											           width: 136,
 											           height: 90
