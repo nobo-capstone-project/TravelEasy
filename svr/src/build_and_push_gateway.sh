@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo
-echo "===== Building Gateway Image ====="
+echo "===== Building Gateway CardImage ====="
 echo
 
 cd ./serveGateway/

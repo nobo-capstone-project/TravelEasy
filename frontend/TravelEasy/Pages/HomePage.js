@@ -7,15 +7,24 @@
  */
 
 import React from 'react';
-import { ImageBackground, ScrollView, StyleSheet, Text, TouchableHighlight, View, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import {
+	ImageBackground,
+	ScrollView,
+	StyleSheet,
+	Text,
+	TouchableHighlight,
+	TouchableWithoutFeedback,
+	View
+} from 'react-native';
 
 
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { withNavigation } from 'react-navigation';
-import { Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs, } from 'native-base';
-
-import SvgUri from 'react-native-svg-uri';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
+import {withNavigation} from 'react-navigation';
+import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
+import {Route} from "../Model/Route";
+import {CardImage, TripCard} from "../Model/TripCard";
+import {routes} from "../Model/Routes";
 
 const Dimensions = require('Dimensions');
 
@@ -29,13 +38,23 @@ const window = Dimensions.get('window');
 
 // import { skyline } from './imgs/singaSky.jpg';
 
+const allRoutes = routes;
+// const allCards: TripCard[] = [];
+
+allRoutes.getAllRoutes().forEach((r) => {
+	allCards.push(new TripCard(r));
+});
+
 class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
 		this._navigateTo = this._navigateTo.bind(this);
 		this._voteUp = this._voteUp.bind(this);
 		this._voteDown = this._voteDown.bind(this);
+
 		this.state = {
+			// cards: allCards
+			// TODO: loading card views from route model -- Rico
 			cards: [
 				{
 					title: 'Singapore Madness',
@@ -111,8 +130,8 @@ class HomePage extends React.Component {
 			<Container style={styles.homeSearch}>
 				<Header searchBar rounded style={styles.homeSearch}>
 					<Item style={styles.searchBox}>
-						<Icon name="ios-search" />
-						<Input placeholder="Search" />
+						<Icon name="ios-search"/>
+						<Input placeholder="Search"/>
 						{/* <Icon name="ios-people" /> */}
 					</Item>
 					<Button transparent>
@@ -124,14 +143,14 @@ class HomePage extends React.Component {
 
 				{/* <View style={styles.tabHeader}> */}
 
-				<Tabs tabStyle={{ backgroundColor: '#FAD05A' }} locked={true}>
+				<Tabs tabStyle={{backgroundColor: '#FAD05A'}} locked={true}>
 
 					<Tab style={styles.tab} heading="All">
 
 						{/* --------------------------------------------------------------------*/}
 						{/* --------------------- CATEGORIES SECTION -----------------------*/}
 						{/* --------------------------------------------------------------------*/}
-						
+
 						<Text style={styles.trendingText}>Trending Today</Text>
 						<View style={{
 							height: 90,
@@ -145,16 +164,16 @@ class HomePage extends React.Component {
 						}}>
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>
-									<View style={{ position: 'relative' }}>
-										<Image source={require('../imgs/museum.jpg')}
-											style={{
-												width: 136,
-												height: 90
-											}} />
+									<View style={{position: 'relative'}}>
+										<CardImage source={require('../imgs/museum.jpg')}
+										           style={{
+											           width: 136,
+											           height: 90
+										           }}/>
 
 										<Text style={{
 											position: 'absolute',
-											top: 60,
+											top: 65,
 											left: 5,
 											color: "white",
 											fontWeight: "bold"
@@ -164,16 +183,16 @@ class HomePage extends React.Component {
 								</TouchableHighlight>
 
 								<TouchableHighlight style={styles.categView}>
-									<View style={{ position: 'relative' }}>
-										<Image source={require('../imgs/shopping.jpg')}
-											style={{
-												width: 136,
-												height: 90
-											}} />
+									<View style={{position: 'relative'}}>
+										<CardImage source={require('../imgs/shopping.jpg')}
+										           style={{
+											           width: 136,
+											           height: 90
+										           }}/>
 
 										<Text style={{
 											position: 'absolute',
-											top: 60,
+											top: 65,
 											left: 5,
 											color: "white",
 											fontWeight: "bold"
@@ -181,16 +200,16 @@ class HomePage extends React.Component {
 									</View>
 								</TouchableHighlight>
 								<TouchableHighlight style={styles.categView}>
-									<View style={{ position: 'relative' }}>
-										<Image source={require('../imgs/park.jpg')}
-											style={{
-												width: 136,
-												height: 90
-											}} />
+									<View style={{position: 'relative'}}>
+										<CardImage source={require('../imgs/park.jpg')}
+										           style={{
+											           width: 136,
+											           height: 90
+										           }}/>
 
 										<Text style={{
 											position: 'absolute',
-											top: 60,
+											top: 65,
 											left: 5,
 											color: "white",
 											fontWeight: "bold"
@@ -239,11 +258,11 @@ class TourCards extends React.Component {
 			<View>
 				{this.props.cards.map((card, i) => {
 					return <TourCard card={card}
-						key={i}
-						navigateTo={this.props.navigateTo}
-						voteUp={this.props.voteUp}
-						voteDown={this.props.voteDown}
-						index={i}></TourCard>
+					                 key={i}
+					                 navigateTo={this.props.navigateTo}
+					                 voteUp={this.props.voteUp}
+					                 voteDown={this.props.voteDown}
+					                 index={i}></TourCard>
 				})}
 			</View>
 		)
@@ -265,21 +284,21 @@ class TourCard extends React.Component {
 	_onPressUp() {
 		this.setState({
 			buttomUp: true
-		})
+		});
 		this.props.voteUp(this.props.index);
 	}
 
 	_onPressDown() {
 		this.setState({
 			buttomDowm: true
-		})
+		});
 		this.props.voteDown(this.props.index);
 	}
 
 	render() {
 		return (
 			<View style={styles.dayGuide}>
-				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 5 }}>
+				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 5}}>
 					<Text style={styles.guideTitle} onPress={this.props.navigateTo}>{this.props.card.title}</Text>
 					<Button success style={styles.addPlanButton}>
 						<Text style={styles.addPlanText}>Add to Plans</Text>
@@ -287,20 +306,27 @@ class TourCard extends React.Component {
 				</View>
 
 				<View style={{ margin: 5 }}>
-					<Text>{this.props.card.desc}</Text>
+					<Text style={{ color: '#424242', lineHeight: 16 }}>{this.props.card.desc}</Text>
 				</View>
 
 				{/* ------------------------------------------------ */}
 				{/* pictures of the stops in this day guide */}
 				{/* ------------------------------------------------ */}
 				<Gallery imgs={this.props.card.imgs}></Gallery>
-
+				<View
+					style={{
+						borderBottomColor: '#bdbdbd',
+						borderBottomWidth: 0.5,
+						marginTop: 4,
+						marginBottom: 4
+					}}
+				/>
 				<View style={styles.guideActionsCont}>
-					<View style={{ flexDirection: 'row', marginTop: 5 }}>
+					<View style={{ flexDirection: 'row', marginTop: 0 }}>
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomUp}
 							onPress={this._onPressUp}>
-							<FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5 }} />
+							<FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5, marginTop:0 }} />
 						</TouchableWithoutFeedback>
 						<Text style={{
 							fontSize: 13,
@@ -311,11 +337,11 @@ class TourCard extends React.Component {
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomDowm}
 							onPress={this._onPressDown}>
-							<FontAwesomeIcon icon={faArrowDown} style={{ color: 'black', marginLeft: 5 }} />
+							<FontAwesomeIcon icon={faArrowDown} style={{color: 'black', marginLeft: 5}}/>
 						</TouchableWithoutFeedback>
 					</View>
 
-					<Button style={{ backgroundColor: 'white', height: 30 }} onPress={this.props.navigateTo}>
+					<Button style={{backgroundColor: 'white', height: 30}} onPress={this.props.navigateTo}>
 						<Text>Read More</Text>
 					</Button>
 				</View>
@@ -336,17 +362,17 @@ class Gallery extends React.Component {
 			<ScrollView
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}>
-				<View style={{ flexDirection: 'row', marginBottom: 5 }}>
+				<View style={{flexDirection: 'row', marginBottom: 5}}>
 					{this.props.imgs.map((img, i) => {
 						return (
 							<TouchableHighlight style={styles.stopViews} key={i}>
 								<View>
 									{console.log(img.url)}
 									<ImageBackground source={img.url}
-										style={{
-											width: 100,
-											height: 70
-										}}>
+									                 style={{
+										                 width: 100,
+										                 height: 70
+									                 }}>
 									</ImageBackground>
 								</View>
 							</TouchableHighlight>
@@ -377,7 +403,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
-		alignItems: 'center'
+		alignItems: 'center',
+		// marginBottom: 2
 	},
 	upvAndDownv: {
 		flexDirection: 'row'
@@ -403,7 +430,7 @@ const styles = StyleSheet.create({
 	},
 	dayGuide: {
 		marginTop: 2,
-		padding: 5,
+		padding: 10,
 		backgroundColor: '#FFFFFF',
 		// height: 180,
 		marginBottom: 10,
@@ -414,26 +441,30 @@ const styles = StyleSheet.create({
 			height: 2
 		},
 		shadowRadius: 2,
-		shadowOpacity: 1
+		shadowOpacity: 1,
+		paddingBottom: 0
 	},
 	addPlanButton: {
-		width: 120,
+		width: 90,
 		height: 30,
 		borderRadius: 15,
-		backgroundColor: '#FAD05A'
+		backgroundColor: '#F67779',
+		marginRight: 15,
 	},
 	addPlanText: {
 		// marginLeft: 5
 		textAlign: 'center',
 		width: '100%',
 		fontFamily: 'Helvetica',
-		fontWeight: '500',
-		fontSize: 14
+		fontWeight: '400',
+		fontSize: 12,
+		color: 'white',
 	},
 	guideTitle: {
 		fontWeight: "500",
 		fontSize: 18,
-		color: "#424242"
+		color: "#424242",
+		marginTop: 3,
 	},
 
 	trendingText: {

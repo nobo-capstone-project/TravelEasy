@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo
-echo "===== Building RouteStop Image ====="
+echo "===== Building RouteStop CardImage ====="
 echo
 
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -o routeStop
