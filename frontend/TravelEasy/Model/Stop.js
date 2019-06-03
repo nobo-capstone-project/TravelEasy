@@ -7,6 +7,55 @@ const STOP_TYPES = {
 	Historic: "Historic"
 };
 
+export class Stop {
+	stopID: number;
+	orderID: number;
+	lat: number;
+	long: number;
+	stopName: string;
+	locationName: string;
+	description: string;
+	address: string;
+	type: string[];
+	timeSpent: number;
+	picture: string[];
+	ada: boolean;
+	startTime: string | undefined;
+	endTime: string | undefined;
+
+	constructor(stopID, orderID, lat, long, stopName, locationName, description, address, type, timeSpent, picture, ada, startTime, endTime) {
+		this.address = address;
+		this.stopID = stopID;
+		this.orderID = orderID;
+		this.lat = lat;
+		this.long = long;
+		this.stopName = stopName;
+		this.locationName = locationName;
+		this.description = description;
+		this.type = type;
+		this.timeSpent = timeSpent;
+		this.picture = picture;
+		this.ada = ada;
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
+}
+
+export const stopLaw = new Stop(
+	2,
+	2,
+	47.659124,
+	-122.310963,
+	"University of Washington LAW School",
+	"William H. Gates Hall",
+	"It is the LAW school with capitalized letters",
+	"William H. Gates Hall (LAW), Seattle, WA 98105",
+	[STOP_TYPES.Academic],
+	1,
+	["https://www.law.uw.edu/media/1151/clinics.jpg"],
+	true,
+);
+
 export const stopParrington = new Stop(
 	1,
 	1,
@@ -22,21 +71,6 @@ export const stopParrington = new Stop(
 	true,
 	undefined,
 	undefined
-);
-
-export const stopLaw = new Stop(
-	2,
-	2,
-	47.659124,
-	-122.310963,
-	"University of Washington LAW School",
-	"William H. Gates Hall",
-	"It is the LAW school with capitalized letters",
-	"William H. Gates Hall (LAW), Seattle, WA 98105",
-	[STOP_TYPES.Academic],
-	1,
-	["https://www.law.uw.edu/media/1151/clinics.jpg"],
-	true,
 );
 
 export const stopDenny = new Stop(
@@ -113,38 +147,3 @@ export const stopRedSquare = new Stop(
 	["https://southseattleemerald.files.wordpress.com/2017/04/uw-red-square.jpg"],
 	true
 );
-
-export class Stop {
-	stopID: number;
-	orderID: number;
-	lat: number;
-	long: number;
-	stopName: string;
-	locationName: string;
-	description: string;
-	address: string;
-	type: string[];
-	timeSpent: number;
-	picture: string[];
-	ada: boolean;
-	startTime: string | undefined;
-	endTime: string | undefined;
-
-	constructor(stopID, orderID, lat, long, stopName, locationName, description, address, type, timeSpent, picture, ada, startTime, endTime) {
-		this.address = address;
-		this.stopID = stopID;
-		this.orderID = orderID;
-		this.lat = lat;
-		this.long = long;
-		this.stopName = stopName;
-		this.locationName = locationName;
-		this.description = description;
-		this.type = type;
-		this.timeSpent = timeSpent;
-		this.picture = picture;
-		this.ada = ada;
-		this.startTime = startTime;
-		this.endTime = endTime;
-	}
-
-}

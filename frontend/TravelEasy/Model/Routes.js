@@ -2,8 +2,6 @@ import {Route, routeUW} from "./Route";
 
 const stops = require("./Stops");
 
-export const routes: Routes = [routeUW];
-
 export class Routes {
 
 	constructor(routes: Route[]) {
@@ -14,9 +12,13 @@ export class Routes {
 		this.routes.push(route);
 	}
 
-	getAllRoutes(): Route[] {
+	// doesnt work; `undefined is not an object`
+	// getAllRoutes(): Route[] {
+	// both work
+	// getAllRoutes = () => {
+	getAllRoutes: Route[] = () => {
 		return this.routes;
-	}
+	};
 
 	getRouteByID(id): Route {
 		for (let i = 0; i < this.routes.length; i++) {
@@ -38,3 +40,5 @@ export class Routes {
 		return null;
 	}
 }
+
+export const allRoutes: Routes = new Routes([routeUW]);

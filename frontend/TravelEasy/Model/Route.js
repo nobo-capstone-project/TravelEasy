@@ -1,18 +1,5 @@
 import {Stop, stopDenny, stopHUB, stopJSIS, stopLaw, stopParrington, stopRedSquare, stopSUZZ} from "./Stop";
 
-const stopsUW: Stop[] = [
-	stopParrington,
-	stopLaw,
-	stopDenny,
-	stopJSIS,
-	stopHUB,
-	stopSUZZ,
-	stopRedSquare
-];
-const nameUW: string = "One-day University of Washington Day Tour";
-const descUW: string = "University of Washington is one of best universities in the world and is known for its research capabilities and gothic, historic buildings. It has been around for more than 150 years.";
-export const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW);
-
 export class Route {
 	routeName: string;
 	routeID: number;
@@ -30,16 +17,14 @@ export class Route {
 		this.description = description;
 		this.stops = stops;
 		this.vote = vote;
-		this.category = RouteUtil.setCategory(this);
-		this.picture = RouteUtil.setPicture(this);
+		this.category = this.setCategory();
+		this.picture = this.setPicture();
 	}
-}
 
-class RouteUtil {
-	static setCategory(route) {
+	setCategory() {
 		let category = new Set();
 
-		route.stops.forEach((stop: Stop) => {
+		this.stops.forEach((stop: Stop) => {
 			let cats = stop.type;
 			cats.forEach((c) => {
 				category.add(c)
@@ -49,10 +34,10 @@ class RouteUtil {
 		return category;
 	}
 
-	static setPicture(route) {
+	setPicture() {
 		let pictures = new Set();
 
-		route.stops.forEach((stop: Stop) => {
+		this.stops.forEach((stop: Stop) => {
 			let pics = stop.picture;
 			pics.forEach((p) => {
 				pictures.add(p)
@@ -62,3 +47,19 @@ class RouteUtil {
 		return pictures;
 	}
 }
+
+const stopsUW: Stop[] = [
+	stopParrington,
+	stopLaw,
+	stopDenny,
+	stopJSIS,
+	stopHUB,
+	stopSUZZ,
+	stopRedSquare
+];
+
+const nameUW: string = "One-day University of Washington Day Tour";
+
+const descUW: string = "University of Washington is one of best universities in the world and is known for its research capabilities and gothic, historic buildings. It has been around for more than 150 years.";
+
+export const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW);

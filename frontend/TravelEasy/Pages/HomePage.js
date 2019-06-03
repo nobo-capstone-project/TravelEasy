@@ -24,7 +24,7 @@ import {withNavigation} from 'react-navigation';
 import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
 import {Route} from "../Model/Route";
 import {CardImage, TripCard} from "../Model/TripCard";
-import {routes} from "../Model/Routes";
+import {allRoutes} from "../Model/Routes";
 
 const Dimensions = require('Dimensions');
 
@@ -38,11 +38,16 @@ const window = Dimensions.get('window');
 
 // import { skyline } from './imgs/singaSky.jpg';
 
-const allRoutes = routes;
 const allCards: TripCard[] = [];
+console.log("card:");
+console.log(new TripCard(allRoutes.getAllRoutes()[0]));
 
-allRoutes.getAllRoutes().forEach((r) => {
-	allCards.push(new TripCard(r));
+console.log(allRoutes.routes);
+allRoutes.getAllRoutes().forEach(function(r) {
+	console.log("making card...");
+	console.log("card:", new TripCard(r));
+	let card = new TripCard(r);
+	allCards.push(card);
 });
 
 class HomePage extends React.Component {
@@ -53,56 +58,56 @@ class HomePage extends React.Component {
 		this._voteDown = this._voteDown.bind(this);
 
 		this.state = {
-			// cards: allCards
+			cards: allCards
 			// TODO: loading card views from route model -- Rico
-			cards: [
-				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-					imgs: [
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 230
-				},
-				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-					imgs: [
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 100
-				}
-			]
+			// cards: [
+			// 	{
+			// 		title: 'Singapore Madness',
+			// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+			// 		imgs: [
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Breakfast'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Hiking at Temple'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Lunch'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Lunch'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Lunch'
+			// 			}
+			// 		],
+			// 		vote: 230
+			// 	},
+			// 	{
+			// 		title: 'Singapore Madness',
+			// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+			// 		imgs: [
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Breakfast'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Hiking at Temple'
+			// 			},
+			// 			{
+			// 				url: require('../imgs/singaSky.jpg'),
+			// 				title: 'Lunch'
+			// 			}
+			// 		],
+			// 		vote: 100
+			// 	}
+			// ]
 		}
 	}
 

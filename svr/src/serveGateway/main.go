@@ -68,7 +68,7 @@ func main() {
 	// {domain}/route/create: POST - create new route and save to db
 	r.Handle("/route/create/", routeStopSvrRouter)
 
-	// {domain}/route/all/: GET - get all routes available from the db
+	// {domain}/route/all/: GET - get all allRoutes available from the db
 	r.Handle("/route/all/", routeStopSvrRouter)
 
 	r.Handle("/route/nearby", routeStopSvrRouter)
