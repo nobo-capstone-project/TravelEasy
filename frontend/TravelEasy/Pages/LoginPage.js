@@ -7,12 +7,14 @@
  */
 
 import React from 'react';
-import {AlertIOS, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faKey, faUser} from '@fortawesome/free-solid-svg-icons';
+import { AlertIOS, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import SvgUri from 'react-native-svg-uri';
 
-import {withNavigation} from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
+
+import { withNavigation } from 'react-navigation';
 // import { Text, View } from 'react-native';
 
 // import { Item, Grid, Col, Row, Card, CardItem, Container, Header, Input, Content, Tab, Tabs, FooterTab, Footer, Button, Icon, } from 'native-base';
@@ -80,31 +82,44 @@ class LoginPage extends React.Component {
 					return res.json();
 				})
 				.then(data => {
-					_storeData = async () => {
+					// set key value
+					storeData = async () => {
 						try {
-							await AsyncStorage.setItem('username', data.username);
-						} catch (error) {
-							console.log(error);
+							await AsyncStorage.setItem('user', data.username);
+							await AsyncStorage.setItem('email', data.email);
+						} catch (e) {
+							// saving error
 						}
 					};
+
+					// get key
+					AsyncStorage.getItem('email')
+						.then((value) => {
+							const data = value;
+							console.log(data);
+						})
+						.catch(error => {
+							console.log('error');
+						});
+
 					this.props.navigation.navigate('Home');
 				})
+
 				.catch(error => {
-					console.log(error)
+					console.log(error);
 				});
 		}
 	}
 
 	render() {
-		console.log(this.props.navigation);
 		return (
 			<View style={styles.container}>
 				<Text style={styles.header}>TERN</Text>
 				<View>
-					<SvgUri width="150" height="150" source={require('../imgs/logo_yellownobackground.svg')}/>
+					<SvgUri width="150" height="150" source={require('../imgs/logo_yellownobackground.svg')} />
 				</View>
 				<View style={styles.textView}>
-					<FontAwesomeIcon icon={faUser} style={{color: '#828282'}}/>
+					<FontAwesomeIcon icon={faUser} style={{ color: '#828282' }} />
 					<TextInput
 						style={styles.textInput}
 						placeholder="Username"
@@ -118,7 +133,7 @@ class LoginPage extends React.Component {
 
 
 				<View style={styles.textView}>
-					<FontAwesomeIcon icon={faKey} style={{color: '#828282'}}/>
+					<FontAwesomeIcon icon={faKey} style={{ color: '#828282' }} />
 					<TextInput
 						style={styles.textInput}
 						placeholder="Passward"
@@ -140,10 +155,10 @@ class LoginPage extends React.Component {
 						letterSpacing: 1,
 						color: "white",
 						fontFamily: 'Futura',
-						
+
 					}}>Login</Text>
 				</TouchableHighlight>
-				<View style={{flexDirection: 'row', alignItems: 'center', marginTop: 25}}>
+				<View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 25 }}>
 					<Text style={styles.bottomText}>Don't have account? </Text>
 					<TouchableHighlight onPress={() => this.props.navigation.navigate('SignUp')}>
 						<Text style={styles.signupText}>Sign Up</Text>
@@ -162,7 +177,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		alignItems: 'center',
-		
+
 	},
 	header: {
 		marginTop: 150,
@@ -192,7 +207,7 @@ const styles = StyleSheet.create({
 		fontStyle: "normal",
 		letterSpacing: 0,
 		fontFamily: 'Futura',
-		
+
 	},
 	button: {
 		marginTop: 60,

@@ -10,8 +10,9 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import SvgUri from 'react-native-svg-uri';
-import { AsyncStorage, StyleSheet, Text, View,TouchableWithoutFeedback, } from 'react-native';
+import { StyleSheet, Text, View, TouchableWithoutFeedback, } from 'react-native';
 import { Button, Container, DatePicker, Form, Header, Input, Item, TextInput } from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage';
 // import { Text, View } from 'react-native';
 
 // import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
@@ -26,17 +27,17 @@ export default class SignUpPage extends React.Component {
 		super(props);
 
 		this.state = {
-			username: 'User3',
-			password: 'User3',
-			email: 'user3@gmail.com',
-			firstname: 'Rob',
-			lastname: 'Kim',
-			dob: '2019-04-26T14:34:00.913032-07:00',
-			gender: 'M',
-			locationCity: 'Seattle',
-			locationState: 'WA',
-			locationCountry: 'US',
-			picture: '123'
+			username: '',
+			password: '',
+			email: '',
+			// firstname: 'Rob',
+			// lastname: 'Kim',
+			// dob: '2019-04-26T14:34:00.913032-07:00',
+			// gender: 'M',
+			// locationCity: 'Seattle',
+			// locationState: 'WA',
+			// locationCountry: 'US',
+			// picture: '123'
 		};
 
 		// this.signUpUser = this.signUpUser.bind(this);
@@ -181,82 +182,82 @@ export default class SignUpPage extends React.Component {
 				</Form> */}
 				<Form>
 					<TouchableWithoutFeedback onPress={this.props.navigateTo}>
-					<Form style={{ flexDirection: 'row', marginTop: 60, marginLeft: 10 }}>
-						<FontAwesomeIcon icon={faChevronLeft} style={{ color: '#F67779' }} />
-						<Text style={{
-							width: 77,
-							height: 23,
-							fontSize: 14,
-							fontWeight: "500",
-							fontStyle: "normal",
-							color: "#F67779",
-							marginLeft: 4,
+						<Form style={{ flexDirection: 'row', marginTop: 60, marginLeft: 10 }}>
+							<FontAwesomeIcon icon={faChevronLeft} style={{ color: '#F67779' }} />
+							<Text style={{
+								width: 77,
+								height: 23,
+								fontSize: 14,
+								fontWeight: "500",
+								fontStyle: "normal",
+								color: "#F67779",
+								marginLeft: 4,
 
-						}}>
-							Login
+							}} onPress={() => this.props.navigation.navigate('Login')}>
+								Login
 					</Text>
-					</Form>
-				</TouchableWithoutFeedback>
+						</Form>
+					</TouchableWithoutFeedback>
 				</Form>
-			<Form>
-				<Text style={styles.createText}>
-					Create {"\n"}
-					Account
+				<Form>
+					<Text style={styles.createText}>
+						Create {"\n"}
+						Account
 					</Text>
-				<Item style={styles.textView} >
-					<Input
-						style={styles.textInput}
-						editable={true}
-						maxLength={20}
-						placeholder="First Name"
-						onChangeText={(data) => this.setState({ firstname: data })} />
-				</Item>
-				<Item style={styles.textView}>
-					<Input
-						style={styles.textInput}
-						editable={true}
-						maxLength={200}
-						placeholder="Last Name"
-						onChangeText={(data) => this.setState({ lastname: data })} />
-				</Item>
-				<Item style={styles.textView}>
-					<Input
-						style={styles.textInput}
-						editable={true}
-						maxLength={200}
-						placeholder="Username"
-						onChangeText={(data) => this.setState({ username: data })} />
-				</Item>
-				<Item style={styles.textView}>
-					<Input
-						style={styles.textInput}
-						editable={true}
-						maxLength={200}
-						placeholder="Email"
-						onChangeText={(data) => this.setState({ email: data })} />
-				</Item>
-				<Item style={styles.textView}>
-					<Input
-						style={styles.textInput}
-						editable={true}
-						maxLength={200}
-						placeholder="Password"
-						onChangeText={(data) => this.setState({ password: data })} />
-				</Item>
+					{/* <Item style={styles.textView} >
+						<Input
+							style={styles.textInput}
+							editable={true}
+							maxLength={20}
+							placeholder="First Name"
+							onChangeText={(data) => this.setState({ firstname: data })} />
+					</Item>
+					<Item style={styles.textView}>
+						<Input
+							style={styles.textInput}
+							editable={true}
+							maxLength={200}
+							placeholder="Last Name"
+							onChangeText={(data) => this.setState({ lastname: data })} />
+					</Item> */}
+					<Item style={styles.textView}>
+						<Input
+							style={styles.textInput}
+							editable={true}
+							maxLength={200}
+							placeholder="Username"
+							onChangeText={(data) => this.setState({ username: data })} />
+					</Item>
+					<Item style={styles.textView}>
+						<Input
+							style={styles.textInput}
+							editable={true}
+							maxLength={200}
+							placeholder="Email"
+							onChangeText={(data) => this.setState({ email: data })} />
+					</Item>
+					<Item style={styles.textView}>
+						<Input
+							style={styles.textInput}
+							editable={true}
+							maxLength={200}
+							placeholder="Password"
+							onChangeText={(data) => this.setState({ password: data })} />
+					</Item>
 
 
-			</Form>
+				</Form>
 
-			<Button
-				style={styles.button}
-				onPress={this.signUpUser}
-				title="Solid Button"
-			>
-				<Text style={styles.btnText}>
-					Sign Up!
+				<Button
+					style={styles.button}
+					onPress={this.signUpUser}
+					title="Solid Button"
+				>
+					<Text style={styles.btnText}>
+						Sign Up!
 					</Text>
 
-			</Button>
+				</Button>
 			</Container >
 		);
 	}

@@ -34,6 +34,7 @@ import ProfilePage from './Pages/ProfilePage';
 import SignUpPage from './Pages/SignUpPage';
 import Favorites from './Pages/FavoritesPage';
 import Plans from './Pages/PlansPage';
+import EditProfile from './Pages/EditProfile';
 
 
 import GuideInfo from './Pages/GuideIninerary';
@@ -64,15 +65,15 @@ const TabNavigator = createBottomTabNavigator(
         )
       },
     },
-    Plans: {
-      screen: Plans,
-      navigationOptions: {
-        tabBarLabel: 'Plans',
-        tabBarIcon: ({ tintColor, activeTintColor }) => (
-          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
-        )
-      },
-    },
+    // Plans: {
+    //   screen: Plans,
+    //   navigationOptions: {
+    //     tabBarLabel: 'Plans',
+    //     tabBarIcon: ({ tintColor, activeTintColor }) => (
+    //       <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
+    //     )
+    //   },
+    // },
     Itinerary: {
       screen: GuideInfo,
       navigationOptions: {
@@ -115,10 +116,11 @@ const AppNavigator = createStackNavigator({
   Login: LoginPage,
   SignUp: SignUpPage,
   BottomBar: TabNavigator,
-  Route: RoutePage
+  Route: RoutePage,
+  EditProfile: EditProfile
 },
   {
-    initialRouteName: 'BottomBar',
+    initialRouteName: 'Login',
     headerMode: 'none'
   });
 
