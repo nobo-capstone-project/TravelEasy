@@ -69,10 +69,7 @@ class LoginPage extends React.Component {
 						}]);
 					}
 
-					console.log(res);
-					console.log(res.headers.get("Authorization"));
-
-					_storeData = async () => {
+					storeData = async () => {
 						try {
 							await AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
 						} catch (error) {
@@ -95,8 +92,8 @@ class LoginPage extends React.Component {
 					// get key
 					AsyncStorage.getItem('email')
 						.then((value) => {
-							const data = value;
-							console.log(data);
+							// const data = value;
+							// console.log(data);
 						})
 						.catch(error => {
 							console.log('error');
