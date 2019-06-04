@@ -8,11 +8,13 @@
 
 import React from 'react';
 // import { Text, View } from 'react-native';
-import {Button, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
-import {CheckBox} from 'react-native-elements';
+import { AsyncStorage, Button, ScrollView, StyleSheet, Text, TextInput, View, Image } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 
-import {Header,} from 'native-base';
+import { Header, } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
+
+
 // import { Tab, Tabs } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 // import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
@@ -41,34 +43,177 @@ export default class AddGuidePage extends React.Component {
 		super(props);
 
 		this.state = {
-			// Guide info
+			guideName: 'guideName example',
+			// Current Guide info
 			creatorID: '1',
-			description: '',
+			guideDesc: 'gudie desc example',
 			stopID: [],
 			category: ['leisure', 'culture'],
 			picture: ['none atm'],
 			vote: 0,
-
-
-			// checkbox state
+			// Guide Type Checkboxes
 			categNature: false,
 			categShopping: false,
 			categUrbanExplore: false,
 			categFood: false,
 			categTourism: false,
-			// Stops info
-			stopsArray: []
-			// each stop will include
-			// this is to post each stop
+
+			// The stops for the current guide: 
+			stopsArray: [],
+
+			stopsViews: [],
+
+			// Current Stop Data: 
+			stopTitle: "test stop title",
+			stopDesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
+			address: "14612 3rd DR NE Seattle WA 98115",
+			categories: ['Nature', 'Urban Exploration', 'Food'],
+			price: "Free",
+			startTime: "1pm",
+			endTime: "2pm",
+			time: "30mins ~ 1hrs",
+			photoUrl: 'file:///Users/school/Library/Developer/CoreSimulator/Devices/F17FC8F5-92B2-4828-BDB0-E8FDCCE3ACBD/data/Containers/Data/Application/35F50E57-681A-4652-A77F-2092668FA5B3/tmp/53A9A76B-868A-4772-8C21-D3415C32251F.jpg',
+
+			stopImage: <Image></Image>,
+
+			// Current Stops: 
+			stops: [
+				{
+					title: "Suzzallo Library",
+					desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
+					address: "14612 3rd DR NE Seattle WA 98115",
+					categories: ['Nature', 'Urban Exploration', 'Food'],
+					price: "Free",
+					startTime: "1pm",
+					endTime: "2pm",
+					time: "30mins ~ 1hrs",
+					photoUrl: 'file:///Users/school/Library/Developer/CoreSimulator/Devices/F17FC8F5-92B2-4828-BDB0-E8FDCCE3ACBD/data/Containers/Data/Application/35F50E57-681A-4652-A77F-2092668FA5B3/tmp/53A9A76B-868A-4772-8C21-D3415C32251F.jpg'
+				},
+
+			]
 		};
 
-		// this.dobIsoConvert = this.dobIsoConvert.bind(this);
+		this.triggerAddStopActions = this.triggerAddStopActions.bind(this);
+		this.appendStopToView = this.appendStopToView.bind(this);
 
-		// this.uploadPhoto = this.uploadPhoto.bind(this);
-
+		this.addStopToLocalStorage = this.addStopToLocalStorage.bind(this);
+		this.showStopsState = this.showStopsState.bind(this);
 
 		this.handleChoosePhoto = this.handleChoosePhoto.bind(this);
+		this.addStopObjsToGuide = this.addStopObjsToGuide.bind(this);
 	}
+
+	showStopsState() {
+		// console.log(this.state);
+		// console.log(this.state.stops[0]);
+	}
+
+	triggerAddStopActions() {
+		var stopObj = {
+			title: this.state.stopTitle,
+			stopDesc: this.state.stopDesc,
+			address: this.state.address,
+			categories: this.state.categories,
+			price: this.state.price,
+			startTime: this.state.startTime,
+			endTime: this.state.endTime,
+			time: this.state.time,
+			photoUrl: this.state.photoUrl
+		}
+
+		this.appendStopToView(stopObj);
+		this.addStopObjsToGuide(stopObj);
+	}
+
+	appendStopToView(stopObj) {
+
+		var stopViewBeingAdded =
+			<View style={styles.listItem}>
+				<View style={styles.stopName}><Text>{stopObj.title}</Text></View>
+				<View style={styles.stopTimes}><Text>{stopObj.startTime} - {stopObj.endTime}</Text></View>
+				{/* <Image style={styles.stopImg} source={require('./' + stopObj.photoUrl)} /> */}
+				{/* <Image style={styles.stopImg} source={require('file:///Users/school/Library/Developer/CoreSimulator/Devices/F17FC8F5-92B2-4828-BDB0-E8FDCCE3ACBD/data/Containers/Data/Application/175D23A6-A446-47FD-BCFB-8136C492688A/tmp/F75BE6F6-49DC-4032-B8A5-71759A2C4A1D.jpg')} /> */}
+
+				{this.state.stopImage}
+			</View>;
+
+
+		console.log(this.state.photoUrl.replace('file://', ''));
+
+		var stopViewsArr = this.state.stopsViews;
+		stopViewsArr.push(stopViewBeingAdded);
+
+		this.setState({ stopsViews: [stopViewsArr] });
+		alert("Stop has been added!")
+	}
+
+	// Add Stop button will trigger this: 
+	addStopObjsToGuide(stopObj) {
+
+
+		// stops.push(stopObj);
+
+
+		// Adds stopsMap to local storage, so it can be accessed perman.
+		var addedStopsId = this.addStopToLocalStorage(stopObj);
+
+		// Adds stopId Strings to guide's "stopID" array.
+		// this.setState({ stopID: [...this.state.myArray, addedStopsId] })
+
+	}
+
+
+	// Adds Stop to a Map of StopId and StopObj
+	// Saves this map in Async, to be accessed globally. 
+	addStopToLocalStorage(stopObj) {
+		console.log("stopObj about to be added")
+		console.log(stopObj);
+
+		// AsyncStorage.removeItem('stopsMap');
+		AsyncStorage.getItem('stopsMap').then((response) => {
+			console.log(response);
+
+			// if 'stopsMap' exists, no need to create map.
+			if (response != null) {
+				var stopsIdMap = JSON.parse(response);
+				console.log(stopsIdMap);
+
+				// starts at 1
+				var nextStopID = Object.keys(stopsIdMap).length + 1;
+				var nextStopIDStr = nextStopID + "";
+				console.log(nextStopIDStr);
+
+				// adds next stop id as key 
+				stopsIdMap[nextStopIDStr] = stopObj;
+
+				// adds the stop to stopsIdMap, and pushes to async
+				AsyncStorage.mergeItem('stopsMap', JSON.stringify(stopsIdMap));
+
+				return nextStopIDStr;
+			}
+
+			// Otherwise, create a "map" (object actually) and store the first stop in it
+			// then push this map up async
+			else {
+				// intializing a "map" that can store stopID.
+				// var stopsIdsAndStopObj = { stopId1: "1", stopId2: "2" }; // works
+				console.log(stopObj);
+
+				// intializes stopid - stopobj "map" (thats actually an object)
+				var stopsIdsAndStopObj = {}
+				// adds first stopObj value 
+				stopsIdsAndStopObj["1"] = stopObj;
+				console.log(JSON.stringify(stopsIdsAndStopObj));
+
+				// Put the map back in async:
+				AsyncStorage.setItem('stopsMap', JSON.stringify(stopsIdsAndStopObj)).catch(error => alert(error));
+
+				return "1";
+			}
+		})
+	}
+
+
 
 	handleChoosePhoto = () => {
 		console.log("its being called");
@@ -76,156 +221,223 @@ export default class AddGuidePage extends React.Component {
 		ImagePicker.launchImageLibrary(options, response => {
 			console.log("response", response.uri);
 
-			this.uploadImage(response.uri);
+			this.setState({ photoUrl: response.uri })
+			console.log("photo url is: " + this.state.photoUrl);
+
+			// this.setState({ stopImage: <Image source={{ uri: response.uri.replace('file://', ''), isStatic: true }} /> })
+
+
+
+
+			// <Image source={{ uri: response.uri.replace('file://', ''), isStatic: true }} />
+			// this.addImageToStops(response.uri);
+			// alert("photo has been uploaded.");
 		})
 	};
 
-	uploadImage(imagePath) {
+
+
+	addImageToStops(imagePath) {
+		// var photoStopsArr = this.state.photoUrl;
+		// photoStopsArr.push(imagePath);
+
+
 
 	}
 
+
 	render() {
+		console.log("above the photo url");
+		console.log(this.state.stops[0].photoUrl);
 		return (
 			<View style={styles.container}>
+
+
 				{/* <Header hasTabs /> */}
-				<Header>
-					<Text style={styles.guideTitle}>Add a Guide</Text>
+				<Header style={{backgroundColor: '#FAD05A'}}>
+					<Text style={{marginTop: 14, fontSize: 18, fontWeight: '400', color: '#424242', fontFamily: 'Helvetica'}}>
+						Create New Trip
+					</Text>					
 				</Header>
 
-				<Text>Guide Name</Text>
-				<TextInput
-					style={styles.guideFields}
-				/>
+				<ScrollView>
 
-				<Text>Sales Pitch </Text>
-				<TextInput
+					{/* {
 
-					style={styles.guideFields}
-				/>
+						this.state.stops[0].photoUrl ? (
+							<Image
+								resizeMode="cover"
+								source={{ uri: this.state.stops[0].photoUrl }}
+								style={{ height: 200, width: 200 }}
+							/>
+						) : null
+					} */}
 
-				<Text style={styles.guideType}>Guide Type</Text>
+					<Text>{this.state.stopName}</Text>
 
-				<CheckBox
-					onPress={() => this.setState({
-						categFood: !this.state.categFood
+					<Text>Guide Name</Text>
+					<TextInput
+						style={styles.guideFields}
+						value={this.state.guideName}
+						onChangeText={(guideName) => this.setState({ guideName })}
+
+
+
+					/>
+
+					<Text>Sales Pitch </Text>
+					<TextInput
+						value={this.state.guideDesc}
+						onChangeText={(guideDesc) => this.setState({ guideDesc })}
+						style={styles.guideFields}
+					/>
+
+					<Image source={{ uri: this.state.photoUrl }} />
+
+
+
+					<Text style={styles.guideType}>Guide Type</Text>
+
+					<CheckBox
+						onPress={() => this.setState({
+							categFood: !this.state.categFood
+						})}
+						// checked={this.state.}
+						checked={this.state.categFood}
+						containerStyle={styles.guideTypeCheckbox}
+						title='Food (lunch, dinner)'
+
+					/>
+
+
+					<CheckBox onPress={() => this.setState({
+						categNature: !this.state.categNature
 					})}
-					// checked={this.state.}
-					checked={this.state.categFood}
-					containerStyle={styles.guideTypeCheckbox}
-					title='Food (lunch, dinner)'
-
-				/>
-
-
-				<CheckBox onPress={() => this.setState({
-					categNature: !this.state.categNature
-				})}
-					// checked={this.state.}
-					      checked={this.state.categNature}
-					      containerStyle={styles.guideTypeCheckbox}
-					      title='Nature / Hiking'
+						// checked={this.state.}
+						checked={this.state.categNature}
+						containerStyle={styles.guideTypeCheckbox}
+						title='Nature / Hiking'
 					// checked={this.state.checked}
-				/>
+					/>
 
-				<CheckBox onPress={() => this.setState({
-					categUrbanExplore: !this.state.categUrbanExplore
-				})}
-					// checked={this.state.}
-					      checked={this.state.categUrbanExplore} containerStyle={styles.guideTypeCheckbox}
-					      title='Urban Exploration'
+					<CheckBox onPress={() => this.setState({
+						categUrbanExplore: !this.state.categUrbanExplore
+					})}
+						// checked={this.state.}
+						checked={this.state.categUrbanExplore} containerStyle={styles.guideTypeCheckbox}
+						title='Urban Exploration'
 					// checked={this.state.checked}
-				/>
+					/>
 
 
-				<CheckBox onPress={() => this.setState({
-					categShopping: !this.state.categShopping
-				})}
-					// checked={this.state.}
-					      checked={this.state.categShopping} containerStyle={styles.guideTypeCheckbox}
-					      title='Shopping'
+					<CheckBox onPress={() => this.setState({
+						categShopping: !this.state.categShopping
+					})}
+						// checked={this.state.}
+						checked={this.state.categShopping} containerStyle={styles.guideTypeCheckbox}
+						title='Shopping'
 					// checked={this.state.checked}
-				/>
+					/>
 
-				<CheckBox onPress={() => this.setState({
-					categTourism: !this.state.categTourism
-				})}
-					// checked={this.state.}
-					      checked={this.state.categTourism} containerStyle={styles.guideTypeCheckbox}
-					      title='Tourist Activities'
+					<CheckBox onPress={() => this.setState({
+						categTourism: !this.state.categTourism
+					})}
+						// checked={this.state.}
+						checked={this.state.categTourism} containerStyle={styles.guideTypeCheckbox}
+						title='Tourist Activities'
 					// checked={this.state.checked}
-				/>
-
-				<Button title="Choose Photo" onPress={this.handleChoosePhoto}/>
-
-				<Text style={styles.currStopsTitle}>Current Stops Added </Text>
-
-				<ScrollView style={styles.stopsListCont}>
-					<View style={styles.listItem}>
-						<View style={styles.stopName}><Text>Din Tai Fung</Text></View>
-						<View style={styles.stopTimes}><Text>2pm - 3pm</Text></View>
-
-					</View>
-					<View style={styles.listItem}>
-						<View style={styles.stopName}><Text>Din Tai Fung</Text></View>
-						<View style={styles.stopTimes}><Text>2pm - 3pm</Text></View>
-					</View>
-					<View style={styles.listItem}>
-						<View style={styles.stopName}><Text>Din Tai Fung</Text></View>
-						<View style={styles.stopTimes}><Text>2pm - 3pm</Text></View>
-					</View>
+					/>
 
 
-				</ScrollView>
 
 
-				<View style={styles.stopsCont}>
-					<Text style={styles.stopsTitle}> Add Stops to the Guide </Text>
 
 
-					<View style={styles.stopRow}>
-						<View style={styles.stopInputCont}>
-							<Text>Stop Name</Text>
+					<View style={styles.stopsCont}>
+						<Text style={styles.stopsTitle}> Add Stops to the Guide </Text>
 
-							<TextInput
-								style={styles.guideFields}
-							/>
+
+						<View style={styles.stopRow}>
+							<View style={styles.stopInputCont}>
+								<Text>Stop Name</Text>
+
+								<TextInput
+									style={styles.guideFields}
+									value={this.state.stopTitle}
+									onChangeText={(stopTitle) => this.setState({ stopTitle })}
+
+								/>
+							</View>
+
+
+							<View style={styles.stopInputCont}>
+								<Text>Stop Address</Text>
+
+								<TextInput
+									style={styles.guideFields}
+									value={this.state.address}
+									onChangeText={(address) => this.setState({ address })}
+								/>
+							</View>
 						</View>
 
-						<View style={styles.stopInputCont}>
-							<Text>Stop Address</Text>
+						<Button title="Choose Photo of Stop *Required" onPress={this.handleChoosePhoto} />
 
-							<TextInput
-								style={styles.guideFields}
-							/>
+
+						<View style={styles.stopRow}>
+							<View style={styles.stopInputCont}>
+								<Text>Start Time (ex. "7am")</Text>
+
+								<TextInput
+									multiline={true}
+									numberOfLines={4}
+									style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
+									value={this.state.startTime}
+									onChangeText={(startTime) => this.setState({ startTime })}
+								/>
+
+							</View>
+							<View style={styles.stopInputCont}>
+								<Text>End Time (ex. "12pm")</Text>
+
+								<TextInput
+									multiline={true}
+									numberOfLines={4}
+									style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 5, }}
+									value={this.state.endTime}
+									onChangeText={(endTime) => this.setState({ endTime })}
+								/>
+
+							</View>
 						</View>
-					</View>
+						<Button
+							onPress={this.triggerAddStopActions}
+							title="ADD STOP"
+							color="red"
+							accessibilityLabel="Learn more about this purple button"
+						/>
+
+						<Text style={styles.currStopsTitle}>Current Stops Added </Text>
+
+						<ScrollView style={styles.stopsListCont}>
+							{this.state.stopsViews}
+
+							<View style={styles.listItem}>
+								<View style={styles.stopName}><Text>Din Tai Fung</Text></View>
+								<View style={styles.stopTimes}><Text>2pm - 3pm</Text></View>
+
+							</View>
+							<View style={styles.listItem}>
+								<View style={styles.stopName}><Text>Din Tai Fung</Text></View>
+								<View style={styles.stopTimes}><Text>2pm - 3pm</Text></View>
+							</View>
 
 
-					<View style={styles.stopRow}>
-						<View style={styles.stopInputCont}>
-							<Text>Start Time</Text>
 
-							<TextInput
-								multiline={true}
-								numberOfLines={4}
-								style={{height: 40, borderColor: 'gray', borderWidth: 1, padding: 5,}}
-							/>
-
-						</View>
-						<View style={styles.stopInputCont}>
-							<Text>End Time</Text>
-
-							<TextInput
-								multiline={true}
-								numberOfLines={4}
-								style={{height: 40, borderColor: 'gray', borderWidth: 1, padding: 5,}}
-							/>
-
-						</View>
-					</View>
+						</ScrollView>
 
 
-					{/* pressing on button will add an "stop" object to the stops array
+						{/* pressing on button will add an "stop" object to the stops array
                             1. converts data into object, adds object to the stops array
                             2. clears the fields
                             3. refreshes the "current stop list"
@@ -233,34 +445,42 @@ export default class AddGuidePage extends React.Component {
                     
                     
                         */}
-					<Button
-						// onPress={onPressLearnMore}
-						title="ADD STOP"
-						color="red"
-						accessibilityLabel="Learn more about this purple button"
-					/>
 
-					{/* <Button
+
+						{/* <Button
                             onPress={}
                             title="ADD Photos"
                             color="red"
                             accessibilityLabel="Learn more about this purple button"
                         /> */}
 
-					<Button
-						// onPress={onPressLearnMore}
-						title="Submit guide"
-						color="red"
-						accessibilityLabel="Learn more about this purple button"
-					/>
+						<Button
+							style={styles.submitGuideStyle}
+							// onPress={this.submitGuide}
+							title="Submit guide"
+							color="red"
+							accessibilityLabel="Learn more about this purple button"
+						/>
 
-				</View>
+					</View>
+
+				</ScrollView>
+
+
 			</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
+	stopImg: {
+		width: '150',
+		height: '75'
+	},
+	// submitGuideStyle: {
+	// 	marginBottom: '500'
+	// },
+
 	listItem: {
 		height: 35,
 		padding: 0,
@@ -278,14 +498,14 @@ const styles = StyleSheet.create({
 		// width: '45%'
 	},
 	stopName: {
-		width: '45%'
+		width: '40%'
 	},
 	stopName: {
 		padding: 0,
 		margin: 0,
 		marginLeft: 20,
 		marginRight: 10,
-		width: '45%'
+		width: '40%'
 	},
 	stopsListsCont: {
 		backgroundColor: 'white', flex: 1, flexDirection: 'row'
@@ -365,6 +585,9 @@ const styles = StyleSheet.create({
 		backgroundColor: '#e5e5e5',
 		padding: 5
 
+	},
+	container: {
+		paddingBottom: 100
 	}
 
 });

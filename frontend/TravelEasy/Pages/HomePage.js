@@ -94,6 +94,125 @@ const window = Dimensions.get('window');
 // 	allCards.push(new TripCard(r));
 // });
 
+const allCards = [
+	{
+		title: 'UW 1-Day Tour',
+		desc: 'University of Washington is the top university in Washington state, founded in 1861. It is also famous for the cherry blossom view and many aesthetically appealing buildings.',
+		imgs: [
+			{
+				url: require('../imgs/uw1.jpg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/uw2.jpg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/uw3.jpeg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/uw4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 100,
+		category: 'Campus Tour'
+	},
+	{
+		title: 'Singapore Madness',
+		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+		imgs: [
+			{
+				url: require('../imgs/sgp1.jpg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/sgp2.jpeg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/sgp3.jpg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/sgp4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 230,
+		category: 'City Tour'
+	},
+	{
+		title: 'Metropolitan Museum',
+		desc: 'The Metropolitan Museum of Art of New York City, colloquially "the Met", is the largest art museum in the United States. With 6,953,927 visitors to its three locations in 2018, it was the third most visited art museum in the world.',
+		imgs: [
+			{
+				url: require('../imgs/mtmuseum1.jpg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/mtmuseum2.jpg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/mtmuseum3.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 100,
+		category: 'Museum Day'
+	},
+	{
+		title: 'Vegas Shopping Day',
+		desc: 'You can spend money in almost any way imaginable in Las Vegas, but the best way to actually leave with what you paid for is to go shopping. ',
+		imgs: [
+			{
+				url: require('../imgs/vegas1.jpg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/vegas2.jpeg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/vegas3.jpeg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/vegas4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 100,
+		category: 'Shopping Festival'
+	},
+	{
+		title: 'Yosemite!!!',
+		desc: 'Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.',
+		imgs: [
+			{
+				url: require('../imgs/ys1.jpeg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/ys2.jpg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/ys3.jpg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/ys4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 100,
+		category: 'National Park'
+	},
+]
+
 class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -109,7 +228,7 @@ class HomePage extends React.Component {
 			categories: [
 				{
 					category: 'Museum Day',
-					img: require('../imgs/museum.jpg')
+					img: require('../imgs/mtmuseum4.jpg')
 				},
 				{
 					category: 'Shopping Festival',
@@ -120,54 +239,7 @@ class HomePage extends React.Component {
 					img: require('../imgs/park.jpg')
 				}
 			],
-			cards: [
-				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-					imgs: [
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 230
-				},
-				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-					imgs: [
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 100
-				}
-			]
+			cards: allCards
 		}
 	}
 
@@ -188,8 +260,15 @@ class HomePage extends React.Component {
 	}
 
 	_selectCategory(value) {
+		let newCard = allCards.filter((e) => {
+			if (e.category == value) {
+				return e;
+			}
+		});
+		console.log(newCard);
 		this.setState({
-			searchText: value
+			searchText: value,
+			cards: newCard
 		});
 	}
 
@@ -353,8 +432,8 @@ class TourCard extends React.Component {
 					</Button>
 				</View>
 
-				<View style={{margin: 5}}>
-					<Text style={{color: '#424242', lineHeight: 16}}>{this.props.card.desc}</Text>
+				<View style={{ margin: 5 }}>
+					<Text style={{ color: '#424242', lineHeight: 16 }}>{this.props.card.desc}</Text>
 				</View>
 
 				{/* ------------------------------------------------ */}
@@ -370,7 +449,7 @@ class TourCard extends React.Component {
 					}}
 				/>
 				<View style={styles.guideActionsCont}>
-					<View style={{flexDirection: 'row', marginTop: 0}}>
+					<View style={{ flexDirection: 'row', marginTop: 0 }}>
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomUp}
 							onPress={this._onPressUp}>
