@@ -263,7 +263,7 @@ class RouteIntro extends React.Component {
 	}
 
 	_follow() {
-		Alert.alert('You tapped the button!')
+
 
 		this.setState({ following: "Following!" })
 	}

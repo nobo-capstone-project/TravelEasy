@@ -423,7 +423,7 @@ export default class AddGuidePage extends React.Component {
 
 						<View style={styles.stopImgCont}>
 							<Button style={styles.choosePhotoButtonStyle} onPress={this.handleChoosePhoto}>
-								<Text>Choose Stop Photo</Text>
+								<Text style={styles.choosePhotoText}>Choose Stop Photo</Text>
 							</Button>
 							<Image
 								style={styles.stopImg}
@@ -463,7 +463,7 @@ export default class AddGuidePage extends React.Component {
 						/> */}
 
 						<Button success style={styles.addStopButton} onPress={this.triggerAddStopActions}>
-							<Text style={styles.buttonText}>Add Stop</Text>
+							<Text style={styles.stopButtonText}>Add Stop</Text>
 
 
 						</Button>
@@ -522,10 +522,14 @@ const styles = StyleSheet.create({
 	},
 	choosePhotoButtonStyle: {
 		backgroundColor: 'white',
+
 		height: 30,
 		marginLeft: 10,
 		marginRight: 35,
 		padding: 5
+	},
+	choosePhotoText: {
+		color: '#195b39',
 	},
 	boldedText: {
 		fontSize: 15,
@@ -534,18 +538,19 @@ const styles = StyleSheet.create({
 	addStopButton: {
 		marginBottom: 0,
 		marginTop: 10,
-		marginLeft: 120,
+		marginLeft: 140,
 		borderRadius: 15,
 		backgroundColor: '#2E9C08',
 		backgroundColor: '#2E9C08',
 		backgroundColor: 'grey',
 		backgroundColor: '#F67779',
-		padding: 10,
-		height: 30
+		padding: 9,
+		height: 25,
+		width: 70
 	},
 
 	buttonStyle: {
-		marginTop: 5,
+		marginTop: 6,
 		marginLeft: 120,
 		borderRadius: 15,
 		backgroundColor: '#2E9C08',
@@ -556,12 +561,18 @@ const styles = StyleSheet.create({
 		height: 30
 		// backgroundColor: 'blue'
 	},
+	stopButtonText: {
+		fontSize: 12,
+		color: 'white',
+	},
+
 	buttonText: {
-		color: 'white'
+		color: 'white',
+
 	},
 	stopsListCont: {
 		backgroundColor: '#f4c842',
-		height: 68,
+		height: 75,
 		padding: 3
 	},
 	stopImgCont: {
