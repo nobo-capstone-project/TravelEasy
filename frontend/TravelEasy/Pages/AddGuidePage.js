@@ -254,10 +254,10 @@ export default class AddGuidePage extends React.Component {
 
 
 				{/* <Header hasTabs /> */}
-				<Header style={{backgroundColor: '#FAD05A'}}>
-					<Text style={{marginTop: 14, fontSize: 18, fontWeight: '400', color: '#424242', fontFamily: 'Helvetica'}}>
+				<Header style={{ backgroundColor: '#FAD05A' }}>
+					<Text style={{ marginTop: 14, fontSize: 18, fontWeight: '400', color: '#424242', fontFamily: 'Helvetica' }}>
 						Create New Trip
-					</Text>					
+					</Text>
 				</Header>
 
 				<ScrollView>
@@ -422,15 +422,7 @@ export default class AddGuidePage extends React.Component {
 						<ScrollView style={styles.stopsListCont}>
 							{this.state.stopsViews}
 
-							<View style={styles.listItem}>
-								<View style={styles.stopName}><Text>Din Tai Fung</Text></View>
-								<View style={styles.stopTimes}><Text>2pm - 3pm</Text></View>
 
-							</View>
-							<View style={styles.listItem}>
-								<View style={styles.stopName}><Text>Din Tai Fung</Text></View>
-								<View style={styles.stopTimes}><Text>2pm - 3pm</Text></View>
-							</View>
 
 
 
