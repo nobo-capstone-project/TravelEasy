@@ -2,6 +2,8 @@ import {Route} from "./Route";
 
 export class Routes {
 
+	routes: Route[];
+
 	constructor(routes: Route[]) {
 		this.routes = routes;
 	}
@@ -16,7 +18,7 @@ export class Routes {
 	// getAllRoutes = () => {
 	getAllRoutes(): Route[] {
 		return this.routes;
-	}
+	};
 
 	getRouteByID(id): Route {
 		for (let i = 0; i < this.routes.length; i++) {

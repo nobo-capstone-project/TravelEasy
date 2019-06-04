@@ -7,9 +7,11 @@
  */
 
 import React from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {Header,} from 'native-base';
-import TouchableOpacity from "react-native-web/src/exports/TouchableOpacity";
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Header } from 'native-base';
+
 // import { Text, View } from 'react-native';
 
 // import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
@@ -23,26 +25,101 @@ const window = Dimensions.get('window');
 
 
 export default class ProfilePage extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			username: '',
+			email: '',
+			userIntro: 'I like to travel in cities.',
+		}
+		this.refreshFunction = this.refreshFunction.bind(this);
+	}
+
+
+	componentDidMount() {
+		AsyncStorage.getItem('username')
+			.then((value) => {
+				console.log(value);
+				this.setState({ "username": value });
+			})
+			.catch(error => {
+				console.log('error');
+			});
+		AsyncStorage.getItem('email')
+			.then((value) => {
+				console.log(value);
+				this.setState({ "email": value });
+			})
+			.catch(error => {
+				console.log('error');
+			});
+		// const { navigation } = this.props;
+		// let bio = navigation.getParam('userBio', '');
+		// if (bio.length != 0) {
+		// 	this.setState({ "userIntro": bio });
+		// }
+		console.log('dhkvbdkvbhdfbvdhfk');
+	}
+
+	// shouldComponentUpdate() {
+	// 	AsyncStorage.getItem('username')
+	// 		.then((value) => {
+	// 			console.log(value);
+	// 			this.setState({ "username": value });
+	// 		})
+	// 		.catch(error => {
+	// 			console.log('error');
+	// 		});
+	// 	AsyncStorage.getItem('email')
+	// 		.then((value) => {
+	// 			console.log(value);
+	// 			this.setState({ "email": value });
+	// 		})
+	// 		.catch(error => {
+	// 			console.log('error');
+	// 		});
+	// 		const { navigation } = this.props;
+	// 		let bio = navigation.getParam('userBio', '');
+	// 		if (bio.length != 0) {
+	// 			this.setState({ "userIntro": bio });
+	// 		}
+	// }
+	refreshFunction(value) {
+		AsyncStorage.getItem('username')
+			.then((value) => {
+				console.log(value);
+				this.setState({ "username": value });
+			})
+			.catch(error => {
+				console.log(error);
+			});
+		console.log('eee');
+		if (value.length != 0) {
+			this.setState({ "userIntro": value });
+		}
+	}
+
+
 	render() {
 		return (
 			<ScrollView>
 				{/* <RouteHeader></RouteHeader> */}
-				<View style={{backgroundColor: '#F3F7FF', width: window.width, height: window.height}}>
+				<View style={{ backgroundColor: '#F3F7FF', width: window.width, height: window.height }}>
 					{/* <RouteIntro tags={this.state.tags}></RouteIntro>
                     <RouteDetail stops={this.state.stops}></RouteDetail> */}
-					<Header style={{backgroundColor: '#FAD05A'}}>
-						<Text style={{marginTop: 14, fontSize: 18, fontWeight: '400', color: '#424242', fontFamily: 'Helvetica'}}>
-							Hi, username
+					<Header style={{ backgroundColor: '#FAD05A' }}>
+						<Text style={{ marginTop: 14, fontSize: 16, fontWeight: '500' }}>
+							Hi, {this.state.username}
 						</Text>
 					</Header>
 					<View style={styles.profile}>
-						{/*this is a button which nowhere say it is*/}
-						<View style={{width: window.width, height: 20, backgroundColor: 'transparent'}}/>
 
-						<View style={{flexDirection: 'row'}}>
-							<Image source={require('../imgs/user.png')} style={styles.userImg}/>
-							<View style={{flexDirection: 'column', alignItems: 'center'}}>
-								<View style={{flexDirection: 'row'}}>
+						<View style={{ width: window.width, height: 20, backgroundColor: 'transparent' }} />
+
+						<View style={{ flexDirection: 'row' }}>
+							<Image source={require('../imgs/user.png')} style={styles.userImg} />
+							<View style={{ flexDirection: 'column', alignItems: 'center' }}>
+								<View style={{ flexDirection: 'row' }}>
 
 									<View style={{
 										flexDirection: 'column',
@@ -90,7 +167,7 @@ export default class ProfilePage extends React.Component {
 										</Text>
 									</View>
 								</View>
-								<TouchableOpacity>
+								<TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('EditProfile', { refresh: this.refreshFunction })}>
 									<View style={{
 										borderColor: "#F7B633",
 										borderWidth: 1,
@@ -105,36 +182,36 @@ export default class ProfilePage extends React.Component {
 									}}>
 										<Text>Edit Profile</Text>
 									</View>
-								</TouchableOpacity>
+								</TouchableWithoutFeedback>
 							</View>
 
 							{/* <Button>Profile</Button> */}
 							{/* <View></View> */}
 							{/* </View> */}
 						</View>
-						<View style={{width: window.width, height: 10, backgroundColor: 'transparent'}}/>
+						<View style={{ width: window.width, height: 10, backgroundColor: 'transparent' }} />
 						<View>
 							<Text style={styles.username}>
-								username
+								{this.state.username}
 							</Text>
 							<Text style={styles.userinfo}>
-								userinformation, credit, mileage etc.
+								{this.state.userInfo}
 							</Text>
 							<Text style={styles.userintro}>
-								userintroduction say something about yourself
+								{this.state.userIntro}
 							</Text>
 						</View>
 
 					</View>
 					<View>
-						<Text style={{marginLeft: 24, marginTop: 8, fontWeight: '500', fontSize: 12, color: '#828282'}}>Hot
+						<Text style={{ marginLeft: 24, marginTop: 8, fontWeight: '500', fontSize: 12, color: '#828282' }}>Hot
 							Posts</Text>
 						{/* <Image source={require('../imgs/arrow-right.svg')} /> */}
 
 					</View>
-					<View style={{alignItems: 'center', marginTop: 100}}>
-						<Image source={require('../imgs/nopost.png')}/>
-						<Text style={{marginTop: 20, fontWeight: '600', color: '#828282'}}>
+					<View style={{ alignItems: 'center', marginTop: 100 }}>
+						<Image source={require('../imgs/nopost.png')} />
+						<Text style={{ marginTop: 20, fontWeight: '600', color: '#828282' }}>
 							Share some of your trips please.
 						</Text>
 					</View>
@@ -142,7 +219,7 @@ export default class ProfilePage extends React.Component {
 				</View>
 				{/* <PostComment update={this.updateComments}></PostComment> */}
 				{/* {console.log(this.state.comments)} */}
-			</ScrollView>
+			</ScrollView >
 
 
 		);

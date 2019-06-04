@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "TravelEasy",
   "version": "0.0.1",
   "private": true,
@@ -52,4 +53,16 @@
   "jest": {
     "preset": "react-native"
   }
+=======
+		"name": "TravelEasy",
+		"version": "1.0.0",
+		"dependencies": {
+				"@babel/types": "latest",
+				"dimensions": "^0.1.0",
+				"native-base": "latest",
+				"react": "latest",
+				"react-native": "latest",
+				"react-navigation": "latest"
+		}
+>>>>>>> dc5baeaaf32ce22c249f407b981c0c16414d263d
 }

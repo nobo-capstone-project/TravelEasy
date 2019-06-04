@@ -34,6 +34,7 @@ import ProfilePage from './Pages/ProfilePage';
 import SignUpPage from './Pages/SignUpPage';
 import Favorites from './Pages/FavoritesPage';
 import Plans from './Pages/PlansPage';
+import EditProfile from './Pages/EditProfile';
 
 
 import GuideInfo from './Pages/GuideIninerary';
@@ -56,27 +57,9 @@ const TabNavigator = createBottomTabNavigator(
       },
     },
     Favorites: {
-      screen: Favorites,
-      navigationOptions: {
-        tabBarLabel: 'Favorites',
-        tabBarIcon: ({ tintColor, activeTintColor }) => (
-          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/favorites.svg')} />
-        )
-      },
-    },
-    Plans: {
-      screen: Plans,
+      screen:Favorites,
       navigationOptions: {
         tabBarLabel: 'Plans',
-        tabBarIcon: ({ tintColor, activeTintColor }) => (
-          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
-        )
-      },
-    },
-    Itinerary: {
-      screen: GuideInfo,
-      navigationOptions: {
-        tabBarLabel: 'GuideInfo',
         tabBarIcon: ({ tintColor, activeTintColor }) => (
           <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
         )
@@ -115,7 +98,8 @@ const AppNavigator = createStackNavigator({
   Login: LoginPage,
   SignUp: SignUpPage,
   BottomBar: TabNavigator,
-  Route: RoutePage
+  Route: RoutePage,
+  EditProfile: EditProfile
 },
   {
     initialRouteName: 'BottomBar',
