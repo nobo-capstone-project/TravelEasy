@@ -133,23 +133,166 @@ const stopBravoFarm = new Stop(
 	"If you get hungry from hundreds miles of driving, there is an excellent place to take a break and enjoy the food. There is also a zoo and a tree house.", 
 	"Bravo Farms", 
 	"36005 Hwy 99, Traver, CA", 
-	["Money", "More money"], 
+	[STOP_TYPES.Foodie, STOP_TYPES.NationalPark, STOP_TYPES.Nature], 
 	1, 
 	["http://www.californiagrown.org/wp-content/uploads/2014/07/2.jpg", "https://www.bravofarms.com/wp-content/uploads/2014/10/BF-wp-site-colorfull-hdr-6.jpg"], 
 	false
 )
-const stopsYosemite = [
-	stopBravoFarm,
-]
-const routeYosemite = new Route(
-	"Yosemite", 
-	0, 
+const stopGlacierPoint = new Stop(
 	0,
-	"Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome",
-	stopsYosemite, 
-	23580
+	0,
+	0,
+	0,
+	"Free", 
+	"1h Drive to Glacier Point", 
+	"If you get hungry from hundreds miles of driving, there is an excellent place to take a break and enjoy the food. There is also a zoo and a tree house.", 
+	"Bravo Farms", 
+	"36005 Hwy 99, Traver, CA", 
+	[STOP_TYPES.Nature, STOP_TYPES.NationalPark, STOP_TYPES.Hiking], 
+	2, 
+	["http://www.californiagrown.org/wp-content/uploads/2014/07/2.jpg", "https://www.bravofarms.com/wp-content/uploads/2014/10/BF-wp-site-colorfull-hdr-6.jpg"], 
+	false
 )
 
+const stopYosemiteFalls= new Stop(
+	0,
+	0,
+	0,
+	0,
+	"Free", 
+	"Enjoy the view of Yosemite Falls", 
+	"Yosemite Falls is the highest waterfall in Yosemite National Park, dropping a total of 2,425 feet from the top of the upper fall to the base of the lower fall. Located in the Sierra Nevada of California, it is a major attraction in the park, especially in late spring when the water flow is at its peak", 
+	"Yosemite Falls", 
+	"Yosemite Village, CA 95389", 
+	[STOP_TYPES.Nature, STOP_TYPES.NationalPark, STOP_TYPES.Hiking], 
+	1, 
+	["https://live.staticflickr.com/4192/34678306371_143733fdc7_b.jpg", "https://www.yosemitehikes.com/images/ns/lower-yosemite-falls-trailhead-1000w.jpg"], 
+	false
+)
+
+const stopYosemiteValley= new Stop(
+	0,
+	0,
+	0,
+	0,
+	"Free", 
+	"Explore the Yosemite Valley", 
+	"Yosemite Valley is a glacial valley in Yosemite National Park in the western Sierra Nevada mountains of Central California. The valley is about 7.5 miles long and approximately 3000–3500 feet deep, surrounded by high granite summits such as Half Dome and El Capitan, and densely forested with pines.", 
+	"Yosemite Valley", 
+	" Yosemite Valley, CA ", 
+	[STOP_TYPES.Nature, STOP_TYPES.NationalPark, STOP_TYPES.Hiking], 
+	2, 
+	["https://media.timeout.com/images/105277843/630/472/image.jpg", "https://media.graytvinc.com/images/810*455/Yosemite+National+Park+in+California.jpg"], 
+	false
+)
+const stopTuolumneMeadows= new Stop(
+	0,
+	0,
+	0,
+	0,
+	"Free", 
+	"Have a break at the Tuolumne Meadows", 
+	"Take a short walk by the river and have some bbq here!", 
+	"Tuolumne Meadows", 
+	"7943 Willow St, Wawona, CA 95389", 
+	[STOP_TYPES.Nature, STOP_TYPES.NationalPark, STOP_TYPES.Hiking], 
+	2, 
+	["https://www.visitcalifornia.com/sites/default/files/styles/welcome_image/public/vc_spotlight-pacificcresttrail_module5_tuolumnemeadows_st_rf_585596624_1280x640.jpg", 
+	"https://www.yosemite.com/wp-content/uploads/2016/04/2670749782_bcbe8f6d96_o.jpg"], 
+	false
+)
+
+const stopCentralPark= new Stop(
+	0,
+	0,
+	0,
+	0,
+	"Free", 
+	"Central Park", 
+	"Tips: Shakespeare shows performs here June to September at ther Delacorte Theater, and it is FREE!", 
+	"Central Park", 
+	"New York, NY", 
+	[STOP_TYPES.Historic, STOP_TYPES.Urban, STOP_TYPES.Art], 
+	1, 
+	["https://static.dezeen.com/uploads/2017/08/central-park-tower-extell_dezeen_2364_hero-852x479.jpg"], 
+	false
+)
+
+const stopMetropolitanMuseum= new Stop(
+	0,
+	0,
+	0,
+	0,
+	"$$$", 
+	"The Metropolitan Museum of Art", 
+	"The Metropolitan Museum of Art of New York City, colloquially \"the Met\", is the largest art museum in the United States. With 6,953,927 visitors to its three locations in 2018, it was the third most visited art museum in the world.", 
+	"The Metropolitan Museum of Art", 
+	"1000 5th Ave, New York, NY 10028", 
+	[STOP_TYPES.Historic, STOP_TYPES.Urban, STOP_TYPES.Art], 
+	4, 
+	["https://si.wsj.net/public/resources/images/BN-WV739_THEMET_GR_20180104113341.jpg", "http://www.ariah.info/MET1.jpg"], 
+	false
+)
+
+const stopShakeShack= new Stop(
+	0,
+	0,
+	0,
+	0,
+	"$$", 
+	"Have some Shake Shack!", 
+	"Shake Shack is a New York based chain restaurant. You have to try their burgers, hot dogs, and milkshake here!", 
+	"Shake Shack Upper East Side", 
+	"154 East 86th St, New York, NY 10028", 
+	[STOP_TYPES.Foodie, STOP_TYPES.Urban], 
+	1, 
+	["https://patch.com/img/cdn20/users/22866740/20181211/013629/styles/T800x600/public/processed_images/shakeshack-218_1-1544553363-7751.jpg", 
+	"https://www.glenwoodnyc.com/manhattan-living/wp-content/uploads/resource/ss-danny-meyer-shake-shack-nyc.jpg"], 
+	false
+)
+
+
+const stopVegasSOutlets= new Stop(
+	0,
+	0,
+	0,
+	0,
+	"$$$", 
+	"Only 10min drive to Outlets!", 
+	"Premium outlets with luxury brands inlcuding Burberry, Armani, Tory Burch, and more.", 
+	"Las Vegas South Premium Outlets", 
+	"7400 S Las Vegas Blvd, Las Vegas, NV 89123", 
+	[STOP_TYPES.Shopping, STOP_TYPES.Distress, STOP_TYPES.Fashion], 
+	3, 
+	["https://i.ytimg.com/vi/F0iF_dKI1LU/maxresdefault.jpg", 
+	"http://a.mktgcdn.com/p/3OC289fx69kpjm5UaAXnlR4eEAONooxsuRQVaoZ8BNQ/1000x667.jpg"], 
+	false
+)
+
+const stopFashionShow= new Stop(
+	0,
+	0,
+	0,
+	0,
+	"$$$$", 
+	"Fashion Show Mall", 
+	"The larget shopping mall in Las Vegas, with physical stores of all the e-commerce in America. including Saks Fifth Avenue, Neiman Marcus, Nordstrom, and Bloomingdatles.", 
+	"Fashion Show Mall", 
+	"3200 S Las Vegas Blvd, Las Vegas, NV 89109", 
+	[STOP_TYPES.Shopping, STOP_TYPES.Distress, STOP_TYPES.Fashion], 
+	4, 
+	["https://media-cdn.tripadvisor.com/media/photo-s/17/76/a4/77/fashion-show.jpg", 
+	"http://jbace.com/wp-content/uploads/2015/12/fashion-show-mall-las-vegas-19.jpg"], 
+	false
+)
+
+const stopsYosemite = [
+	stopBravoFarm,
+	stopGlacierPoint,
+	stopYosemiteFalls,
+	stopYosemiteValley,
+	stopTuolumneMeadows
+]
 const stopsUW = [
 	stopParrington,
 	stopLaw,
@@ -159,11 +302,52 @@ const stopsUW = [
 	stopSUZZ,
 	stopRedSquare
 ];
+
+const stopsNYCDay1 = [
+	stopCentralPark,
+	stopMetropolitanMuseum,
+	stopShakeShack	
+]
+
+const stopsVegas = [
+	stopVegasSOutlets,
+	stopFashionShow
+]
+
+
+const routeNYCDay1 = new Route(
+	"Walking in New York City",
+	0, 
+	0,
+	"1 Day trip in New York City, visiting the Central Park, Metropolitan Museum of Art, and more.",
+	stopsNYCDay1, 
+	1238
+)
+
+
+
+const routeYosemite = new Route(
+	"Driving in Yosemite", 
+	0, 
+	0,
+	"Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.",
+	stopsYosemite, 
+	23580
+)
+
+const routeVegasShopping= new Route(
+	"1 Day shopping in Vegas", 
+	0, 
+	0,
+	"You can spend money in tons of way in Las Vegas but the only thing you CANNOT miss is shopping! This route provide you tips in shopping at both outlets and malls.",
+	stopsVegas, 
+	23580
+)
 const nameUW: string = "UW 1-Day Tour";
 const descUW: string = "University of Washington is one of best universities in the world and is known for its research capabilities and gothic, historic buildings. It has been around for more than 150 years.";
 export const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW, 242);
 
-export const allRoutes: Routes = new Routes([routeUW,routeYosemite]);
+export const allRoutes: Routes = new Routes([routeUW,routeYosemite, routeNYCDay1, routeVegasShopping]);
 
 //cards: [
 // 				{
