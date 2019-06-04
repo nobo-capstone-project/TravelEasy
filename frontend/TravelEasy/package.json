@@ -1,0 +1,12 @@
+{
+		"name": "TravelEasy",
+		"version": "1.0.0",
+		"dependencies": {
+				"@babel/types": "latest",
+				"dimensions": "^0.1.0",
+				"native-base": "latest",
+				"react": "latest",
+				"react-native": "latest",
+				"react-navigation": "latest"
+		}
+}

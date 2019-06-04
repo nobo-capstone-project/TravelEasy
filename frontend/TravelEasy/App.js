@@ -57,27 +57,9 @@ const TabNavigator = createBottomTabNavigator(
       },
     },
     Favorites: {
-      screen: Favorites,
+      screen:Favorites,
       navigationOptions: {
-        tabBarLabel: 'Favorites',
-        tabBarIcon: ({ tintColor, activeTintColor }) => (
-          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/favorites.svg')} />
-        )
-      },
-    },
-    // Plans: {
-    //   screen: Plans,
-    //   navigationOptions: {
-    //     tabBarLabel: 'Plans',
-    //     tabBarIcon: ({ tintColor, activeTintColor }) => (
-    //       <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
-    //     )
-    //   },
-    // },
-    Itinerary: {
-      screen: GuideInfo,
-      navigationOptions: {
-        tabBarLabel: 'GuideInfo',
+        tabBarLabel: 'Plans',
         tabBarIcon: ({ tintColor, activeTintColor }) => (
           <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
         )
@@ -120,7 +102,7 @@ const AppNavigator = createStackNavigator({
   EditProfile: EditProfile
 },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'BottomBar',
     headerMode: 'none'
   });
 

@@ -113,7 +113,7 @@ const stopsUW: Stop[] = [
 	stopSUZZ,
 	stopRedSquare
 ];
-const nameUW: string = "One-day University of Washington Day Tour";
+const nameUW: string = "UW 1-Day Tour";
 const descUW: string = "University of Washington is one of best universities in the world and is known for its research capabilities and gothic, historic buildings. It has been around for more than 150 years.";
 export const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW, 242);
 
@@ -213,7 +213,6 @@ export const allRoutes: Routes = new Routes([routeUW]);
 // 					desc: 'Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.',
 // 					imgs: [
 // 						{
-// 							//http;;.;
 // 							url: require('../imgs/ys1.jpeg'),
 // 							title: 'Breakfast'
 // 						},

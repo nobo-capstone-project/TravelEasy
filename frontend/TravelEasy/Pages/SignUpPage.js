@@ -10,7 +10,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import SvgUri from 'react-native-svg-uri';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, } from 'react-native';
+import { StyleSheet, Text, View, TouchableWithoutFeedback, AlertIOS} from 'react-native';
 import { Button, Container, DatePicker, Form, Header, Input, Item, TextInput } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 // import { Text, View } from 'react-native';
@@ -32,7 +32,7 @@ export default class SignUpPage extends React.Component {
 			email: '',
 			// firstname: 'Rob',
 			// lastname: 'Kim',
-			// dob: '2019-04-26T14:34:00.913032-07:00',
+			dob: '2019-04-26T14:34:00.913032-07:00',
 			// gender: 'M',
 			// locationCity: 'Seattle',
 			// locationState: 'WA',
@@ -76,60 +76,52 @@ export default class SignUpPage extends React.Component {
 			body: JSON.stringify(this.state)
 
 		})
-			.catch(err => {
-				console.log(err)
-			})
-
-
 			.then(res => {
-				console.log("if you get nsvalue error, then..");
-				console.log("User name and Email is prob not unique");
-
-				console.log("what2");
-				// if (!res.ok) {
-				//     throw Error(res.statusText + " " + res.status);
-				// }
 				console.log(res);
-				console.log(res.headers.get("Authorization"));
+				if (!res.ok) {
+					AlertIOS.alert('Error', 'Error', [{
+						text: 'Cancel',
+						onPress: () => console.log('fail')
+					}]);
+				}
 
-				// AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
-
-
-				_storeData = async () => {
+				storeData = async () => {
 					try {
 						await AsyncStorage.setItem('bearerKey', res.headers.get("Authorization"));
 					} catch (error) {
 						console.log(error);
-						// Error saving data
 					}
 				};
-
-				_retrieveData = async () => {
+				return res.json();
+			})
+			.then(data => {
+				console.log(data);
+				// set key value
+				storeData = async () => {
 					try {
-						const value = await AsyncStorage.getItem('bearerKey');
-						if (value !== null) {
-							// We have data!!
-							console.log(value);
-						}
-					} catch (error) {
-						// Error retrieving data
+						await AsyncStorage.setItem('user', data.username);
+						await AsyncStorage.setItem('email', data.email);
+					} catch (e) {
+						console.log(error);
 					}
 				};
 
-				console.log(_storeData);
-				console.log(_retrieveData);
+				// get key
+				AsyncStorage.getItem('email')
+					.then((value) => {
+						// const data = value;
+						// console.log(data);
+					})
+					.catch(error => {
+						console.log(error);
+					});
 
-				const bearerProm = AsyncStorage.getItem('bearerKey');
+				this.props.navigation.navigate('Home');
+			})
 
-				bearerProm.then(function (value) {
-					console.log(value);
-				});
-
-
-				console.log(value);
-				// AsyncStorage.setItem('', 'I like to save it.');
-			}
-			)
+			.catch(error => {
+				console.log(error);
+			});
 	};
 
 	componentDidMount() {
@@ -137,49 +129,9 @@ export default class SignUpPage extends React.Component {
 	}
 
 	render() {
-		console.log(this.state);
-
-		function printHello() {
-			console.log("hello");
-			// logger.log("hello");
-		}
 
 		return (
 			<Container style={styles.container}>
-				{/* <Header style={{backgroundColor: 'transparent'}}>
-				<
-				</Header> */}
-
-				{/* <Text>Sign Up</Text> */}
-				{/* <DatePicker
-					defaultDate={new Date(2018, 4, 4)}
-					minimumDate={new Date(2018, 1, 1)}
-					maximumDate={new Date(2018, 12, 31)}
-					locale={"en"}
-					timeZoneOffsetInMinutes={undefined}
-					modalTransparent={false}
-					animationType={"fade"}
-					androidMode={"default"}
-					placeHolderText="Select date"
-					textStyle={{color: "green"}}
-					placeHolderTextStyle={{color: "#d3d3d3"}}
-					onDateChange={this.setDate}
-					disabled={false}
-				/> */}
-
-				{/* <Form>
-
-					<Text style={styles.createText}>
-						Create {"\n"}
-						Account
-						</Text>
-
-					
-					<TextInput style={styles.signUpFields} placeholder="First Name"
-						onChangeText={(data) => this.setState({ firstname: data })} />
-
-
-				</Form> */}
 				<Form>
 					<TouchableWithoutFeedback onPress={this.props.navigateTo}>
 						<Form style={{ flexDirection: 'row', marginTop: 60, marginLeft: 10 }}>
