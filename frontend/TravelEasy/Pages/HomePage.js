@@ -421,10 +421,14 @@ class TourCard extends React.Component {
 		super(props);
 		this._onPressUp = this._onPressUp.bind(this);
 		this._onPressDown = this._onPressDown.bind(this);
+		this._onAddToPlans = this._onAddToPlans.bind(this);
 		this.state = {
 			buttomUp: false,
-			buttomDowm: false
+			buttomDowm: false,
+			addPlansText: "Add to Plans"
 		}
+
+
 	}
 
 	_onPressUp() {
@@ -441,13 +445,21 @@ class TourCard extends React.Component {
 		this.props.voteDown(this.props.index);
 	}
 
+	_onAddToPlans() {
+
+		this.setState({ addPlansText: "Added!" });
+
+		// this.setState({ addPlansText: "Added to Plans" });
+	}
+
 	render() {
 		return (
 			<View style={styles.dayGuide}>
 				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 5 }}>
 					<Text style={styles.guideTitle} onPress={this.props.navigateTo}>{this.props.card.title}</Text>
-					<Button success style={styles.addPlanButton}>
-						<Text style={styles.addPlanText}>Add to Plans</Text>
+					<Button onPress={this._onAddToPlans} success style={styles.addPlanButton}>
+						{/* <Text style={styles.addPlanText}>Add to Plans</Text> */}
+						<Text style={styles.addPlanText}>{this.state.addPlansText}</Text>
 					</Button>
 				</View>
 
