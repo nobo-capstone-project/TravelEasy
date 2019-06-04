@@ -18,13 +18,13 @@ import {
 } from 'react-native';
 
 
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
-import {withNavigation} from 'react-navigation';
-import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
-import {TripCard} from "../Model/TripCard";
-import {Image} from "react-native-elements";
-import {allRoutes} from "../Model/Data";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { withNavigation } from 'react-navigation';
+import { Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs, } from 'native-base';
+import { TripCard } from "../Model/TripCard";
+import { Image } from "react-native-elements";
+import { allRoutes } from "../Model/Data";
 // import {Route} from "../Model/Route";
 // import {CardImage, TripCard} from "../Model/TripCard";
 // import {routes} from "../Model/Routes";
@@ -134,20 +134,20 @@ class HomePage extends React.Component {
 			<Container style={styles.homeSearch}>
 				<Header searchBar rounded style={styles.homeSearch}>
 					<Item style={styles.searchBox}>
-						<Icon name="ios-search"/>
-						<Input placeholder="Search"/>
+						<Icon name="ios-search" />
+						<Input placeholder="Search" />
 						{/* <Icon name="ios-people" /> */}
 					</Item>
-					<Button transparent>
+					{/* <Button transparent>
 						<Text>Search</Text>
-					</Button>
+					</Button> */}
 				</Header>
 
 				{/* <Header hasTabs /> */}
 
 				{/* <View style={styles.tabHeader}> */}
 
-				<Tabs tabStyle={{backgroundColor: '#FAD05A'}} locked={true}>
+				<Tabs tabStyle={{ backgroundColor: '#FAD05A' }} locked={true}>
 
 					<Tab style={styles.tab} heading="All">
 
@@ -168,12 +168,12 @@ class HomePage extends React.Component {
 						}}>
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>
-									<View style={{position: 'relative'}}>
+									<View style={{ position: 'relative' }}>
 										<ImageBackground source={require('../imgs/museum.jpg')}
-										                 style={{
-											                 width: 136,
-											                 height: 90
-										                 }}/>
+											style={{
+												width: 136,
+												height: 90
+											}} />
 
 										<Text style={{
 											position: 'absolute',
@@ -187,12 +187,12 @@ class HomePage extends React.Component {
 								</TouchableHighlight>
 
 								<TouchableHighlight style={styles.categView}>
-									<View style={{position: 'relative'}}>
+									<View style={{ position: 'relative' }}>
 										<ImageBackground source={require('../imgs/shopping.jpg')}
-										                 style={{
-											                 width: 136,
-											                 height: 90
-										                 }}/>
+											style={{
+												width: 136,
+												height: 90
+											}} />
 
 										<Text style={{
 											position: 'absolute',
@@ -204,12 +204,12 @@ class HomePage extends React.Component {
 									</View>
 								</TouchableHighlight>
 								<TouchableHighlight style={styles.categView}>
-									<View style={{position: 'relative'}}>
+									<View style={{ position: 'relative' }}>
 										<ImageBackground source={require('../imgs/park.jpg')}
-										                 style={{
-											                 width: 136,
-											                 height: 90
-										                 }}/>
+											style={{
+												width: 136,
+												height: 90
+											}} />
 
 										<Text style={{
 											position: 'absolute',
@@ -238,10 +238,11 @@ class HomePage extends React.Component {
 						</Content>
 
 					</Tab>
-					<Tab style={styles.tab} heading="Nearby">
+
+					<Tab style={styles.tab} heading="Following">
 						{/* <Tab2 /> */}
 					</Tab>
-					<Tab style={styles.tab} heading="Following">
+					<Tab style={styles.tab} heading="Nearby">
 						{/* <Tab2 /> */}
 					</Tab>
 				</Tabs>
@@ -262,11 +263,11 @@ class TourCards extends React.Component {
 			<View>
 				{this.props.cards.map((card, i) => {
 					return <TourCard card={card}
-					                 key={i}
-					                 navigateTo={this.props.navigateTo}
-					                 voteUp={this.props.voteUp}
-					                 voteDown={this.props.voteDown}
-					                 index={i}></TourCard>
+						key={i}
+						navigateTo={this.props.navigateTo}
+						voteUp={this.props.voteUp}
+						voteDown={this.props.voteDown}
+						index={i}></TourCard>
 				})}
 			</View>
 		)
@@ -302,15 +303,15 @@ class TourCard extends React.Component {
 	render() {
 		return (
 			<View style={styles.dayGuide}>
-				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 5}}>
+				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 5 }}>
 					<Text style={styles.guideTitle} onPress={this.props.navigateTo}>{this.props.card.title}</Text>
 					<Button success style={styles.addPlanButton}>
 						<Text style={styles.addPlanText}>Add to Plans</Text>
 					</Button>
 				</View>
 
-				<View style={{margin: 5}}>
-					<Text style={{color: '#424242', lineHeight: 16}}>{this.props.card.desc}</Text>
+				<View style={{ margin: 5 }}>
+					<Text style={{ color: '#424242', lineHeight: 16 }}>{this.props.card.desc}</Text>
 				</View>
 
 				{/* ------------------------------------------------ */}
@@ -326,11 +327,11 @@ class TourCard extends React.Component {
 					}}
 				/>
 				<View style={styles.guideActionsCont}>
-					<View style={{flexDirection: 'row', marginTop: 0}}>
+					<View style={{ flexDirection: 'row', marginTop: 0 }}>
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomUp}
 							onPress={this._onPressUp}>
-							<FontAwesomeIcon icon={faArrowUp} style={{color: 'black', marginRight: 5, marginTop: 0}}/>
+							<FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5, marginTop: 0 }} />
 						</TouchableWithoutFeedback>
 						<Text style={{
 							fontSize: 13,
@@ -341,11 +342,11 @@ class TourCard extends React.Component {
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomDowm}
 							onPress={this._onPressDown}>
-							<FontAwesomeIcon icon={faArrowDown} style={{color: 'black', marginLeft: 5}}/>
+							<FontAwesomeIcon icon={faArrowDown} style={{ color: 'black', marginLeft: 5 }} />
 						</TouchableWithoutFeedback>
 					</View>
 
-					<Button style={{backgroundColor: 'white', height: 30}} onPress={this.props.navigateTo}>
+					<Button style={{ backgroundColor: 'white', height: 30 }} onPress={this.props.navigateTo}>
 						<Text>Read More</Text>
 					</Button>
 				</View>
@@ -366,7 +367,7 @@ class Gallery extends React.Component {
 			<ScrollView
 				horizontal={true}
 				showsHorizontalScrollIndicator={false}>
-				<View style={{flexDirection: 'row', marginBottom: 5}}>
+				<View style={{ flexDirection: 'row', marginBottom: 5 }}>
 					{this.props.imgs.map((img, i) => {
 						return (
 							<TouchableHighlight style={styles.stopViews} key={i}>
