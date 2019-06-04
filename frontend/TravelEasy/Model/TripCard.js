@@ -23,7 +23,8 @@ export class TripCard {
 		this.desc = this.route.description;
 		this.vote = route.vote;
 		this.route.picture.forEach((url) => {
-			this.imgs.push(new CardImage(url, ""))
+			console.log(url);
+			this.imgs.push(new CardImage(url, ""));
 		})
 	}
 }

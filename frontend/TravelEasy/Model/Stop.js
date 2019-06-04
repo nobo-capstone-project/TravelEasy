@@ -40,4 +40,3 @@ export class Stop {
 		this.endTime = endTime;
 	}
 }
-

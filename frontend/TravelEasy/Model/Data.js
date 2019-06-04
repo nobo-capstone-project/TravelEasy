@@ -2,20 +2,6 @@ import {Stop, STOP_TYPES} from "./Stop";
 import {Route} from "./Route";
 import {Routes} from "./Routes";
 
-export const stopLaw = new Stop(
-	2,
-	2,
-	47.659124,
-	-122.310963,
-	"University of Washington LAW School",
-	"William H. Gates Hall",
-	"It is the LAW school with capitalized letters",
-	"William H. Gates Hall (LAW), Seattle, WA 98105",
-	[STOP_TYPES.Academic],
-	1,
-	["https://www.law.uw.edu/media/1151/clinics.jpg"],
-	true,
-);
 export const stopParrington = new Stop(
 	1,
 	1,
@@ -31,6 +17,20 @@ export const stopParrington = new Stop(
 	true,
 	undefined,
 	undefined
+);
+export const stopLaw = new Stop(
+	2,
+	2,
+	47.659124,
+	-122.310963,
+	"University of Washington LAW School",
+	"William H. Gates Hall",
+	"It is the LAW school with capitalized letters",
+	"William H. Gates Hall (LAW), Seattle, WA 98105",
+	[STOP_TYPES.Academic],
+	1,
+	["https://www.law.uw.edu/media/1151/clinics.jpg"],
+	true,
 );
 export const stopDenny = new Stop(
 	3,
@@ -113,11 +113,124 @@ const stopsUW: Stop[] = [
 	stopSUZZ,
 	stopRedSquare
 ];
-
 const nameUW: string = "One-day University of Washington Day Tour";
-
 const descUW: string = "University of Washington is one of best universities in the world and is known for its research capabilities and gothic, historic buildings. It has been around for more than 150 years.";
-
-const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW);
+export const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW, 242);
 
 export const allRoutes: Routes = new Routes([routeUW]);
+
+//cards: [
+// 				{
+// 					title: 'UW 1-Day Tour',
+// 					desc: 'University of Washington is the top university in Washington state, founded in 1861. It is also famous for the cherry blossom view and many aesthetically appealing buildings.',
+// 					imgs: [
+// 						{
+// 							url: require('../imgs/uw1.jpg'),
+// 							title: 'Breakfast'
+// 						},
+// 						{
+// 							url: require('../imgs/uw2.jpg'),
+// 							title: 'Hiking at Temple'
+// 						},
+// 						{
+// 							url: require('../imgs/uw3.jpeg'),
+// 							title: 'Lunch'
+// 						},
+// 						{
+// 							url: require('../imgs/uw4.jpg'),
+// 							title: 'Lunch'
+// 						}
+// 					],
+// 					vote: 100
+// 				},
+// 				{
+// 					title: 'Singapore Madness',
+// 					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+// 					imgs: [
+// 						{
+// 							url: require('../imgs/sgp1.jpg'),
+// 							title: 'Breakfast'
+// 						},
+// 						{
+// 							url: require('../imgs/sgp2.jpeg'),
+// 							title: 'Hiking at Temple'
+// 						},
+// 						{
+// 							url: require('../imgs/sgp3.jpg'),
+// 							title: 'Lunch'
+// 						},
+// 						{
+// 							url: require('../imgs/sgp4.jpg'),
+// 							title: 'Lunch'
+// 						}
+// 					],
+// 					vote: 230
+// 				},
+// 				{
+// 					title: 'Metropolitan Museum',
+// 					desc: 'The Metropolitan Museum of Art of New York City, colloquially "the Met", is the largest art museum in the United States. With 6,953,927 visitors to its three locations in 2018, it was the third most visited art museum in the world.',
+// 					imgs: [
+// 						{
+// 							url: require('../imgs/mtmuseum1.jpg'),
+// 							title: 'Breakfast'
+// 						},
+// 						{
+// 							url: require('../imgs/mtmuseum2.jpg'),
+// 							title: 'Hiking at Temple'
+// 						},
+// 						{
+// 							url: require('../imgs/mtmuseum3.jpg'),
+// 							title: 'Lunch'
+// 						}
+// 					],
+// 					vote: 100
+// 				},
+// 				{
+// 					title: 'Vegas Shopping Day',
+// 					desc: 'You can spend money in almost any way imaginable in Las Vegas, but the best way to actually leave with what you paid for is to go shopping. ',
+// 					imgs: [
+// 						{
+// 							url: require('../imgs/vegas1.jpg'),
+// 							title: 'Breakfast'
+// 						},
+// 						{
+// 							url: require('../imgs/vegas2.jpeg'),
+// 							title: 'Hiking at Temple'
+// 						},
+// 						{
+// 							url: require('../imgs/vegas3.jpeg'),
+// 							title: 'Lunch'
+// 						},
+// 						{
+// 							url: require('../imgs/vegas4.jpg'),
+// 							title: 'Lunch'
+// 						}
+// 					],
+// 					vote: 100
+// 				},
+// 				{
+// 					title: 'Yosemite!!!',
+// 					desc: 'Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.',
+// 					imgs: [
+// 						{
+// 							//http;;.;
+// 							url: require('../imgs/ys1.jpeg'),
+// 							title: 'Breakfast'
+// 						},
+// 						{
+// 							url: require('../imgs/ys2.jpg'),
+// 							title: 'Hiking at Temple'
+// 						},
+// 						{
+// 							url: require('../imgs/ys3.jpg'),
+// 							title: 'Lunch'
+// 						},
+// 						{
+// 							url: require('../imgs/ys4.jpg'),
+// 							title: 'Lunch'
+// 						}
+// 					],
+// 					vote: 100
+// 				},
+//
+// 			]

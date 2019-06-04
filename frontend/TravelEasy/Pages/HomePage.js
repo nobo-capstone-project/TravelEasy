@@ -22,7 +22,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {withNavigation} from 'react-navigation';
 import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
-import {Route} from "../Model/Route";
 import {TripCard} from "../Model/TripCard";
 import {allRoutes} from "../Model/Data";
 
@@ -31,55 +30,6 @@ const Dimensions = require('Dimensions');
 const window = Dimensions.get('window');
 
 const allCards: TripCard[] = [];
-// const testCards = [
-// 	{
-// 		title: 'Singapore Madness',
-// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-// 		imgs: [
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Breakfast'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Hiking at Temple'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Lunch'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Lunch'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Lunch'
-// 			}
-// 		],
-// 		vote: 230
-// 	},
-// 	{
-// 		title: 'Singapore Madness',
-// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-// 		imgs: [
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Breakfast'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Hiking at Temple'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Lunch'
-// 			}
-// 		],
-// 		vote: 100
-// 	}
-// ];
-
 allRoutes.getAllRoutes().forEach(function (r) {
 	allCards.push(new TripCard(r));
 });
@@ -98,6 +48,7 @@ class HomePage extends React.Component {
 
 	_navigateTo() {
 		this.props.navigation.navigate('Route');
+		// this.props.navigation.navigate('Route', {hshhs: });
 	}
 
 	_voteUp(index) {
@@ -114,7 +65,7 @@ class HomePage extends React.Component {
 
 	render() {
 		// console.log('hello');
-		console.log(this.props.navigation);
+		// console.log(this.props.navigation);
 
 		return (
 			<Container style={styles.homeSearch}>
@@ -155,12 +106,11 @@ class HomePage extends React.Component {
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
-										<ImageBackground source={require('../imgs/museum.jpg')}
+										<ImageBackground source={require('../imgs/mtmuseum4.jpg')}
 										                 style={{
 											                 width: 136,
 											                 height: 90
 										                 }}/>
-
 										<Text style={{
 											position: 'absolute',
 											top: 65,
@@ -243,7 +193,7 @@ class TourCards extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.cards);
+		// console.log(this.props.cards);
 		return (
 			<View>
 				{this.props.cards.map((card, i) => {
@@ -347,7 +297,7 @@ class Gallery extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.imgs);
+		// console.log(this.props.imgs);
 		return (
 			<ScrollView
 				horizontal={true}
@@ -357,7 +307,6 @@ class Gallery extends React.Component {
 						return (
 							<TouchableHighlight style={styles.stopViews} key={i}>
 								<View>
-									{console.log(img.url)}
 									<ImageBackground
 										source={{uri: img.url}}
 										style={{
