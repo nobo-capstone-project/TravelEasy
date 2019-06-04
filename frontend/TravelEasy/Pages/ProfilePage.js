@@ -117,7 +117,7 @@ export default class ProfilePage extends React.Component {
 						<View style={{ width: window.width, height: 20, backgroundColor: 'transparent' }} />
 
 						<View style={{ flexDirection: 'row' }}>
-							<Image source={require('../imgs/user.png')} style={styles.userImg} />
+							<Image source={require('../imgs/self.png')} style={styles.userImg} />
 							<View style={{ flexDirection: 'column', alignItems: 'center' }}>
 								<View style={{ flexDirection: 'row' }}>
 
