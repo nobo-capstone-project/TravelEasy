@@ -506,7 +506,7 @@ export default class AddGuidePage extends React.Component {
 
 const styles = StyleSheet.create({
 	boldedText: {
-		fontWeight: 'bold'
+		
 	},
 	choosePhotoButtonStyle: {
 		backgroundColor: 'white',

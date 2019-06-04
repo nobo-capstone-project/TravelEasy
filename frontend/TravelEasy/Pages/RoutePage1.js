@@ -36,82 +36,25 @@ export default class RoutePage extends React.Component {
 		this.updateComments = this.updateComments.bind(this);
 		this.navigateTo = this.navigateTo.bind(this);
 		this.state = {
-			tags: ['Campus', 'Seattle', 'University', "Historic"],
+			tags: ['Meseum', 'New York City', 'Art', 'Historic', 'Foodie'],
 			stops: [
 				{
-					title: "Suzzallo Library",
+					title: "Central Park",
 					price: "Free",
 					time: "30mins ~ 1hrs",
-					desc: 'Suzzallo Library is the central library of the University of Washington in Seattle, and perhaps the most recognizable building on campus. The Grand Reading Room is also affectionately called “the Harry Porter Room.”',
-					imgs: [
-						{
-							//http;;.;
-							url: require('../imgs/ys1.jpeg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/ys2.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/ys3.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/ys4.jpg'),
-							title: 'Lunch'
-						}
-					],
+					desc: 'Located  Upper West Side and Upper East Side, roughly bounded by Fifth Avenue on the east, Central Park West (Eighth Avenue) on the west, Central Park South (59th Street) on the south, and Central Park North (110th Street) on the north. Taking photos in front of Bethesda Fountain and enjoy the sunshine.”'
 				},
 				{
-					title: "The Quad",
-					price: "Free",
+					title: "Metropolitan Museum of Art",
+					price: "$$",
 					time: "30mins ~ 1hrs",
-					desc: 'The main quadrangle at the University of Washington in Seattle, Washington. Lined up with thirty Yoshino cherry trees, which blossom between mid-March and early April.Raitt Hall and Savery Hall frame the northwestern boundary while Gowen, Smith, and Miller Halls frame the southeast. At the top of the quad sits the latest buildings on the quad, the Art and Music Buildings',
-					imgs: [
-						{
-							//http;;.;
-							url: require('../imgs/ys1.jpeg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/ys2.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/ys3.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/ys4.jpg'),
-							title: 'Lunch'
-						}
-					],
+					desc: 'With over 3 millions of exhibits including paintings, furnitures, and weapons, from Egypt, Babylon, Greek, Africa, and more. You should spend as much time as you can here!'
 				},
 				{
-					title: "Drumheller Fountain",
-					price: "Free",
-					time: "30mins ~ 1hrs",
-					desc: 'Drumheller Fountain, also known as Frosh Pond, is an outdoor fountain on the University of Washington. Students jump down here to celebrate their graduation.',
-					imgs: [
-						{
-							//http;;.;
-							url: require('../imgs/ys1.jpeg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/ys2.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/ys3.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/ys4.jpg'),
-							title: 'Lunch'
-						}
-					],
+					title: "Shake Shack",
+					price: "$$",
+					time: "2hrs ~ 3hrs",
+					desc: 'Enjoy the most local burgers, hot dogs, and milkshakes in the New York City based chain restaurant. '
 				}
 			],
 			comments: [
@@ -175,7 +118,7 @@ class RouteHeader extends React.Component {
 		return (
 			<View>
 				<View style={styles.cover}>
-					<Image source={require('../imgs/cover.jpg')} style={styles.cover_img}/>
+					<Image source={require('../imgs/mtmuseum1.jpg')} style={styles.cover_img}/>
 					<View style={styles.topLeftBottom}>
 						<TouchableWithoutFeedback onPress={this.props.navigateTo}>
 							<View style={{flexDirection: 'row', marginTop: 10}}>
@@ -196,12 +139,12 @@ class RouteHeader extends React.Component {
 					</View>
 					<View style={styles.coverHeader}>
 						<Text style={styles.coverTextH1}>
-							University of Washington 1-Day Tour
+							Metropolitan Museum
 						</Text>
 						<View style={{flexDirection: 'row', marginTop: 10}}>
 							<FontAwesomeIcon style={{color: 'white', marginRight: 5}} icon={faMapMarkerAlt}/>
 							<Text style={styles.coverTextH2}>
-								University of Washington
+								Metropolitan Museum
 							</Text>
 						</View>
 					</View>
@@ -213,7 +156,7 @@ class RouteHeader extends React.Component {
 								fontWeight: "900",
 								fontStyle: "normal",
 								color: "#ffffff"
-							}}>23,880</Text>
+							}}>35,000</Text>
 							<FontAwesomeIcon icon={faArrowDown} style={{color: 'white', marginLeft: 5}}/>
 						</View>
 						<View style={{
@@ -271,9 +214,9 @@ class RouteIntro extends React.Component {
 						<Image source={require('../imgs/user.png')} style={styles.userImg}/>
 					</View>
 					<View style={{flex: 1, flexDirection: 'column', marginLeft: 5}}>
-						<Text style={styles.bioName}>Rico Wang</Text>
-						<Text style={styles.postTime}>1 yr ago</Text>
-						<Text style={styles.bioLevel}>Diamond Guide</Text>
+						<Text style={styles.bioText}>yourseattletourguide</Text>
+						<Text style={styles.bioText}>1 yr ago</Text>
+						<Text style={styles.bioText}>Diamond Guide</Text>
 					</View>
 					<View>
 						<TouchableOpacity onPress={this._onPressButton}>
@@ -300,47 +243,11 @@ class RouteIntro extends React.Component {
 						})}
 
 					</View>
-					
 				</View>
 			</View>
 		);
 	}
 }
-
-// class Gallery extends React.Component {
-// 	constructor(props) {
-// 		super(props);
-// 	}
-
-// 	render() {
-// 		// console.log(this.props.imgs);
-// 		return (
-// 			<View
-// 				horizontal={true}
-// 				showsHorizontalScrollIndicator={false}>
-// 				<View style={{flexDirection: 'row', marginBottom: 5}}>
-// 					{this.props.imgs.map((img, i) => {
-// 						return (
-// 							<TouchableHighlight style={styles.stopViews} key={i}>
-// 								<View>
-// 									<Image
-// 										source={img.url}
-// 										// source={{uri: img.url}}
-// 										style={{
-// 											width: 100,
-// 											height: 70
-// 										}}>
-// 									</Image>
-// 								</View>
-// 							</TouchableHighlight>
-// 						);
-// 					})}
-// 				</View>
-// 			</View>
-// 		);
-// 	}
-// }
-
 
 class RouteDetail extends React.Component {
 	constructor(props) {
@@ -382,7 +289,6 @@ class StopCard extends React.Component {
 
 					<Image source={require('../imgs/time.png')} style={styles.iconImg}/>
 					<Text style={styles.descriptionTagText}>{this.props.stop.time}</Text>
-					{/* <Gallery>{this.props.stop.imgs}</Gallery> */}
 				</View>
 				<Text style={[styles.descriptionText, {marginBottom: 10}]}>{this.props.stop.desc}</Text>
 			</View>
@@ -645,39 +551,14 @@ const styles = StyleSheet.create({
 		fontFamily: 'Helvetica'
 		// fontFamily: "Roboto"
 	},
-	bioName: {
+	bioText: {
 		// fontFamily: "Roboto",
-		fontSize: 14,
+		fontSize: 12,
 		fontWeight: "500",
 		fontStyle: "normal",
 		color: "#757575",
-		fontFamily: 'Helvetica',
-		marginLeft: 6,
-		marginTop: 3
+		fontFamily: 'Helvetica'
 	},
-
-	postTime: {
-		// fontFamily: "Roboto",
-		fontSize: 12,
-		fontWeight: "400",
-		fontStyle: "normal",
-		color: "#666666",
-		fontFamily: 'Helvetica',
-		marginLeft: 6,
-		marginTop: 3
-	},
-
-	bioLevel: {
-		fontSize: 12,
-		fontWeight: "400",
-		fontStyle: "normal",
-		color: "#666666",
-		fontFamily: 'Helvetica',
-		marginLeft: 6,
-		marginTop: 3
-	},
-
-
 	introView: {
 		flex: 1,
 		flexDirection: 'row',
