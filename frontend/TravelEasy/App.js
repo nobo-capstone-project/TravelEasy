@@ -57,11 +57,11 @@ const TabNavigator = createBottomTabNavigator(
       },
     },
     Favorites: {
-      screen: Favorites,
+      screen:Favorites,
       navigationOptions: {
-        tabBarLabel: 'Favorites',
+        tabBarLabel: 'Plans',
         tabBarIcon: ({ tintColor, activeTintColor }) => (
-          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/favorites.svg')} />
+          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
         )
       },
     },
@@ -74,15 +74,15 @@ const TabNavigator = createBottomTabNavigator(
     //     )
     //   },
     // },
-    Itinerary: {
-      screen: GuideInfo,
-      navigationOptions: {
-        tabBarLabel: 'GuideInfo',
-        tabBarIcon: ({ tintColor, activeTintColor }) => (
-          <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
-        )
-      },
-    },
+    // Itinerary: {
+    //   screen: GuideInfo,
+    //   navigationOptions: {
+    //     tabBarLabel: 'GuideInfo',
+    //     tabBarIcon: ({ tintColor, activeTintColor }) => (
+    //       <SvgUri width="25" height="25" fill={tintColor} source={require('./imgs/plans.svg')} />
+    //     )
+    //   },
+    // },
     AddGuide: {
       screen: AddGuidePage,
       navigationOptions: {
