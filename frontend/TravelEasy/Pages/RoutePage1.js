@@ -23,39 +23,40 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowDown, faArrowUp, faChevronLeft, faEllipsisH, faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
 import SvgUri from 'react-native-svg-uri';
-import {Route} from "../Model/Route";
 
+
+// import { Button } from 'react-native';
 
 const Dimensions = require('Dimensions');
 const window = Dimensions.get('window');
-
-function assembleStops(route: Route): [] {
-	let result = [];
-	route.stops.forEach((s) => {
-		result.push({
-			title: s.stopName,
-			price: s.price,
-			time: s.timeSpent + " hour(s)",
-			desc: s.description
-		})
-	});
-
-	return result;
-}
 
 export default class RoutePage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.updateComments = this.updateComments.bind(this);
 		this.navigateTo = this.navigateTo.bind(this);
-
-		const route: Route = props.navigation.getParam('route');
-		const stops = assembleStops(route);
-
 		this.state = {
-			//tags: ['Campus', 'Seattle', 'University', "Historic"],
-			tags: Array.from(route.category),
-			stops: stops,
+			tags: ['Meseum', 'New York City', 'Art', 'Historic', 'Foodie'],
+			stops: [
+				{
+					title: "Central Park",
+					price: "Free",
+					time: "30mins ~ 1hrs",
+					desc: 'Located  Upper West Side and Upper East Side, roughly bounded by Fifth Avenue on the east, Central Park West (Eighth Avenue) on the west, Central Park South (59th Street) on the south, and Central Park North (110th Street) on the north. Taking photos in front of Bethesda Fountain and enjoy the sunshine.”'
+				},
+				{
+					title: "Metropolitan Museum of Art",
+					price: "$$",
+					time: "30mins ~ 1hrs",
+					desc: 'With over 3 millions of exhibits including paintings, furnitures, and weapons, from Egypt, Babylon, Greek, Africa, and more. You should spend as much time as you can here!'
+				},
+				{
+					title: "Shake Shack",
+					price: "$$",
+					time: "2hrs ~ 3hrs",
+					desc: 'Enjoy the most local burgers, hot dogs, and milkshakes in the New York City based chain restaurant. '
+				}
+			],
 			comments: [
 				{
 					user: "yourseattletourvisitors",
@@ -100,7 +101,7 @@ export default class RoutePage extends React.Component {
 					<RouteDetail stops={this.state.stops}></RouteDetail>
 				</View>
 				<PostComment update={this.updateComments}></PostComment>
-				{/*{console.log(this.state.comments)}*/}
+				{console.log(this.state.comments)}
 				<RouteComments comments={this.state.comments}></RouteComments>
 			</ScrollView>
 		);
@@ -117,7 +118,7 @@ class RouteHeader extends React.Component {
 		return (
 			<View>
 				<View style={styles.cover}>
-					<Image source={require('../imgs/cover.jpg')} style={styles.cover_img}/>
+					<Image source={require('../imgs/mtmuseum1.jpg')} style={styles.cover_img}/>
 					<View style={styles.topLeftBottom}>
 						<TouchableWithoutFeedback onPress={this.props.navigateTo}>
 							<View style={{flexDirection: 'row', marginTop: 10}}>
@@ -138,12 +139,12 @@ class RouteHeader extends React.Component {
 					</View>
 					<View style={styles.coverHeader}>
 						<Text style={styles.coverTextH1}>
-							University of Washington 1-Day Tour
+							Metropolitan Museum
 						</Text>
 						<View style={{flexDirection: 'row', marginTop: 10}}>
 							<FontAwesomeIcon style={{color: 'white', marginRight: 5}} icon={faMapMarkerAlt}/>
 							<Text style={styles.coverTextH2}>
-								University of Washington
+								Metropolitan Museum
 							</Text>
 						</View>
 					</View>
@@ -155,7 +156,7 @@ class RouteHeader extends React.Component {
 								fontWeight: "900",
 								fontStyle: "normal",
 								color: "#ffffff"
-							}}>23,880</Text>
+							}}>35,000</Text>
 							<FontAwesomeIcon icon={faArrowDown} style={{color: 'white', marginLeft: 5}}/>
 						</View>
 						<View style={{
@@ -205,7 +206,7 @@ class RouteIntro extends React.Component {
 	}
 
 	render() {
-		// console.log(this.props.tags);
+		console.log(this.props.tags);
 		return (
 			<View>
 				<View style={styles.introView}>
@@ -213,9 +214,9 @@ class RouteIntro extends React.Component {
 						<Image source={require('../imgs/user.png')} style={styles.userImg}/>
 					</View>
 					<View style={{flex: 1, flexDirection: 'column', marginLeft: 5}}>
-						<Text style={styles.bioName}>Rico Wang</Text>
-						<Text style={styles.postTime}>1 yr ago</Text>
-						<Text style={styles.bioLevel}>Diamond Guide</Text>
+						<Text style={styles.bioText}>yourseattletourguide</Text>
+						<Text style={styles.bioText}>1 yr ago</Text>
+						<Text style={styles.bioText}>Diamond Guide</Text>
 					</View>
 					<View>
 						<TouchableOpacity onPress={this._onPressButton}>
@@ -242,47 +243,11 @@ class RouteIntro extends React.Component {
 						})}
 
 					</View>
-					
 				</View>
 			</View>
 		);
 	}
 }
-
-// class Gallery extends React.Component {
-// 	constructor(props) {
-// 		super(props);
-// 	}
-
-// 	render() {
-// 		// console.log(this.props.imgs);
-// 		return (
-// 			<View
-// 				horizontal={true}
-// 				showsHorizontalScrollIndicator={false}>
-// 				<View style={{flexDirection: 'row', marginBottom: 5}}>
-// 					{this.props.imgs.map((img, i) => {
-// 						return (
-// 							<TouchableHighlight style={styles.stopViews} key={i}>
-// 								<View>
-// 									<Image
-// 										source={img.url}
-// 										// source={{uri: img.url}}
-// 										style={{
-// 											width: 100,
-// 											height: 70
-// 										}}>
-// 									</Image>
-// 								</View>
-// 							</TouchableHighlight>
-// 						);
-// 					})}
-// 				</View>
-// 			</View>
-// 		);
-// 	}
-// }
-
 
 class RouteDetail extends React.Component {
 	constructor(props) {
@@ -324,7 +289,6 @@ class StopCard extends React.Component {
 
 					<Image source={require('../imgs/time.png')} style={styles.iconImg}/>
 					<Text style={styles.descriptionTagText}>{this.props.stop.time}</Text>
-					{/* <Gallery>{this.props.stop.imgs}</Gallery> */}
 				</View>
 				<Text style={[styles.descriptionText, {marginBottom: 10}]}>{this.props.stop.desc}</Text>
 			</View>
@@ -587,39 +551,14 @@ const styles = StyleSheet.create({
 		fontFamily: 'Helvetica'
 		// fontFamily: "Roboto"
 	},
-	bioName: {
+	bioText: {
 		// fontFamily: "Roboto",
-		fontSize: 14,
+		fontSize: 12,
 		fontWeight: "500",
 		fontStyle: "normal",
 		color: "#757575",
-		fontFamily: 'Helvetica',
-		marginLeft: 6,
-		marginTop: 3
+		fontFamily: 'Helvetica'
 	},
-
-	postTime: {
-		// fontFamily: "Roboto",
-		fontSize: 12,
-		fontWeight: "400",
-		fontStyle: "normal",
-		color: "#666666",
-		fontFamily: 'Helvetica',
-		marginLeft: 6,
-		marginTop: 3
-	},
-
-	bioLevel: {
-		fontSize: 12,
-		fontWeight: "400",
-		fontStyle: "normal",
-		color: "#666666",
-		fontFamily: 'Helvetica',
-		marginLeft: 6,
-		marginTop: 3
-	},
-
-
 	introView: {
 		flex: 1,
 		flexDirection: 'row',
