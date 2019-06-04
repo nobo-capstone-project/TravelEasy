@@ -42,19 +42,19 @@ export default class RoutePage extends React.Component {
 					title: "Suzzallo Library",
 					price: "Free",
 					time: "30mins ~ 1hrs",
-					desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris'
+					desc: 'Suzzallo Library is the central library of the University of Washington in Seattle, and perhaps the most recognizable building on campus. The Grand Reading Room is also affectionately called “the Harry Porter Room.”'
 				},
 				{
-					title: "Suzzallo Library",
+					title: "The Quad",
 					price: "Free",
 					time: "30mins ~ 1hrs",
-					desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris'
+					desc: 'The main quadrangle at the University of Washington in Seattle, Washington. Lined up with thirty Yoshino cherry trees, which blossom between mid-March and early April.Raitt Hall and Savery Hall frame the northwestern boundary while Gowen, Smith, and Miller Halls frame the southeast. At the top of the quad sits the latest buildings on the quad, the Art and Music Buildings'
 				},
 				{
-					title: "Suzzallo Library",
+					title: "Drumheller Fountain",
 					price: "Free",
 					time: "30mins ~ 1hrs",
-					desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris'
+					desc: 'Drumheller Fountain, also known as Frosh Pond, is an outdoor fountain on the University of Washington. Students jump down here to celebrate their graduation.'
 				}
 			],
 			comments: [
@@ -178,7 +178,7 @@ class RouteHeader extends React.Component {
 							</View>
 							<View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 20}}>
 								{/* <FontAwesomeIcon icon={faHeart} style={styles.coverIcon}></FontAwesomeIcon> */}
-								<SvgUri width="21" height="21" source={require('../imgs/heart.svg')}/>
+								<SvgUri width="21" height="21" source={require('../imgs/favorites.svg')}/>
 								<Text style={{
 									fontSize: 10,
 									fontWeight: "900",
@@ -227,10 +227,7 @@ class RouteIntro extends React.Component {
 					</View>
 				</View>
 				<View style={styles.description}>
-					<Text style={styles.descriptionText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-						eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris
+					<Text style={styles.descriptionText}>University of Washington is the top university in Washington state, founded in 1861. It is also famous for the cherry blossom view and many aesthetically appealing buildings.
 					</Text>
 					<View style={{flex: 1, flexDirection: 'row', marginTop: 10}}>
 						<Text style={styles.descriptionText}>$$</Text>
@@ -288,10 +285,10 @@ class StopCard extends React.Component {
 		return (
 			<View>
 				<View style={{flex: 1, flexDirection: 'row'}}>
-					<Text style={styles.descriptionText}>{this.props.stop.price}</Text>
+					<Text style={styles.descriptionTagText}>{this.props.stop.price}</Text>
 
 					<Image source={require('../imgs/time.png')} style={styles.iconImg}/>
-					<Text style={styles.descriptionText}>{this.props.stop.time}</Text>
+					<Text style={styles.descriptionTagText}>{this.props.stop.time}</Text>
 				</View>
 				<Text style={[styles.descriptionText, {marginBottom: 10}]}>{this.props.stop.desc}</Text>
 			</View>
@@ -327,7 +324,7 @@ class StopCard extends React.Component {
 								color: "#6d6d6d",
 								flex: 1
 							}}>{this.props.stop.title}</Text>
-							<SvgUri width="21" height="21" source={iconSource}/>
+							<SvgUri width="14" height="14" source={iconSource}/>
 						</View>
 					</TouchableWithoutFeedback>
 					{this.state.isSelected && this._renderDetail()}
@@ -412,7 +409,7 @@ class CommentCard extends React.Component {
 
 		return (
 			<View style={{width: window.width - 30}}>
-				<Text style={styles.commentText}>{this.props.comment.user} {diff} ago</Text>
+				<Text style={styles.username}>{this.props.comment.user} {diff} ago</Text>
 				<Text style={styles.commentText}>{this.props.comment.content}</Text>
 			</View>
 
@@ -452,7 +449,7 @@ class PostComment extends React.Component {
 					fontWeight: "500",
 					fontStyle: "normal",
 					color: "#666666"
-				}}>Add A Comment</Text>
+				}}>Your comment:</Text>
 				<View style={{flexDirection: 'column', alignItems: 'center'}}>
 					<TextInput
 						style={styles.textInput}
@@ -504,13 +501,15 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: "500",
 		fontStyle: "normal",
-		color: "#ffffff"
+		color: "#ffffff",
+		fontFamily: 'Helvetica'
 	},
 	coverTextH2: {
 		fontSize: 15,
 		fontWeight: "500",
 		fontStyle: "normal",
-		color: "#ffffff"
+		color: "#ffffff",
+		fontFamily: 'Helvetica'
 	},
 	coverVote: {
 		position: 'absolute',
@@ -539,15 +538,17 @@ const styles = StyleSheet.create({
 	button: {
 		width: 93,
 		height: 27,
-		backgroundColor: '#F7B633',
+		backgroundColor: '#F67779',
 		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		borderRadius: 6
 	},
 	buttonText: {
 		color: 'white',
 		fontSize: 10,
 		fontWeight: "500",
+		fontFamily: 'Helvetica'
 		// fontFamily: "Roboto"
 	},
 	bioText: {
@@ -555,7 +556,8 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		fontWeight: "500",
 		fontStyle: "normal",
-		color: "#757575"
+		color: "#757575",
+		fontFamily: 'Helvetica'
 	},
 	introView: {
 		flex: 1,
@@ -568,21 +570,35 @@ const styles = StyleSheet.create({
 	description: {
 		margin: 10,
 		marginLeft: 15,
-		marginRight: 15
+		marginRight: 15,
+		
 	},
 	descriptionText: {
 		// fontFamily: "Roboto",
-		fontSize: 14,
+		fontSize: 13,
+		fontWeight: "400",
+		fontStyle: "normal",
+		color: "#6d6d6d",
+		fontFamily: 'Helvetica',
+		marginTop: 6
+	},
+
+	descriptionTagText: {
+		fontSize: 12,
 		fontWeight: "normal",
 		fontStyle: "normal",
-		color: "#6d6d6d"
+		color: "#928F8F",
+		fontFamily: 'Helvetica',
+		marginTop: 6
+
 	},
 	iconImg: {
 		width: 16,
 		height: 16,
 		opacity: 0.5,
 		marginLeft: 20,
-		marginRight: 5
+		marginRight: 5,
+		marginTop: 5
 	},
 	tag: {
 		marginRight: 10,
@@ -599,7 +615,8 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		fontWeight: "normal",
 		fontStyle: "normal",
-		color: "#ffffff"
+		color: "#ffffff",
+		fontFamily: 'Helvetica'
 	},
 	card: {
 		marginLeft: 15,
@@ -629,27 +646,41 @@ const styles = StyleSheet.create({
 		borderStyle: "solid",
 		borderWidth: 0.3,
 		borderColor: "#666666",
-		padding: 10
+		padding: 10,
+		fontFamily: 'Helvetica',
+		fontSize: 12,
+		color: "#6d6d6d",
 	},
 	commentSubmit: {
 		width: 93,
 		height: 27,
-		backgroundColor: '#666666',
+		backgroundColor: '#F67779',
 		flex: 1,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		borderRadius: 6
 	},
 	commentSubmitText: {
 		color: 'white',
 		fontSize: 12,
 		fontWeight: "400",
-		fontStyle: "normal"
+		fontStyle: "normal",
+		fontFamily: 'Helvetica'
 	},
 	commentText: {
-		fontSize: 14,
+		fontSize: 12,
+		fontWeight: "300",
+		fontStyle: "normal",
+		color: "#6d6d6d",
+		marginBottom: 5,
+		fontFamily: 'Helvetica'
+	},
+	username: {
+		fontSize: 13,
 		fontWeight: "500",
 		fontStyle: "normal",
 		color: "#6d6d6d",
-		marginBottom: 5
+		marginBottom: 5,
+		fontFamily: 'Helvetica'
 	}
 });

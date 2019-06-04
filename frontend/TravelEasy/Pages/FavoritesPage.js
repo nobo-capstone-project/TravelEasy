@@ -24,100 +24,28 @@ class HomePage extends React.Component {
 		this.state = {
 			cards: [
 				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+					title: 'UW 1-Day Tour',
+					desc: 'University of Washington is the top university in Washington state, founded in 1861. It is also famous for the cherry blossom view and many aesthetically appealing buildings.',
 					imgs: [
 						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/uw1.jpg'),
 							title: 'Breakfast'
 						},
 						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/uw2.jpg'),
 							title: 'Hiking at Temple'
 						},
 						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/uw3.jpeg'),
 							title: 'Lunch'
 						},
 						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 230
-				},
-				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-					imgs: [
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/uw4.jpg'),
 							title: 'Lunch'
 						}
 					],
 					vote: 100
 				},
-				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-					imgs: [
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 100
-				},{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-					imgs: [
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 100
-				}
 			]
 		}
 	}
