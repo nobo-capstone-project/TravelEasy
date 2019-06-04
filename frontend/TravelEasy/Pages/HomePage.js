@@ -120,7 +120,7 @@ const allCards = [
 				title: 'Lunch'
 			}
 		],
-		vote: 100,
+		vote: 1365,
 		category: 'Campus Tour'
 	},
 	{
@@ -144,7 +144,7 @@ const allCards = [
 				title: 'Lunch'
 			}
 		],
-		vote: 230,
+		vote: 877,
 		category: 'City Tour'
 	},
 	{
@@ -164,7 +164,7 @@ const allCards = [
 				title: 'Lunch'
 			}
 		],
-		vote: 100,
+		vote: 255,
 		category: 'Museum Day'
 	},
 	{
@@ -188,7 +188,7 @@ const allCards = [
 				title: 'Lunch'
 			}
 		],
-		vote: 100,
+		vote: 145,
 		category: 'Shopping Festival'
 	},
 	{

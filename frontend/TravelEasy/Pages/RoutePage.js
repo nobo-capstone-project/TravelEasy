@@ -20,8 +20,8 @@ import {
 	View
 } from 'react-native';
 
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faArrowDown, faArrowUp, faChevronLeft, faEllipsisH, faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowDown, faArrowUp, faChevronLeft, faEllipsisH, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import SvgUri from 'react-native-svg-uri';
 
 
@@ -153,7 +153,7 @@ export default class RoutePage extends React.Component {
 		return (
 			<ScrollView>
 				<RouteHeader navigateTo={this.navigateTo}></RouteHeader>
-				<View style={{backgroundColor: '#F3F7FF'}}>
+				<View style={{ backgroundColor: '#F3F7FF' }}>
 					<RouteIntro tags={this.state.tags}></RouteIntro>
 					<RouteDetail stops={this.state.stops}></RouteDetail>
 				</View>
@@ -175,11 +175,11 @@ class RouteHeader extends React.Component {
 		return (
 			<View>
 				<View style={styles.cover}>
-					<Image source={require('../imgs/cover.jpg')} style={styles.cover_img}/>
+					<Image source={require('../imgs/cover.jpg')} style={styles.cover_img} />
 					<View style={styles.topLeftBottom}>
 						<TouchableWithoutFeedback onPress={this.props.navigateTo}>
-							<View style={{flexDirection: 'row', marginTop: 10}}>
-								<FontAwesomeIcon icon={faChevronLeft} style={{color: 'black', marginRight: 5}}/>
+							<View style={{ flexDirection: 'row', marginTop: 10 }}>
+								<FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black', marginRight: 5 }} />
 								<Text style={{
 									width: 77,
 									height: 23,
@@ -192,29 +192,29 @@ class RouteHeader extends React.Component {
 						</TouchableWithoutFeedback>
 					</View>
 					<View style={styles.topRightBottom}>
-						<FontAwesomeIcon icon={faEllipsisH} style={{color: 'black'}}/>
+						<FontAwesomeIcon icon={faEllipsisH} style={{ color: 'black' }} />
 					</View>
 					<View style={styles.coverHeader}>
 						<Text style={styles.coverTextH1}>
 							University of Washington 1-Day Tour
 						</Text>
-						<View style={{flexDirection: 'row', marginTop: 10}}>
-							<FontAwesomeIcon style={{color: 'white', marginRight: 5}} icon={faMapMarkerAlt}/>
+						<View style={{ flexDirection: 'row', marginTop: 10 }}>
+							<FontAwesomeIcon style={{ color: 'white', marginRight: 5 }} icon={faMapMarkerAlt} />
 							<Text style={styles.coverTextH2}>
 								University of Washington
 							</Text>
 						</View>
 					</View>
 					<View style={styles.coverVote}>
-						<View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-							<FontAwesomeIcon icon={faArrowUp} style={{color: 'white', marginRight: 5}}/>
+						<View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+							<FontAwesomeIcon icon={faArrowUp} style={{ color: 'white', marginRight: 5 }} />
 							<Text style={{
 								fontSize: 18,
 								fontWeight: "900",
 								fontStyle: "normal",
 								color: "#ffffff"
 							}}>23,880</Text>
-							<FontAwesomeIcon icon={faArrowDown} style={{color: 'white', marginLeft: 5}}/>
+							<FontAwesomeIcon icon={faArrowDown} style={{ color: 'white', marginLeft: 5 }} />
 						</View>
 						<View style={{
 							flex: 1,
@@ -222,9 +222,9 @@ class RouteHeader extends React.Component {
 							justifyContent: 'center'
 							// alignItems: 'flex-end'
 						}}>
-							<View style={{flexDirection: 'column', alignItems: 'center'}}>
+							<View style={{ flexDirection: 'column', alignItems: 'center' }}>
 								{/* <SvgUri width="21" height="21" source={require('../imgs/like.svg')} /> */}
-								<SvgUri width="21" height="21" source={require('../imgs/share.svg')}/>
+								<SvgUri width="21" height="21" source={require('../imgs/share.svg')} />
 								<Text style={{
 									fontSize: 10,
 									fontWeight: "900",
@@ -233,9 +233,9 @@ class RouteHeader extends React.Component {
 									marginTop: 1
 								}}>Share</Text>
 							</View>
-							<View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 20}}>
+							<View style={{ flexDirection: 'column', alignItems: 'center', marginLeft: 20 }}>
 								{/* <FontAwesomeIcon icon={faHeart} style={styles.coverIcon}></FontAwesomeIcon> */}
-								<SvgUri width="21" height="21" source={require('../imgs/favorites.svg')}/>
+								<SvgUri width="21" height="21" source={require('../imgs/favorites.svg')} />
 								<Text style={{
 									fontSize: 10,
 									fontWeight: "900",
@@ -256,10 +256,16 @@ class RouteHeader extends React.Component {
 class RouteIntro extends React.Component {
 	constructor(props) {
 		super(props);
+		this._follow = this._follow.bind(this);
+		this.state = {
+			following: "+ FOLLOW"
+		}
 	}
 
 	_follow() {
 		Alert.alert('You tapped the button!')
+
+		this.setState({ following: "Following!" })
 	}
 
 	render() {
@@ -268,17 +274,17 @@ class RouteIntro extends React.Component {
 			<View>
 				<View style={styles.introView}>
 					<View>
-						<Image source={require('../imgs/user.png')} style={styles.userImg}/>
+						<Image source={require('../imgs/user.png')} style={styles.userImg} />
 					</View>
-					<View style={{flex: 1, flexDirection: 'column', marginLeft: 5}}>
+					<View style={{ flex: 1, flexDirection: 'column', marginLeft: 5 }}>
 						<Text style={styles.bioName}>Rico Wang</Text>
 						<Text style={styles.postTime}>1 yr ago</Text>
 						<Text style={styles.bioLevel}>Diamond Guide</Text>
 					</View>
 					<View>
-						<TouchableOpacity onPress={this._onPressButton}>
+						<TouchableOpacity onPress={this._follow}>
 							<View style={styles.button}>
-								<Text style={styles.buttonText}>+ FOLLOW</Text>
+								<Text style={styles.buttonText}>{this.state.following}</Text>
 							</View>
 						</TouchableOpacity>
 					</View>
@@ -286,12 +292,12 @@ class RouteIntro extends React.Component {
 				<View style={styles.description}>
 					<Text style={styles.descriptionText}>University of Washington is the top university in Washington state, founded in 1861. It is also famous for the cherry blossom view and many aesthetically appealing buildings.
 					</Text>
-					<View style={{flex: 1, flexDirection: 'row', marginTop: 10}}>
+					<View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
 						<Text style={styles.descriptionText}>$$</Text>
-						<Image source={require('../imgs/time.png')} style={styles.iconImg}/>
+						<Image source={require('../imgs/time.png')} style={styles.iconImg} />
 						<Text style={styles.descriptionText}>1 ~ 3 hrs</Text>
 					</View>
-					<View style={{flex: 1, flexDirection: 'row', marginTop: 10}}>
+					<View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
 						{this.props.tags.map((tag, i) => {
 							return (
 								<View style={styles.tag} key={i}>
@@ -300,7 +306,7 @@ class RouteIntro extends React.Component {
 						})}
 
 					</View>
-					
+
 				</View>
 			</View>
 		);
@@ -350,7 +356,7 @@ class RouteDetail extends React.Component {
 	render() {
 		// console.log(this.props.stops);
 		return (
-			<View style={{flex: 1, flexDirection: 'column', alignItems: 'center', marginTop: 10, marginBottom: 10}}>
+			<View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
 				{this.props.stops.map((stop, i) => {
 					return (
 						<StopCard stop={stop} key={i}></StopCard>
@@ -377,14 +383,14 @@ class StopCard extends React.Component {
 	_renderDetail() {
 		return (
 			<View>
-				<View style={{flex: 1, flexDirection: 'row'}}>
+				<View style={{ flex: 1, flexDirection: 'row' }}>
 					<Text style={styles.descriptionTagText}>{this.props.stop.price}</Text>
 
-					<Image source={require('../imgs/time.png')} style={styles.iconImg}/>
+					<Image source={require('../imgs/time.png')} style={styles.iconImg} />
 					<Text style={styles.descriptionTagText}>{this.props.stop.time}</Text>
 					{/* <Gallery>{this.props.stop.imgs}</Gallery> */}
 				</View>
-				<Text style={[styles.descriptionText, {marginBottom: 10}]}>{this.props.stop.desc}</Text>
+				<Text style={[styles.descriptionText, { marginBottom: 10 }]}>{this.props.stop.desc}</Text>
 			</View>
 		)
 	}
@@ -403,7 +409,7 @@ class StopCard extends React.Component {
 			iconSource = require("../imgs/arrow-right.svg");
 		}
 		return (
-			<View style={{width: '100%'}}>
+			<View style={{ width: '100%' }}>
 				<View style={styles.card}>
 					<TouchableWithoutFeedback onPress={this._onPress}>
 						<View style={{
@@ -418,7 +424,7 @@ class StopCard extends React.Component {
 								color: "#6d6d6d",
 								flex: 1
 							}}>{this.props.stop.title}</Text>
-							<SvgUri width="14" height="14" source={iconSource}/>
+							<SvgUri width="14" height="14" source={iconSource} />
 						</View>
 					</TouchableWithoutFeedback>
 					{this.state.isSelected && this._renderDetail()}
@@ -438,14 +444,14 @@ class RouteComments extends React.Component {
 		let saperateLine = function (i) {
 			if (i != len - 1) {
 				return (<View
-						style={{
-							borderBottomColor: '#666666',
-							borderBottomWidth: 0.3,
-							borderStyle: "solid",
-							marginBottom: 5,
-							marginTop: 5
-						}}
-					/>
+					style={{
+						borderBottomColor: '#666666',
+						borderBottomWidth: 0.3,
+						borderStyle: "solid",
+						marginBottom: 5,
+						marginTop: 5
+					}}
+				/>
 				)
 			}
 		};
@@ -502,7 +508,7 @@ class CommentCard extends React.Component {
 		}
 
 		return (
-			<View style={{width: window.width - 30}}>
+			<View style={{ width: window.width - 30 }}>
 				<Text style={styles.username}>{this.props.comment.user} {diff} ago</Text>
 				<Text style={styles.commentText}>{this.props.comment.content}</Text>
 			</View>
@@ -536,7 +542,7 @@ class PostComment extends React.Component {
 
 	render() {
 		return (
-			<View style={{marginTop: 10}}>
+			<View style={{ marginTop: 10 }}>
 				<Text style={{
 					marginLeft: 15,
 					fontSize: 14,
@@ -544,7 +550,7 @@ class PostComment extends React.Component {
 					fontStyle: "normal",
 					color: "#666666"
 				}}>Your comment:</Text>
-				<View style={{flexDirection: 'column', alignItems: 'center'}}>
+				<View style={{ flexDirection: 'column', alignItems: 'center' }}>
 					<TextInput
 						style={styles.textInput}
 						placeholder="Type here"
@@ -690,7 +696,7 @@ const styles = StyleSheet.create({
 		margin: 10,
 		marginLeft: 15,
 		marginRight: 15,
-		
+
 	},
 	descriptionText: {
 		// fontFamily: "Roboto",
