@@ -22,12 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { withNavigation } from 'react-navigation';
 import { Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs, } from 'native-base';
-<<<<<<< HEAD
-=======
-import { TripCard } from "../Model/TripCard";
-import { Image } from "react-native-elements";
-import { allRoutes } from "../Model/Data";
->>>>>>> d80777c8a5ef09d64080c49602740d6b063567c0
+import { thisTypeAnnotation } from '@babel/types';
 // import {Route} from "../Model/Route";
 // import {CardImage, TripCard} from "../Model/TripCard";
 // import {routes} from "../Model/Routes";
@@ -226,11 +221,12 @@ class HomePage extends React.Component {
 		this._voteUp = this._voteUp.bind(this);
 		this._voteDown = this._voteDown.bind(this);
 		this._selectCategory = this._selectCategory.bind(this);
+		this._filterCard = this._filterCard.bind(this);
 
 		this.state = {
 			// cards: allCards
 			// TODO: loading card views from route model -- Rico
-			searchText: 'search',
+			searchText: '',
 			categories: [
 				{
 					category: 'Museum Day',
@@ -278,6 +274,15 @@ class HomePage extends React.Component {
 		});
 	}
 
+	_filterCard(value) {
+		this.setState({ searchText: value });
+		if (this.state.searchText.length == 1) {
+			this.setState({
+				cards: allCards
+			})
+		}
+	}
+
 	render() {
 		// console.log('hello');
 		// console.log(this.props.navigation);
@@ -287,7 +292,12 @@ class HomePage extends React.Component {
 				<Header searchBar rounded style={styles.homeSearch}>
 					<Item style={styles.searchBox}>
 						<Icon name="ios-search" />
-						<Input placeholder={this.state.searchText} />
+						<Input
+							placeholder='Search'
+							onChangeText={value => {
+								this._filterCard(value);
+							}}
+							value={this.state.searchText} />
 						{/* <Icon name="ios-people" /> */}
 					</Item>
 				</Header>
