@@ -58,51 +58,118 @@ class HomePage extends React.Component {
 			// TODO: loading card views from route model -- Rico
 			cards: [
 				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+					title: 'UW 1-Day Tour',
+					desc: 'University of Washington is the top university in Washington state, founded in 1861. It is also famous for the cherry blossom view and many aesthetically appealing buildings.',
 					imgs: [
 						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/uw1.jpg'),
 							title: 'Breakfast'
 						},
 						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/uw2.jpg'),
 							title: 'Hiking at Temple'
 						},
 						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/uw3.jpeg'),
 							title: 'Lunch'
 						},
 						{
-							url: require('../imgs/singaSky.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/uw4.jpg'),
 							title: 'Lunch'
 						}
 					],
-					vote: 230
+					vote: 100
 				},
 				{
 					title: 'Singapore Madness',
 					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
 					imgs: [
 						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/sgp1.jpg'),
 							title: 'Breakfast'
 						},
 						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/sgp2.jpeg'),
 							title: 'Hiking at Temple'
 						},
 						{
-							url: require('../imgs/singaSky.jpg'),
+							url: require('../imgs/sgp3.jpg'),
+							title: 'Lunch'
+						},
+						{
+							url: require('../imgs/sgp4.jpg'),
+							title: 'Lunch'
+						}
+					],
+					vote: 230
+				},
+				{
+					title: 'Metropolitan Museum',
+					desc: 'The Metropolitan Museum of Art of New York City, colloquially "the Met", is the largest art museum in the United States. With 6,953,927 visitors to its three locations in 2018, it was the third most visited art museum in the world.',
+					imgs: [
+						{
+							url: require('../imgs/mtmuseum1.jpg'),
+							title: 'Breakfast'
+						},
+						{
+							url: require('../imgs/mtmuseum2.jpg'),
+							title: 'Hiking at Temple'
+						},
+						{
+							url: require('../imgs/mtmuseum3.jpg'),
 							title: 'Lunch'
 						}
 					],
 					vote: 100
-				}
+				},
+				{
+					title: 'Vegas Shopping Day',
+					desc: 'You can spend money in almost any way imaginable in Las Vegas, but the best way to actually leave with what you paid for is to go shopping. ',
+					imgs: [
+						{
+							url: require('../imgs/vegas1.jpg'),
+							title: 'Breakfast'
+						},
+						{
+							url: require('../imgs/vegas2.jpeg'),
+							title: 'Hiking at Temple'
+						},
+						{
+							url: require('../imgs/vegas3.jpeg'),
+							title: 'Lunch'
+						},
+						{
+							url: require('../imgs/vegas4.jpg'),
+							title: 'Lunch'
+						}
+					],
+					vote: 100
+				},
+				{
+					title: 'Yosemite!!!',
+					desc: 'Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.',
+					imgs: [
+						{
+							//http;;.;
+							url: require('../imgs/ys1.jpeg'),
+							title: 'Breakfast'
+						},
+						{
+							url: require('../imgs/ys2.jpg'),
+							title: 'Hiking at Temple'
+						},
+						{
+							url: require('../imgs/ys3.jpg'),
+							title: 'Lunch'
+						},
+						{
+							url: require('../imgs/ys4.jpg'),
+							title: 'Lunch'
+						}
+					],
+					vote: 100
+				},
+				
 			]
 		}
 	}
@@ -166,7 +233,7 @@ class HomePage extends React.Component {
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
-										<ImageBackground source={require('../imgs/museum.jpg')}
+										<ImageBackground source={require('../imgs/mtmuseum4.jpg')}
 										           style={{
 											           width: 136,
 											           height: 90

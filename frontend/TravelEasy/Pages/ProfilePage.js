@@ -254,6 +254,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: "400",
 		marginLeft: 4,
+		fontFamily: 'Helvetica'
 
 	},
 
@@ -263,6 +264,7 @@ const styles = StyleSheet.create({
 		marginLeft: 4,
 		color: '#828282',
 		lineHeight: 20,
+		fontFamily: 'Helvetica'
 	},
 
 
@@ -271,22 +273,26 @@ const styles = StyleSheet.create({
 		fontWeight: "100",
 		marginLeft: 4,
 		lineHeight: 20,
+		fontFamily: 'Helvetica'
 
 	},
 
 	userMoreinfo: {
-		flex: 1
+		flex: 1,
+		fontFamily: 'Helvetica'
 	},
 
 	numbers: {
 		alignItems: 'center',
 		fontSize: 20,
 		fontWeight: '500',
+		fontFamily: 'Helvetica'
 	},
 
 	categories: {
 		fontSize: 12,
 		fontWeight: "100",
-		color: '#828282'
+		color: '#828282',
+		fontFamily: 'Helvetica'
 	}
 });
