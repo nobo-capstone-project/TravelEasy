@@ -133,7 +133,7 @@ class LoginPage extends React.Component {
 					<FontAwesomeIcon icon={faKey} style={{ color: '#828282' }} />
 					<TextInput
 						style={styles.textInput}
-						placeholder="Passward"
+						placeholder="Password"
 						editable={true}
 						password={true}
 						secureTextEntry={true}

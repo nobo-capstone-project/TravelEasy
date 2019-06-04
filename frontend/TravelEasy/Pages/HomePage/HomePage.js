@@ -85,9 +85,9 @@ class HomePage extends React.Component {
 	_navigateTo(index) {
 		console.log("navigating...");
 		let stateCopy = Object.assign({}, this.state);
-		// let cards = stateCopy.cards[index];
-		// console.log("card @ index:", stateCopy.cards[0].route);
-
+		
+		console.log(stateCopy.cards[index])
+		
 		let route = stateCopy.cards[0].route;
 
 		this.props.navigation.navigate('Route', {

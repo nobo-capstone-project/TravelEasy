@@ -12,17 +12,8 @@ import { TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Header } from 'native-base';
 
-// import { Text, View } from 'react-native';
-
-// import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
-
-// import { Tab, Tabs } from 'native-base';
-// import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
-// import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
-
 const Dimensions = require('Dimensions');
 const window = Dimensions.get('window');
-
 
 export default class ProfilePage extends React.Component {
 	constructor(props) {
@@ -42,7 +33,7 @@ export default class ProfilePage extends React.Component {
 				console.log(value);
 				this.setState({ "username": value });
 			})
-			.catch(error => {
+			.catch(() => {
 				console.log('error');
 			});
 		AsyncStorage.getItem('email')
@@ -50,7 +41,7 @@ export default class ProfilePage extends React.Component {
 				console.log(value);
 				this.setState({ "email": value });
 			})
-			.catch(error => {
+			.catch(() => {
 				console.log('error');
 			});
 		// const { navigation } = this.props;
@@ -107,10 +98,30 @@ export default class ProfilePage extends React.Component {
 				<View style={{ backgroundColor: '#F3F7FF', width: window.width, height: window.height }}>
 					{/* <RouteIntro tags={this.state.tags}></RouteIntro>
                     <RouteDetail stops={this.state.stops}></RouteDetail> */}
-					<Header style={{ backgroundColor: '#FAD05A' }}>
+					<Header style={{ backgroundColor: '#FAD05A', flexDirection: 'row' }}>
+
 						<Text style={{ marginTop: 14, fontSize: 16, fontWeight: '500' }}>
 							Hi, {this.state.username}
 						</Text>
+						<View>
+							<TouchableHighlight
+								onPress={() => this.props.navigation.navigate('Login')}
+								style={{ backgroundColor: 'transparent' }
+								}>
+								<Text style={{
+									fontWeight: "500",
+									fontStyle: "normal",
+									color: "#F67779",
+									paddingBottom: 0,
+									lineHeight: 14,
+									marginTop: 17,
+									justifyContent: 'flex-end',
+
+								}}>
+									Log out
+							</Text>
+							</TouchableHighlight>
+						</View>
 					</Header>
 					<View style={styles.profile}>
 
