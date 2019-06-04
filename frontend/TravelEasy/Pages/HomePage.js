@@ -26,7 +26,7 @@ import { thisTypeAnnotation } from '@babel/types';
 import { TripCard } from "../Model/TripCard";
 import { Image } from "react-native-elements";
 import { allRoutes } from "../Model/Data";
-// import {Route} from "../Model/Route";
+// import {Route} from "A../Model/Route";
 // import {CardImage, TripCard} from "../Model/TripCard";
 // import {routes} from "../Model/Routes";
 
