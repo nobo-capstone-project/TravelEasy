@@ -44,16 +44,16 @@ export default class AddGuidePage extends React.Component {
 		super(props);
 
 		this.state = {
-			guideName: 'This is Name of Guide',
+			guideName: 'Yosemite!!!',
 			// Current Guide info
 			creatorID: '1',
-			guideDesc: 'This is the Description of this Trip',
+			guideDesc: 'Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.',
 			stopID: [],
 			category: ['leisure', 'culture'],
 			picture: ['none atm'],
 			vote: 0,
 			// Guide Type Checkboxes
-			categNature: false,
+			categNature: true,
 			categShopping: false,
 			categUrbanExplore: false,
 			categFood: false,
@@ -65,15 +65,15 @@ export default class AddGuidePage extends React.Component {
 			stopsViews: [],
 
 			// Current Stop Data: 
-			stopTitle: "Test Name of Stop",
-			stopDesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
-			address: "14612 3rd DR NE Seattle WA 98115",
+			stopTitle: "Glacier Point",
+			stopDesc: 'Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.',
+			address: "Yose 4th Ave NE Yosemite CA 95389",
 			categories: ['Nature', 'Urban Exploration', 'Food'],
 			price: "Free",
-			startTime: "1pm",
-			endTime: "2pm",
+			startTime: "9am",
+			endTime: "12pm",
 			time: "30mins ~ 1hrs",
-			photoUrl: '',
+			photoUrl: 'file:///Users/school/Library/Developer/CoreSimulator/Devices/F17FC8F5-92B2-4828-BDB0-E8FDCCE3ACBD/data/Containers/Data/Application/5A6C99B5-CE54-43CD-9007-50C2DC67AACD/tmp/95686F7B-76F4-4CC9-A8FA-C33BF867602E.jpg',
 
 			stopImage: <Image></Image>,
 
@@ -282,7 +282,7 @@ export default class AddGuidePage extends React.Component {
 
 						<Text>{this.state.stopName}</Text>
 
-						<Text style={styles.boldedText}>Guide Name</Text>
+						<Text style={styles.boldedText}>Guide Name:</Text>
 
 
 
@@ -296,7 +296,7 @@ export default class AddGuidePage extends React.Component {
 
 						{/* <Image style={styles.stopImg} source='file:///Users/school/Library/Developer/CoreSimulator/Devices/F17FC8F5-92B2-4828-BDB0-E8FDCCE3ACBD/data/Containers/Data/Application/1E9E8541-FA0A-428B-B9D0-8264C566F628/tmp/075E9987-43D2-4D8B-A43E-F67F2F49F6EA.jpg' /> */}
 
-						<Text style={styles.boldedText}>Sales Pitch </Text>
+						<Text style={styles.boldedText}>Sales Pitch: </Text>
 						<TextInput
 							value={this.state.guideDesc}
 							onChangeText={(guideDesc) => this.setState({ guideDesc })}
@@ -307,7 +307,9 @@ export default class AddGuidePage extends React.Component {
 
 
 
-						<Text style={styles.boldedText}>Guide Type</Text>
+						<Text style={styles.boldedText}>Categories:</Text>
+
+
 
 						<View style={styles.checkboxCont}>
 							<CheckBox
@@ -327,7 +329,7 @@ export default class AddGuidePage extends React.Component {
 								// checked={this.state.}
 								checked={this.state.categNature}
 								containerStyle={styles.guideTypeCheckbox}
-								title='Nature / Hiking'
+								title='Nature'
 							// checked={this.state.checked}
 							/>
 
@@ -373,6 +375,7 @@ export default class AddGuidePage extends React.Component {
 							// checked={this.state.checked}
 							/>
 
+
 						</View>
 
 
@@ -387,6 +390,7 @@ export default class AddGuidePage extends React.Component {
 
 
 					<View style={styles.stopsCont}>
+						<View style={styles.border}></View>
 
 						<Text style={styles.stopsTitle}> Add Stops to the Guide </Text>
 
@@ -505,7 +509,15 @@ export default class AddGuidePage extends React.Component {
 }
 
 const styles = StyleSheet.create({
+	border: {
+		height: 2,
+		marginTop: 5,
+		marginBottom: 5,
+		width: '100%',
+		backgroundColor: '#3f3f3f'
+	},
 	boldedText: {
+
 
 	},
 	choosePhotoButtonStyle: {
@@ -516,10 +528,11 @@ const styles = StyleSheet.create({
 		padding: 5
 	},
 	boldedText: {
-		fontSize: 16
+		fontSize: 15,
+		fontWeight: "bold"
 	},
 	addStopButton: {
-		marginBottom: 10,
+		marginBottom: 0,
 		marginTop: 10,
 		marginLeft: 120,
 		borderRadius: 15,
@@ -528,11 +541,11 @@ const styles = StyleSheet.create({
 		backgroundColor: 'grey',
 		backgroundColor: '#F67779',
 		padding: 10,
-		height: 25
+		height: 30
 	},
 
 	buttonStyle: {
-		marginTop: 10,
+		marginTop: 5,
 		marginLeft: 120,
 		borderRadius: 15,
 		backgroundColor: '#2E9C08',
@@ -540,7 +553,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'grey',
 		backgroundColor: '#F67779',
 		padding: 10,
-		height: 25
+		height: 30
 		// backgroundColor: 'blue'
 	},
 	buttonText: {
@@ -548,7 +561,8 @@ const styles = StyleSheet.create({
 	},
 	stopsListCont: {
 		backgroundColor: '#f4c842',
-		height: 64
+		height: 68,
+		padding: 3
 	},
 	stopImgCont: {
 		marginTop: 10,
@@ -581,6 +595,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		fontWeight: 'bold',
 		backgroundColor: '#eff0f2',
+		backgroundColor: '#f4c842',
 		padding: 10,
 		margin: 0
 		// width: '45%'
@@ -602,11 +617,11 @@ const styles = StyleSheet.create({
 		height: 100
 	},
 	listItem: {
-		marginTop: 5,
+		marginTop: 3,
 		marginLeft: '2%',
 		width: '95%',
 		backgroundColor: 'white',
-		padding: 5,
+		padding: 3,
 		flexDirection: 'row',
 		textAlign: 'center'
 	},
@@ -615,7 +630,10 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		textAlign: 'center',
 		fontWeight: 'bold',
-		backgroundColor: '#eff0f2'
+		backgroundColor: '#eff0f2',
+		backgroundColor: '#595959',
+		backgroundColor: '#eff0f2',
+		color: 'black'
 	},
 	currStopsList: {
 		backgroundColor: 'white'
@@ -676,7 +694,8 @@ const styles = StyleSheet.create({
 		height: 45
 	},
 	checkboxCont: {
-		flexDirection: 'row'
+		flexDirection: 'row',
+		height: 21
 	},
 	guideTypeCheckbox: {
 		height: 25,
