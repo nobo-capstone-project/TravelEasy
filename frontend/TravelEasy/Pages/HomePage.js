@@ -39,10 +39,58 @@ const window = Dimensions.get('window');
 
 // import { skyline } from './imgs/singaSky.jpg';
 
-// const allRoutes = routes;
 // const allCards: TripCard[] = [];
+// const testCards = [
+// 	{
+// 		title: 'Singapore Madness',
+// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+// 		imgs: [
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				// url: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+// 				title: 'Breakfast'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Hiking at Temple'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			}
+// 		],
+// 		vote: 230
+// 	},
+// 	{
+// 		title: 'Singapore Madness',
+// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+// 		imgs: [
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Breakfast'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Hiking at Temple'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			}
+// 		],
+// 		vote: 100
+// 	}
+// ];
 
-// allRoutes.getAllRoutes().forEach((r) => {
+// allRoutes.routes.forEach((r) => {
 // 	allCards.push(new TripCard(r));
 // });
 
@@ -147,7 +195,7 @@ class HomePage extends React.Component {
 
 	render() {
 		// console.log('hello');
-		console.log(this.props.navigation);
+		// console.log(this.props.navigation);
 
 		return (
 			<Container style={styles.homeSearch}>
@@ -253,7 +301,7 @@ class TourCards extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.cards);
+		// console.log(this.props.cards);
 		return (
 			<View>
 				{this.props.cards.map((card, i) => {
@@ -305,8 +353,8 @@ class TourCard extends React.Component {
 					</Button>
 				</View>
 
-				<View style={{ margin: 5 }}>
-					<Text style={{ color: '#424242', lineHeight: 16 }}>{this.props.card.desc}</Text>
+				<View style={{margin: 5}}>
+					<Text style={{color: '#424242', lineHeight: 16}}>{this.props.card.desc}</Text>
 				</View>
 
 				{/* ------------------------------------------------ */}
@@ -322,7 +370,7 @@ class TourCard extends React.Component {
 					}}
 				/>
 				<View style={styles.guideActionsCont}>
-					<View style={{ flexDirection: 'row', marginTop: 0 }}>
+					<View style={{flexDirection: 'row', marginTop: 0}}>
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomUp}
 							onPress={this._onPressUp}>
@@ -357,7 +405,7 @@ class Gallery extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.imgs);
+		// console.log(this.props.imgs);
 		return (
 			<ScrollView
 				horizontal={true}

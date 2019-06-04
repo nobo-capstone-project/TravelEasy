@@ -1,17 +1,4 @@
-import {Stop, stopDenny, stopHUB, stopJSIS, stopLaw, stopParrington, stopRedSquare, stopSUZZ} from "./Stop";
-
-const stopsUW: Stop[] = [
-	stopParrington,
-	stopLaw,
-	stopDenny,
-	stopJSIS,
-	stopHUB,
-	stopSUZZ,
-	stopRedSquare
-];
-const nameUW: string = "One-day University of Washington Day Tour";
-const descUW: string = "University of Washington is one of best universities in the world and is known for its research capabilities and gothic, historic buildings. It has been around for more than 150 years.";
-export const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW);
+import {Stop} from "./Stop";
 
 export class Route {
 	routeName: string;
@@ -37,8 +24,9 @@ export class Route {
 
 class RouteUtil {
 	static setCategory(route) {
-		let category = new Set();
+		if (route.stops === undefined) return;
 
+		let category = new Set();
 		route.stops.forEach((stop: Stop) => {
 			let cats = stop.type;
 			cats.forEach((c) => {
@@ -50,8 +38,9 @@ class RouteUtil {
 	}
 
 	static setPicture(route) {
-		let pictures = new Set();
+		if (route.stops === undefined) return;
 
+		let pictures = new Set();
 		route.stops.forEach((stop: Stop) => {
 			let pics = stop.picture;
 			pics.forEach((p) => {
