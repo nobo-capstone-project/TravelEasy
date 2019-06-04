@@ -102,7 +102,7 @@ const AppNavigator = createStackNavigator({
   EditProfile: EditProfile
 },
   {
-    initialRouteName: 'BottomBar',
+    initialRouteName: 'Login',
     headerMode: 'none'
   });
 
