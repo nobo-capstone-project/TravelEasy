@@ -85,7 +85,7 @@ class LoginPage extends React.Component {
 							await AsyncStorage.setItem('user', data.username);
 							await AsyncStorage.setItem('email', data.email);
 						} catch (e) {
-							// saving error
+							console.log(error);
 						}
 					};
 
@@ -96,7 +96,7 @@ class LoginPage extends React.Component {
 							// console.log(data);
 						})
 						.catch(error => {
-							console.log('error');
+							console.log(error);
 						});
 
 					this.props.navigation.navigate('Home');

@@ -22,9 +22,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { withNavigation } from 'react-navigation';
 import { Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs, } from 'native-base';
+<<<<<<< HEAD
+=======
 import { TripCard } from "../Model/TripCard";
 import { Image } from "react-native-elements";
 import { allRoutes } from "../Model/Data";
+>>>>>>> d80777c8a5ef09d64080c49602740d6b063567c0
 // import {Route} from "../Model/Route";
 // import {CardImage, TripCard} from "../Model/TripCard";
 // import {routes} from "../Model/Routes";
@@ -97,131 +100,152 @@ const window = Dimensions.get('window');
 // 	allCards.push(new TripCard(r));
 // });
 
+const allCards = [
+	{
+		title: 'UW 1-Day Tour',
+		desc: 'University of Washington is the top university in Washington state, founded in 1861. It is also famous for the cherry blossom view and many aesthetically appealing buildings.',
+		imgs: [
+			{
+				url: require('../imgs/uw1.jpg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/uw2.jpg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/uw3.jpeg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/uw4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 100,
+		category: 'Campus Tour'
+	},
+	{
+		title: 'Singapore Madness',
+		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+		imgs: [
+			{
+				url: require('../imgs/sgp1.jpg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/sgp2.jpeg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/sgp3.jpg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/sgp4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 230,
+		category: 'City Tour'
+	},
+	{
+		title: 'Metropolitan Museum',
+		desc: 'The Metropolitan Museum of Art of New York City, colloquially "the Met", is the largest art museum in the United States. With 6,953,927 visitors to its three locations in 2018, it was the third most visited art museum in the world.',
+		imgs: [
+			{
+				url: require('../imgs/mtmuseum1.jpg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/mtmuseum2.jpg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/mtmuseum3.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 100,
+		category: 'Museum Day'
+	},
+	{
+		title: 'Vegas Shopping Day',
+		desc: 'You can spend money in almost any way imaginable in Las Vegas, but the best way to actually leave with what you paid for is to go shopping. ',
+		imgs: [
+			{
+				url: require('../imgs/vegas1.jpg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/vegas2.jpeg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/vegas3.jpeg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/vegas4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 100,
+		category: 'Shopping Festival'
+	},
+	{
+		title: 'Yosemite!!!',
+		desc: 'Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.',
+		imgs: [
+			{
+				url: require('../imgs/ys1.jpeg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/ys2.jpg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/ys3.jpg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/ys4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 100,
+		category: 'National Park'
+	},
+]
+
 class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
 		this._navigateTo = this._navigateTo.bind(this);
 		this._voteUp = this._voteUp.bind(this);
 		this._voteDown = this._voteDown.bind(this);
+		this._selectCategory = this._selectCategory.bind(this);
 
 		this.state = {
 			// cards: allCards
 			// TODO: loading card views from route model -- Rico
-			cards: [
+			searchText: 'search',
+			categories: [
 				{
-					title: 'UW 1-Day Tour',
-					desc: 'University of Washington is the top university in Washington state, founded in 1861. It is also famous for the cherry blossom view and many aesthetically appealing buildings.',
-					imgs: [
-						{
-							url: require('../imgs/uw1.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/uw2.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/uw3.jpeg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/uw4.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 100
+					category: 'Museum Day',
+					img: require('../imgs/mtmuseum4.jpg')
 				},
 				{
-					title: 'Singapore Madness',
-					desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-					imgs: [
-						{
-							url: require('../imgs/sgp1.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/sgp2.jpeg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/sgp3.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/sgp4.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 230
+					category: 'Shopping Festival',
+					img: require('../imgs/shopping.jpg')
 				},
 				{
-					title: 'Metropolitan Museum',
-					desc: 'The Metropolitan Museum of Art of New York City, colloquially "the Met", is the largest art museum in the United States. With 6,953,927 visitors to its three locations in 2018, it was the third most visited art museum in the world.',
-					imgs: [
-						{
-							url: require('../imgs/mtmuseum1.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/mtmuseum2.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/mtmuseum3.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 100
-				},
-				{
-					title: 'Vegas Shopping Day',
-					desc: 'You can spend money in almost any way imaginable in Las Vegas, but the best way to actually leave with what you paid for is to go shopping. ',
-					imgs: [
-						{
-							url: require('../imgs/vegas1.jpg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/vegas2.jpeg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/vegas3.jpeg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/vegas4.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 100
-				},
-				{
-					title: 'Yosemite!!!',
-					desc: 'Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.',
-					imgs: [
-						{
-							//http;;.;
-							url: require('../imgs/ys1.jpeg'),
-							title: 'Breakfast'
-						},
-						{
-							url: require('../imgs/ys2.jpg'),
-							title: 'Hiking at Temple'
-						},
-						{
-							url: require('../imgs/ys3.jpg'),
-							title: 'Lunch'
-						},
-						{
-							url: require('../imgs/ys4.jpg'),
-							title: 'Lunch'
-						}
-					],
-					vote: 100
-				},
-				
-			]
+					category: 'National Park',
+					img: require('../imgs/park.jpg')
+				}
+			],
+			cards: allCards
 		}
 	}
 
@@ -241,6 +265,19 @@ class HomePage extends React.Component {
 		this.setState(stateCopy);
 	}
 
+	_selectCategory(value) {
+		let newCard = allCards.filter((e) => {
+			if (e.category == value) {
+				return e;
+			}
+		});
+		console.log(newCard);
+		this.setState({
+			searchText: value,
+			cards: newCard
+		});
+	}
+
 	render() {
 		// console.log('hello');
 		// console.log(this.props.navigation);
@@ -250,21 +287,24 @@ class HomePage extends React.Component {
 				<Header searchBar rounded style={styles.homeSearch}>
 					<Item style={styles.searchBox}>
 						<Icon name="ios-search" />
-						<Input placeholder="Search" />
+						<Input placeholder={this.state.searchText} />
 						{/* <Icon name="ios-people" /> */}
 					</Item>
-					{/* <Button transparent>
-						<Text>Search</Text>
-					</Button> */}
 				</Header>
 
 				{/* <Header hasTabs /> */}
 
 				{/* <View style={styles.tabHeader}> */}
 
-				<Tabs tabStyle={{ backgroundColor: '#FAD05A' }} locked={true}>
+				<Tabs
+					tabStyle={{ backgroundColor: '#FAD05A' }}
+					locked={true}
+					tabBarUnderlineStyle={{ backgroundColor: '#F67779' }} >
 
-					<Tab style={styles.tab} heading="All">
+					<Tab
+						style={styles.tab}
+						heading="All"
+						activeTextStyle={{ color: '#F67779' }} >
 
 						{/* --------------------------------------------------------------------*/}
 						{/* --------------------- CATEGORIES SECTION -----------------------*/}
@@ -282,60 +322,28 @@ class HomePage extends React.Component {
 							shadowOpacity: 1
 						}}>
 							<ScrollView horizontal style={styles.categContainer}>
-								<TouchableHighlight style={styles.categView}>
-									<View style={{position: 'relative'}}>
-										<ImageBackground source={require('../imgs/mtmuseum4.jpg')}
-										           style={{
-											           width: 136,
-											           height: 90
-										           }}/>
+								{this.state.categories.map((e, i) => {
+									return (
+										<TouchableHighlight style={styles.categView} key={i} onPress={() => this._selectCategory(e.category)}>
+											<View style={{ position: 'relative' }}>
+												<ImageBackground source={e.img}
+													style={{
+														width: 136,
+														height: 90
+													}} />
 
-										<Text style={{
-											position: 'absolute',
-											top: 65,
-											left: 5,
-											color: "white",
-											fontWeight: "bold"
-										}}>Museum Day</Text>
+												<Text style={{
+													position: 'absolute',
+													top: 65,
+													left: 5,
+													color: "white",
+													fontWeight: "bold"
+												}}>{e.category}</Text>
 
-									</View>
-								</TouchableHighlight>
-
-								<TouchableHighlight style={styles.categView}>
-									<View style={{ position: 'relative' }}>
-										<ImageBackground source={require('../imgs/shopping.jpg')}
-											style={{
-												width: 136,
-												height: 90
-											}} />
-
-										<Text style={{
-											position: 'absolute',
-											top: 65,
-											left: 5,
-											color: "white",
-											fontWeight: "bold"
-										}}>Shopping Festival</Text>
-									</View>
-								</TouchableHighlight>
-								<TouchableHighlight style={styles.categView}>
-									<View style={{ position: 'relative' }}>
-										<ImageBackground source={require('../imgs/park.jpg')}
-											style={{
-												width: 136,
-												height: 90
-											}} />
-
-										<Text style={{
-											position: 'absolute',
-											top: 65,
-											left: 5,
-											color: "white",
-											fontWeight: "bold"
-										}}>National Park</Text>
-
-									</View>
-								</TouchableHighlight>
+											</View>
+										</TouchableHighlight>
+									);
+								})}
 							</ScrollView>
 						</View>
 
@@ -353,11 +361,16 @@ class HomePage extends React.Component {
 						</Content>
 
 					</Tab>
-
-					<Tab style={styles.tab} heading="Following">
+					<Tab
+						style={styles.tab}
+						heading="Nearby"
+						activeTextStyle={{ color: '#F67779' }}>
 						{/* <Tab2 /> */}
 					</Tab>
-					<Tab style={styles.tab} heading="Nearby">
+					<Tab
+						style={styles.tab}
+						heading="Following"
+						activeTextStyle={{ color: '#F67779' }}>
 						{/* <Tab2 /> */}
 					</Tab>
 				</Tabs>
@@ -487,14 +500,13 @@ class Gallery extends React.Component {
 						return (
 							<TouchableHighlight style={styles.stopViews} key={i}>
 								<View>
-									<Image
-										source={img.url}
-										// source={{uri: img.url}}
+									{console.log(img.url)}
+									<ImageBackground source={img.url}
 										style={{
 											width: 100,
 											height: 70
 										}}>
-									</Image>
+									</ImageBackground>
 								</View>
 							</TouchableHighlight>
 						);
@@ -632,10 +644,10 @@ const styles = StyleSheet.create({
 		backgroundColor: '#F6F8FC'
 	},
 	homeSearch: {
-		backgroundColor: '#FAD05A'
+		backgroundColor: '#FAD05A',
 	},
 	searchBox: {
-		backgroundColor: '#FFFFFF'
+		backgroundColor: '#FFFFFF',
 	},
 
 	container: {
