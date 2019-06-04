@@ -2,6 +2,22 @@ import {Stop, STOP_TYPES} from "./Stop";
 import {Route} from "./Route";
 import {Routes} from "./Routes";
 
+export const stopParrington = new Stop(
+	1,
+	1,
+	47.657821,
+	-122.311223,
+	"The most beautiful entrance to UW Seattle Campus",
+	"Parrington Lawn",
+	"An open space located north and west of Parrington Hal",
+	"Parrington Lawn, Seattle, WA 98105",
+	[STOP_TYPES.Natural, STOP_TYPES.Park],
+	0.1,
+	["https://facilities.uw.edu/blog/files/styles/text_wrap/public/media/Northern%20Red%20Oak%20Blog.jpg"],
+	true,
+	undefined,
+	undefined
+);
 export const stopLaw = new Stop(
 	// stopID, should be unique, but no one cares
 	2,
@@ -26,36 +42,6 @@ export const stopLaw = new Stop(
 	// URLs to images
 	["https://www.law.uw.edu/media/1151/clinics.jpg"],
 	// ADA?
-	true,
-);
-export const stopParrington = new Stop(
-	1,
-	1,
-	47.657821,
-	-122.311223,
-	"The most beautiful entrance to UW Seattle Campus",
-	"Parrington Lawn",
-	"An open space located north and west of Parrington Hal",
-	"Parrington Lawn, Seattle, WA 98105",
-	[STOP_TYPES.Natural, STOP_TYPES.Park],
-	0.1,
-	["https://facilities.uw.edu/blog/files/styles/text_wrap/public/media/Northern%20Red%20Oak%20Blog.jpg"],
-	true,
-	undefined,
-	undefined
-);
-export const stopLaw = new Stop(
-	2,
-	2,
-	47.659124,
-	-122.310963,
-	"University of Washington LAW School",
-	"William H. Gates Hall",
-	"It is the LAW school with capitalized letters",
-	"William H. Gates Hall (LAW), Seattle, WA 98105",
-	[STOP_TYPES.Academic],
-	1,
-	["https://www.law.uw.edu/media/1151/clinics.jpg"],
 	true,
 );
 export const stopDenny = new Stop(

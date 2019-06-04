@@ -141,7 +141,7 @@ class HomePage extends React.Component {
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
-										<ImageBackground source={require('../../imgs/museum.jpg')}
+										<ImageBackground source={require('../../imgs/mtmuseum4.jpg')}
 										                 style={{
 											                 width: 136,
 											                 height: 90
