@@ -2,9 +2,17 @@ export const STOP_TYPES = {
 	Academic: "Academic",
 	Cultural: "Cultural",
 	Natural: "Natural",
+	Nature: "Nature",
 	Park: "Park",
 	Food: "Food",
-	Historic: "Historic"
+	Historic: "Historic",
+	NationalPark: "National Park",
+	Hiking: "Hiking",
+	Urban: "Urban",
+	Art: "Art",
+	Shopping: "Shopping",
+	Distress: "Distress",
+	Fashion: "Fashion"
 };
 
 export class Stop {

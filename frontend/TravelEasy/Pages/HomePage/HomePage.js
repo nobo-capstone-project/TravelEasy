@@ -10,65 +10,13 @@ import React from 'react';
 import {ImageBackground, ScrollView, Text, TouchableHighlight, View} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
-import {Route} from "../../Model/Route";
 import {TripCard} from "../../Model/TripCard";
 import {allRoutes} from "../../Model/Data";
 import {styles} from "./Stylesheet";
 import {TourCards} from "./TourCard";
 
 const allCards: TripCard[] = [];
-// const testCards = [
-// 	{
-// 		title: 'Singapore Madness',
-// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-// 		imgs: [
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Breakfast'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Hiking at Temple'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Lunch'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Lunch'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Lunch'
-// 			}
-// 		],
-// 		vote: 230
-// 	},
-// 	{
-// 		title: 'Singapore Madness',
-// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-// 		imgs: [
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Breakfast'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Hiking at Temple'
-// 			},
-// 			{
-// 				url: require('../imgs/singaSky.jpg'),
-// 				title: 'Lunch'
-// 			}
-// 		],
-// 		vote: 100
-// 	}
-// ];
-
-console.log("1221323123123")
 allRoutes.getAllRoutes().forEach(function (r) {
-	console.log("pushed card:",r.routeName);
 	allCards.push(new TripCard(r));
 });
 
@@ -76,30 +24,34 @@ class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
 		this._navigateTo = this._navigateTo.bind(this);
-		this._voteUp = this._voteUp.bind(this);
-		this._voteDown = this._voteDown.bind(this);
+		this._voteUp     = this._voteUp.bind(this);
+		this._voteDown   = this._voteDown.bind(this);
 
-		console.log(allCards)
 		this.state = {
 			cards: allCards
 		}
 	}
-
+ 
 	_navigateTo(index) {
-		console.log("navigating...");
-		let stateCopy = Object.assign({}, this.state);
-		
-		console.log(stateCopy.cards[index])
-		
-		let route = stateCopy.cards[0].route;
+		console.log(this.state.cards[index])
 
+		let route = this.state.cards[index].route;
+		// route.imgs[0]
 		this.props.navigation.navigate('Route', {
 			route: route,
 		});
 	}
 
 	_voteUp(index) {
+
+		console.log("self:",index)		
+
 		let stateCopy = Object.assign({}, this.state);
+		
+		console.log("voting up...")
+		console.log(stateCopy) // gets the thing
+		console.log(stateCopy.cards[index].vote) // gets the thing
+		
 		stateCopy.cards[index].vote += 1;
 		this.setState(stateCopy);
 	}
@@ -215,7 +167,8 @@ class HomePage extends React.Component {
 								cards={this.state.cards}
 								navigateTo={this._navigateTo}
 								voteUp={this._voteUp}
-								voteDown={this._voteDown}/>
+								voteDown={this._voteDown}
+							/>
 						</Content>
 
 					</Tab>

@@ -17,11 +17,11 @@ export class TourCards extends React.Component {
 				{this.props.cards.map((card, i) => {
 					return <TourCard
 						card={card}
-						key={i}         // <
+						key={i}
 						navigateTo={this.props.navigateTo}
 						voteUp={this.props.voteUp}
 						voteDown={this.props.voteDown}
-						index={i}/>     // <
+						index={i}/>
 				})}
 			</View>
 		)
@@ -33,6 +33,7 @@ class TourCard extends React.Component {
 		super(props);
 		this._onPressUp = this._onPressUp.bind(this);
 		this._onPressDown = this._onPressDown.bind(this);
+		this._navigateTo = this._navigateTo.bind(this);
 		this.state = {
 			buttomUp: false,
 			buttomDowm: false
@@ -53,11 +54,15 @@ class TourCard extends React.Component {
 		this.props.voteDown(this.props.index);
 	}
 
+	_navigateTo() {
+		this.props.navigateTo(this.props.index);
+	}
+
 	render() {
 		return (
 			<View style={styles.dayGuide}>
 				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 5}}>
-					<Text style={styles.guideTitle} onPress={this.props.navigateTo}>{this.props.card.title}</Text>
+					<Text style={styles.guideTitle} onPress={this._navigateTo}>{this.props.card.title}</Text>
 					<Button success style={styles.addPlanButton}>
 						<Text style={styles.addPlanText}>Add to Plans</Text>
 					</Button>
@@ -99,7 +104,7 @@ class TourCard extends React.Component {
 						</TouchableWithoutFeedback>
 					</View>
 
-					<Button style={{backgroundColor: 'white', height: 30}} onPress={this.props.navigateTo}>
+					<Button style={{backgroundColor: 'white', height: 30}} onPress={this._navigateTo}>
 						<Text>Read More</Text>
 					</Button>
 				</View>

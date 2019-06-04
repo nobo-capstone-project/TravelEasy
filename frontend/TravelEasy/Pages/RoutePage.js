@@ -44,12 +44,16 @@ function assembleStops(route: Route): [] {
 }
 
 export default class RoutePage extends React.Component {
+
+	route = undefined;
+
 	constructor(props) {
 		super(props);
 		this.updateComments = this.updateComments.bind(this);
 		this.navigateTo = this.navigateTo.bind(this);
 
 		const route: Route = props.navigation.getParam('route');
+		this.route = route;
 		const stops = assembleStops(route);
 
 		this.state = {
@@ -86,6 +90,11 @@ export default class RoutePage extends React.Component {
 		}))
 	}
 
+	getHeaderImage(): string {
+		let pics = Array.from(this.route.picture)
+		return pics[0];
+	}
+
 
 	navigateTo() {
 		this.props.navigation.navigate('Home');
@@ -94,9 +103,14 @@ export default class RoutePage extends React.Component {
 	render() {
 		return (
 			<ScrollView>
-				<RouteHeader navigateTo={this.navigateTo}></RouteHeader>
+				<RouteHeader
+					navigateTo={this.navigateTo}
+					imgUrl={this.getHeaderImage()}
+					route={this.route}></RouteHeader>
 				<View style={{backgroundColor: '#F3F7FF'}}>
-					<RouteIntro tags={this.state.tags}></RouteIntro>
+					<RouteIntro 
+					tags={this.state.tags}
+					route={this.route}></RouteIntro>
 					<RouteDetail stops={this.state.stops}></RouteDetail>
 				</View>
 				<PostComment update={this.updateComments}></PostComment>
@@ -114,10 +128,11 @@ class RouteHeader extends React.Component {
 
 	render() {
 		// console.log(this.props.navigation);
+		console.log(this.props.route);
 		return (
 			<View>
 				<View style={styles.cover}>
-					<Image source={require('../imgs/cover.jpg')} style={styles.cover_img}/>
+					<Image source={{uri: this.props.imgUrl}} style={styles.cover_img}/>
 					<View style={styles.topLeftBottom}>
 						<TouchableWithoutFeedback onPress={this.props.navigateTo}>
 							<View style={{flexDirection: 'row', marginTop: 10}}>
@@ -138,12 +153,12 @@ class RouteHeader extends React.Component {
 					</View>
 					<View style={styles.coverHeader}>
 						<Text style={styles.coverTextH1}>
-							University of Washington 1-Day Tour
+							{this.props.route.routeName}
 						</Text>
 						<View style={{flexDirection: 'row', marginTop: 10}}>
 							<FontAwesomeIcon style={{color: 'white', marginRight: 5}} icon={faMapMarkerAlt}/>
 							<Text style={styles.coverTextH2}>
-								University of Washington
+								{this.props.route.routeName}
 							</Text>
 						</View>
 					</View>
@@ -155,7 +170,7 @@ class RouteHeader extends React.Component {
 								fontWeight: "900",
 								fontStyle: "normal",
 								color: "#ffffff"
-							}}>23,880</Text>
+							}}>{this.props.route.vote}</Text>
 							<FontAwesomeIcon icon={faArrowDown} style={{color: 'white', marginLeft: 5}}/>
 						</View>
 						<View style={{
@@ -226,7 +241,8 @@ class RouteIntro extends React.Component {
 					</View>
 				</View>
 				<View style={styles.description}>
-					<Text style={styles.descriptionText}>University of Washington is the top university in Washington state, founded in 1861. It is also famous for the cherry blossom view and many aesthetically appealing buildings.
+					<Text style={styles.descriptionText}> 
+						{(this.props.route.stops[0].description)}
 					</Text>
 					<View style={{flex: 1, flexDirection: 'row', marginTop: 10}}>
 						<Text style={styles.descriptionText}>$$</Text>

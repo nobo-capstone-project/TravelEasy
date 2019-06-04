@@ -133,7 +133,7 @@ const stopBravoFarm = new Stop(
 	"If you get hungry from hundreds miles of driving, there is an excellent place to take a break and enjoy the food. There is also a zoo and a tree house.", 
 	"Bravo Farms", 
 	"36005 Hwy 99, Traver, CA", 
-	[STOP_TYPES.Foodie, STOP_TYPES.NationalPark, STOP_TYPES.Nature], 
+	[STOP_TYPES.Food, "National Park", "Nature"], 
 	1, 
 	["http://www.californiagrown.org/wp-content/uploads/2014/07/2.jpg", "https://www.bravofarms.com/wp-content/uploads/2014/10/BF-wp-site-colorfull-hdr-6.jpg"], 
 	false
@@ -195,7 +195,7 @@ const stopTuolumneMeadows= new Stop(
 	"Take a short walk by the river and have some bbq here!", 
 	"Tuolumne Meadows", 
 	"7943 Willow St, Wawona, CA 95389", 
-	[STOP_TYPES.Nature, STOP_TYPES.NationalPark, STOP_TYPES.Hiking], 
+	["Nature", "National Park", "Hiking"], 
 	2, 
 	["https://www.visitcalifornia.com/sites/default/files/styles/welcome_image/public/vc_spotlight-pacificcresttrail_module5_tuolumnemeadows_st_rf_585596624_1280x640.jpg", 
 	"https://www.yosemite.com/wp-content/uploads/2016/04/2670749782_bcbe8f6d96_o.jpg"], 
@@ -212,7 +212,7 @@ const stopCentralPark= new Stop(
 	"Tips: Shakespeare shows performs here June to September at ther Delacorte Theater, and it is FREE!", 
 	"Central Park", 
 	"New York, NY", 
-	[STOP_TYPES.Historic, STOP_TYPES.Urban, STOP_TYPES.Art], 
+	["Historic", "Urban", "Art"], 
 	1, 
 	["https://static.dezeen.com/uploads/2017/08/central-park-tower-extell_dezeen_2364_hero-852x479.jpg"], 
 	false
