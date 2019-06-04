@@ -22,12 +22,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { withNavigation } from 'react-navigation';
 import { Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs, } from 'native-base';
-<<<<<<< HEAD
-=======
 import { TripCard } from "../Model/TripCard";
 import { Image } from "react-native-elements";
 import { allRoutes } from "../Model/Data";
->>>>>>> d80777c8a5ef09d64080c49602740d6b063567c0
 // import {Route} from "../Model/Route";
 // import {CardImage, TripCard} from "../Model/TripCard";
 // import {routes} from "../Model/Routes";
