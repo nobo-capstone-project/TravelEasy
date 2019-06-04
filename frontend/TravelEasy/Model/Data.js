@@ -119,12 +119,38 @@ export const stopRedSquare = new Stop(
 	"4063 Spokane Ln, Seattle, WA 98105",
 	[STOP_TYPES.Academic, STOP_TYPES.Historic, STOP_TYPES.Cultural],
 	1,
-	["https://southseattleemerald.files.wordpress.com/2017/04/uw-red-square.jpg"],
+	["https://https://s3-media1.fl.yelpcdn.com/bphoto/51U8z35-9iP7FrKWeYzDaw/o.jpg"],
 	true
 );
 
+const stopBravoFarm = new Stop(
+	0,
+	0,
+	0,
+	0,
+	"$$", 
+	"Bravo Farm Chilling", 
+	"If you get hungry from hundreds miles of driving, there is an excellent place to take a break and enjoy the food. There is also a zoo and a tree house.", 
+	"Bravo Farms", 
+	"36005 Hwy 99, Traver, CA", 
+	["Money", "More money"], 
+	1, 
+	["http://www.californiagrown.org/wp-content/uploads/2014/07/2.jpg", "https://www.bravofarms.com/wp-content/uploads/2014/10/BF-wp-site-colorfull-hdr-6.jpg"], 
+	false
+)
+const stopsYosemite = [
+	stopBravoFarm,
+]
+const routeYosemite = new Route(
+	"Yosemite", 
+	0, 
+	0,
+	"Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome",
+	stopsYosemite, 
+	23580
+)
 
-const stopsUW: Stop[] = [
+const stopsUW = [
 	stopParrington,
 	stopLaw,
 	stopDenny,
@@ -137,7 +163,7 @@ const nameUW: string = "UW 1-Day Tour";
 const descUW: string = "University of Washington is one of best universities in the world and is known for its research capabilities and gothic, historic buildings. It has been around for more than 150 years.";
 export const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW, 242);
 
-export const allRoutes: Routes = new Routes([routeUW]);
+export const allRoutes: Routes = new Routes([routeUW,routeYosemite]);
 
 //cards: [
 // 				{

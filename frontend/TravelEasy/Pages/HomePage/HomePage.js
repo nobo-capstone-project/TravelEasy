@@ -66,7 +66,9 @@ const allCards: TripCard[] = [];
 // 	}
 // ];
 
+console.log("1221323123123")
 allRoutes.getAllRoutes().forEach(function (r) {
+	console.log("pushed card:",r.routeName);
 	allCards.push(new TripCard(r));
 });
 
@@ -77,6 +79,7 @@ class HomePage extends React.Component {
 		this._voteUp = this._voteUp.bind(this);
 		this._voteDown = this._voteDown.bind(this);
 
+		console.log(allCards)
 		this.state = {
 			cards: allCards
 		}
