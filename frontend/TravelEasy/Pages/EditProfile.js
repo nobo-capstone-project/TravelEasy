@@ -188,7 +188,6 @@ const styles = StyleSheet.create({
 		shadowOpacity: 1,
 		flexDirection: 'row',
 		justifyContent: 'center',
-		alignItems: 'center',
 		marginLeft: '25%',
 		// marginRight: 'auto',
 		alignItems: 'center',
