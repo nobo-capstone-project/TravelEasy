@@ -166,10 +166,10 @@ const styles = StyleSheet.create({
 		height: 46,
 		width: '60%',
 		fontSize: 14,
-		fontWeight: "600",
+		fontWeight: "500",
 		fontStyle: "normal",
 		letterSpacing: 0,
-		color: '#828282',
+		color: '#6D6D6D',
 		fontFamily: 'Futura',
 	},
 
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
 		fontWeight: "600",
 		fontStyle: "normal",
 		letterSpacing: 0,
-		color: '#f7b633',
+		color: '#666666',
 		fontFamily: 'Futura',
 	}
 });

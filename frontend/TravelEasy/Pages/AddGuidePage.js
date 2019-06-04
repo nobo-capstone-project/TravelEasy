@@ -254,8 +254,10 @@ export default class AddGuidePage extends React.Component {
 
 
 				{/* <Header hasTabs /> */}
-				<Header>
-					<Text style={styles.guideTitle}>Add a Guide</Text>
+				<Header style={{backgroundColor: '#FAD05A'}}>
+					<Text style={{marginTop: 14, fontSize: 18, fontWeight: '400', color: '#424242', fontFamily: 'Helvetica'}}>
+						Create New Trip
+					</Text>					
 				</Header>
 
 				<ScrollView>
