@@ -163,7 +163,7 @@ class TourCard extends React.Component {
 				<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 5 }}>
 					<Text style={styles.guideTitle} onPress={this.props.navigateTo}>{this.props.card.title}</Text>
 					<Button success style={styles.addPlanButton}>
-						<Text style={styles.addPlanText}>Add to Plans</Text>
+						<Text style={styles.addPlanText}>Remove</Text>
 					</Button>
 				</View>
 
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
 		width: 90,
 		height: 30,
 		borderRadius: 15,
-		backgroundColor: '#F67779',
+		backgroundColor: '#87BE4F',
 		marginRight: 15,
 	},
 	addPlanText: {
