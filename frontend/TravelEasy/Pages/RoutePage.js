@@ -23,41 +23,59 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowDown, faArrowUp, faChevronLeft, faEllipsisH, faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
 import SvgUri from 'react-native-svg-uri';
+import {Route} from "../Model/Route";
 
 
 const Dimensions = require('Dimensions');
 const window = Dimensions.get('window');
 
-// get current card
+function assembleStops(route: Route): [] {
+	let result = [];
+	route.stops.forEach((s) => {
+		result.push({
+			title: s.stopName,
+			price: s.price,
+			time: s.timeSpent + " hour(s)",
+			desc: s.description
+		})
+	});
 
+	return result;
+}
 
 export default class RoutePage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.updateComments = this.updateComments.bind(this);
 		this.navigateTo = this.navigateTo.bind(this);
+
+		const route: Route = props.navigation.getParam('route');
+		const stops = assembleStops(route);
+
 		this.state = {
-			tags: ['Campus', 'Seattle', 'University', "Historic"],
-			stops: [
-				{
-					title: "Suzzallo Library",
-					price: "Free",
-					time: "30mins ~ 1hrs",
-					desc: 'Suzzallo Library is the central library of the University of Washington in Seattle, and perhaps the most recognizable building on campus. The Grand Reading Room is also affectionately called “the Harry Porter Room.”'
-				},
-				{
-					title: "The Quad",
-					price: "Free",
-					time: "30mins ~ 1hrs",
-					desc: 'The main quadrangle at the University of Washington in Seattle, Washington. Lined up with thirty Yoshino cherry trees, which blossom between mid-March and early April.Raitt Hall and Savery Hall frame the northwestern boundary while Gowen, Smith, and Miller Halls frame the southeast. At the top of the quad sits the latest buildings on the quad, the Art and Music Buildings'
-				},
-				{
-					title: "Drumheller Fountain",
-					price: "Free",
-					time: "30mins ~ 1hrs",
-					desc: 'Drumheller Fountain, also known as Frosh Pond, is an outdoor fountain on the University of Washington. Students jump down here to celebrate their graduation.'
-				}
-			],
+			//tags: ['Campus', 'Seattle', 'University', "Historic"],
+			tags: Array.from(route.category),
+			stops: stops,
+			// stops: [
+			// 	{
+			// 		title: "Suzzallo Library",
+			// 		price: "Free",
+			// 		time: "30mins ~ 1hrs",
+			// 		desc: 'Suzzallo Library is the central library of the University of Washington in Seattle, and perhaps the most recognizable building on campus. The Grand Reading Room is also affectionately called “the Harry Porter Room.”'
+			// 	},
+			// 	{
+			// 		title: "The Quad",
+			// 		price: "Free",
+			// 		time: "30mins ~ 1hrs",
+			// 		desc: 'The main quadrangle at the University of Washington in Seattle, Washington. Lined up with thirty Yoshino cherry trees, which blossom between mid-March and early April.Raitt Hall and Savery Hall frame the northwestern boundary while Gowen, Smith, and Miller Halls frame the southeast. At the top of the quad sits the latest buildings on the quad, the Art and Music Buildings'
+			// 	},
+			// 	{
+			// 		title: "Drumheller Fountain",
+			// 		price: "Free",
+			// 		time: "30mins ~ 1hrs",
+			// 		desc: 'Drumheller Fountain, also known as Frosh Pond, is an outdoor fountain on the University of Washington. Students jump down here to celebrate their graduation.'
+			// 	}
+			// ],
 			comments: [
 				{
 					user: "yourseattletourvisitors",

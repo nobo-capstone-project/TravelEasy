@@ -12,8 +12,9 @@ export class Stop {
 	orderID: number;
 	lat: number;
 	long: number;
-	stopName: string;
+	price: string;
 	locationName: string;
+	stopName: string;
 	description: string;
 	address: string;
 	type: string[];
@@ -23,12 +24,13 @@ export class Stop {
 	startTime: string | undefined;
 	endTime: string | undefined;
 
-	constructor(stopID, orderID, lat, long, stopName, locationName, description, address, type, timeSpent, picture, ada, startTime, endTime) {
+	constructor(stopID, orderID, lat, long, price, stopName, locationName, description, address, type, timeSpent, picture, ada, startTime, endTime) {
 		this.address = address;
 		this.stopID = stopID;
 		this.orderID = orderID;
 		this.lat = lat;
 		this.long = long;
+		this.price = price;
 		this.stopName = stopName;
 		this.locationName = locationName;
 		this.description = description;

@@ -12,17 +12,16 @@ export class TourCards extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.cards);
 		return (
 			<View>
 				{this.props.cards.map((card, i) => {
 					return <TourCard
 						card={card}
-						key={i}
+						key={i}         // <
 						navigateTo={this.props.navigateTo}
 						voteUp={this.props.voteUp}
 						voteDown={this.props.voteDown}
-						index={i}/>
+						index={i}/>     // <
 				})}
 			</View>
 		)

@@ -82,8 +82,17 @@ class HomePage extends React.Component {
 		}
 	}
 
-	_navigateTo() {
-		this.props.navigation.navigate('Route');
+	_navigateTo(index) {
+		console.log("navigating...");
+		let stateCopy = Object.assign({}, this.state);
+		// let cards = stateCopy.cards[index];
+		// console.log("card @ index:", stateCopy.cards[0].route);
+
+		let route = stateCopy.cards[0].route;
+
+		this.props.navigation.navigate('Route', {
+			route: route,
+		});
 	}
 
 	_voteUp(index) {
@@ -99,9 +108,6 @@ class HomePage extends React.Component {
 	}
 
 	render() {
-		// console.log('hello');
-		console.log(this.props.navigation);
-
 		return (
 			<Container style={styles.homeSearch}>
 				<Header searchBar rounded style={styles.homeSearch}>
