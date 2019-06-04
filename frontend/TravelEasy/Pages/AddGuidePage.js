@@ -528,7 +528,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'grey',
 		backgroundColor: '#F67779',
 		padding: 10,
-		height: 35
+		height: 25
 	},
 
 	buttonStyle: {
@@ -540,7 +540,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'grey',
 		backgroundColor: '#F67779',
 		padding: 10,
-		height: 35
+		height: 25
 		// backgroundColor: 'blue'
 	},
 	buttonText: {
@@ -548,7 +548,7 @@ const styles = StyleSheet.create({
 	},
 	stopsListCont: {
 		backgroundColor: '#f4c842',
-		height: 60
+		height: 64
 	},
 	stopImgCont: {
 		marginTop: 10,
@@ -690,7 +690,8 @@ const styles = StyleSheet.create({
 	guideFields: {
 		height: 25,
 		backgroundColor: '#eff0f2',
-		padding: 5
+		padding: 5,
+		marginBottom: 3
 
 	},
 	container: {
