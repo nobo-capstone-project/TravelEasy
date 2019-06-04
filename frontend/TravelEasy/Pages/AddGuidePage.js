@@ -11,7 +11,7 @@ import React from 'react';
 import { AsyncStorage, Button, ScrollView, StyleSheet, Text, TextInput, View, Image } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 
-import { Header, } from 'native-base';
+import { Header, Row, } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 
 
@@ -43,10 +43,10 @@ export default class AddGuidePage extends React.Component {
 		super(props);
 
 		this.state = {
-			guideName: 'guideName example',
+			guideName: 'This is Name of Guide',
 			// Current Guide info
 			creatorID: '1',
-			guideDesc: 'gudie desc example',
+			guideDesc: 'This is the Description of this Trip',
 			stopID: [],
 			category: ['leisure', 'culture'],
 			picture: ['none atm'],
@@ -64,7 +64,7 @@ export default class AddGuidePage extends React.Component {
 			stopsViews: [],
 
 			// Current Stop Data: 
-			stopTitle: "test stop title",
+			stopTitle: "Test Name of Stop",
 			stopDesc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris',
 			address: "14612 3rd DR NE Seattle WA 98115",
 			categories: ['Nature', 'Urban Exploration', 'Food'],
@@ -72,7 +72,7 @@ export default class AddGuidePage extends React.Component {
 			startTime: "1pm",
 			endTime: "2pm",
 			time: "30mins ~ 1hrs",
-			photoUrl: 'file:///Users/school/Library/Developer/CoreSimulator/Devices/F17FC8F5-92B2-4828-BDB0-E8FDCCE3ACBD/data/Containers/Data/Application/35F50E57-681A-4652-A77F-2092668FA5B3/tmp/53A9A76B-868A-4772-8C21-D3415C32251F.jpg',
+			photoUrl: '',
 
 			stopImage: <Image></Image>,
 
@@ -134,7 +134,7 @@ export default class AddGuidePage extends React.Component {
 				{/* <Image style={styles.stopImg} source={require('./' + stopObj.photoUrl)} /> */}
 				{/* <Image style={styles.stopImg} source={require('file:///Users/school/Library/Developer/CoreSimulator/Devices/F17FC8F5-92B2-4828-BDB0-E8FDCCE3ACBD/data/Containers/Data/Application/175D23A6-A446-47FD-BCFB-8136C492688A/tmp/F75BE6F6-49DC-4032-B8A5-71759A2C4A1D.jpg')} /> */}
 
-				{this.state.stopImage}
+
 			</View>;
 
 
@@ -219,7 +219,8 @@ export default class AddGuidePage extends React.Component {
 		console.log("its being called");
 		const options = {};
 		ImagePicker.launchImageLibrary(options, response => {
-			console.log("response", response.uri);
+			console.log("response", response);
+
 
 			this.setState({ photoUrl: response.uri })
 			console.log("photo url is: " + this.state.photoUrl);
@@ -241,8 +242,10 @@ export default class AddGuidePage extends React.Component {
 		// var photoStopsArr = this.state.photoUrl;
 		// photoStopsArr.push(imagePath);
 
+	}
 
-
+	submitGuide() {
+		alert("Guide is now available to the community!")
 	}
 
 
@@ -251,6 +254,7 @@ export default class AddGuidePage extends React.Component {
 		console.log(this.state.stops[0].photoUrl);
 		return (
 			<View style={styles.container}>
+
 
 
 				{/* <Header hasTabs /> */}
@@ -276,14 +280,18 @@ export default class AddGuidePage extends React.Component {
 					<Text>{this.state.stopName}</Text>
 
 					<Text>Guide Name</Text>
+
+
+
 					<TextInput
 						style={styles.guideFields}
 						value={this.state.guideName}
 						onChangeText={(guideName) => this.setState({ guideName })}
-
-
-
 					/>
+
+
+
+					{/* <Image style={styles.stopImg} source='file:///Users/school/Library/Developer/CoreSimulator/Devices/F17FC8F5-92B2-4828-BDB0-E8FDCCE3ACBD/data/Containers/Data/Application/1E9E8541-FA0A-428B-B9D0-8264C566F628/tmp/075E9987-43D2-4D8B-A43E-F67F2F49F6EA.jpg' /> */}
 
 					<Text>Sales Pitch </Text>
 					<TextInput
@@ -381,7 +389,15 @@ export default class AddGuidePage extends React.Component {
 							</View>
 						</View>
 
-						<Button title="Choose Photo of Stop *Required" onPress={this.handleChoosePhoto} />
+
+
+						<View style={styles.stopImgCont}>
+							<Button title="Choose Stop Photo" onPress={this.handleChoosePhoto} />
+							<Image
+								style={styles.stopImg}
+								source={{ uri: this.state.photoUrl }}
+							/>
+						</View>
 
 
 						<View style={styles.stopRow}>
@@ -412,7 +428,7 @@ export default class AddGuidePage extends React.Component {
 						</View>
 						<Button
 							onPress={this.triggerAddStopActions}
-							title="ADD STOP"
+							title="Add Stop"
 							color="red"
 							accessibilityLabel="Learn more about this purple button"
 						/>
@@ -448,8 +464,8 @@ export default class AddGuidePage extends React.Component {
 
 						<Button
 							style={styles.submitGuideStyle}
-							// onPress={this.submitGuide}
-							title="Submit guide"
+							onPress={this.submitGuide}
+							title="Submit Guide"
 							color="red"
 							accessibilityLabel="Learn more about this purple button"
 						/>
@@ -465,9 +481,23 @@ export default class AddGuidePage extends React.Component {
 }
 
 const styles = StyleSheet.create({
+	stopsListCont: {
+		backgroundColor: '#f4d942',
+		height: 100
+	},
+	stopImgCont: {
+		marginTop: 10,
+		paddingTop: 5,
+		flexDirection: 'row',
+		backgroundColor: '#eff0f2',
+		marginBottom: 10,
+		height: 45
+	},
 	stopImg: {
-		width: '150',
-		height: '75'
+		width: 80,
+		height: 40,
+		marginLeft: 20
+		// textAlign: 'center'
 	},
 	// submitGuideStyle: {
 	// 	marginBottom: '500'
@@ -485,7 +515,7 @@ const styles = StyleSheet.create({
 	stopsTitle: {
 		textAlign: 'center',
 		fontWeight: 'bold',
-		backgroundColor: '#e5e5e5',
+		backgroundColor: '#eff0f2',
 		padding: 10,
 		// width: '45%'
 	},
@@ -500,9 +530,15 @@ const styles = StyleSheet.create({
 		width: '40%'
 	},
 	stopsListsCont: {
-		backgroundColor: 'white', flex: 1, flexDirection: 'row'
+		backgroundColor: '#fdffb5',
+		flex: 1,
+		flexDirection: 'row',
+		height: 100
 	},
 	listItem: {
+		marginTop: 5,
+		marginLeft: '2%',
+		width: '95%',
 		backgroundColor: 'white',
 		padding: 10,
 		flexDirection: 'row',
@@ -513,7 +549,7 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		textAlign: 'center',
 		fontWeight: 'bold',
-		backgroundColor: '#e5e5e5'
+		backgroundColor: '#eff0f2'
 	},
 	currStopsList: {
 		backgroundColor: 'white'
@@ -574,7 +610,7 @@ const styles = StyleSheet.create({
 
 	guideFields: {
 		height: 25,
-		backgroundColor: '#e5e5e5',
+		backgroundColor: '#eff0f2',
 		padding: 5
 
 	},
