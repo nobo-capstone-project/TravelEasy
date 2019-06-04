@@ -1,4 +1,4 @@
-import {Stop, stopDenny, stopHUB, stopJSIS, stopLaw, stopParrington, stopRedSquare, stopSUZZ} from "./Stop";
+import {Stop} from "./Stop";
 
 export class Route {
 	routeName: string;
@@ -47,19 +47,3 @@ export class Route {
 		return pictures;
 	}
 }
-
-const stopsUW: Stop[] = [
-	stopParrington,
-	stopLaw,
-	stopDenny,
-	stopJSIS,
-	stopHUB,
-	stopSUZZ,
-	stopRedSquare
-];
-
-const nameUW: string = "One-day University of Washington Day Tour";
-
-const descUW: string = "University of Washington is one of best universities in the world and is known for its research capabilities and gothic, historic buildings. It has been around for more than 150 years.";
-
-export const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW);

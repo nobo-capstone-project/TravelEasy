@@ -23,31 +23,65 @@ import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {withNavigation} from 'react-navigation';
 import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
 import {Route} from "../Model/Route";
-import {CardImage, TripCard} from "../Model/TripCard";
-import {allRoutes} from "../Model/Routes";
+import {TripCard} from "../Model/TripCard";
+import {allRoutes} from "../Model/Data";
 
 const Dimensions = require('Dimensions');
 
 const window = Dimensions.get('window');
 
-// import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
-// import { console } from 'console';
-// import { Tab, Tabs } from 'native-base';
-// import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
-// import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
-
-// import { skyline } from './imgs/singaSky.jpg';
-
 const allCards: TripCard[] = [];
-console.log("card:");
-console.log(new TripCard(allRoutes.getAllRoutes()[0]));
+// const testCards = [
+// 	{
+// 		title: 'Singapore Madness',
+// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+// 		imgs: [
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Breakfast'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Hiking at Temple'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			}
+// 		],
+// 		vote: 230
+// 	},
+// 	{
+// 		title: 'Singapore Madness',
+// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+// 		imgs: [
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Breakfast'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Hiking at Temple'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			}
+// 		],
+// 		vote: 100
+// 	}
+// ];
 
-console.log(allRoutes.routes);
-allRoutes.getAllRoutes().forEach(function(r) {
-	console.log("making card...");
-	console.log("card:", new TripCard(r));
-	let card = new TripCard(r);
-	allCards.push(card);
+allRoutes.getAllRoutes().forEach(function (r) {
+	allCards.push(new TripCard(r));
 });
 
 class HomePage extends React.Component {
@@ -59,55 +93,6 @@ class HomePage extends React.Component {
 
 		this.state = {
 			cards: allCards
-			// TODO: loading card views from route model -- Rico
-			// cards: [
-			// 	{
-			// 		title: 'Singapore Madness',
-			// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-			// 		imgs: [
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Breakfast'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Hiking at Temple'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Lunch'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Lunch'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Lunch'
-			// 			}
-			// 		],
-			// 		vote: 230
-			// 	},
-			// 	{
-			// 		title: 'Singapore Madness',
-			// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
-			// 		imgs: [
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Breakfast'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Hiking at Temple'
-			// 			},
-			// 			{
-			// 				url: require('../imgs/singaSky.jpg'),
-			// 				title: 'Lunch'
-			// 			}
-			// 		],
-			// 		vote: 100
-			// 	}
-			// ]
 		}
 	}
 
@@ -170,11 +155,11 @@ class HomePage extends React.Component {
 							<ScrollView horizontal style={styles.categContainer}>
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
-										<CardImage source={require('../imgs/museum.jpg')}
-										           style={{
-											           width: 136,
-											           height: 90
-										           }}/>
+										<ImageBackground source={require('../imgs/museum.jpg')}
+										                 style={{
+											                 width: 136,
+											                 height: 90
+										                 }}/>
 
 										<Text style={{
 											position: 'absolute',
@@ -189,11 +174,11 @@ class HomePage extends React.Component {
 
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
-										<CardImage source={require('../imgs/shopping.jpg')}
-										           style={{
-											           width: 136,
-											           height: 90
-										           }}/>
+										<ImageBackground source={require('../imgs/shopping.jpg')}
+										                 style={{
+											                 width: 136,
+											                 height: 90
+										                 }}/>
 
 										<Text style={{
 											position: 'absolute',
@@ -206,11 +191,11 @@ class HomePage extends React.Component {
 								</TouchableHighlight>
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
-										<CardImage source={require('../imgs/park.jpg')}
-										           style={{
-											           width: 136,
-											           height: 90
-										           }}/>
+										<ImageBackground source={require('../imgs/park.jpg')}
+										                 style={{
+											                 width: 136,
+											                 height: 90
+										                 }}/>
 
 										<Text style={{
 											position: 'absolute',
@@ -310,8 +295,8 @@ class TourCard extends React.Component {
 					</Button>
 				</View>
 
-				<View style={{ margin: 5 }}>
-					<Text style={{ color: '#424242', lineHeight: 16 }}>{this.props.card.desc}</Text>
+				<View style={{margin: 5}}>
+					<Text style={{color: '#424242', lineHeight: 16}}>{this.props.card.desc}</Text>
 				</View>
 
 				{/* ------------------------------------------------ */}
@@ -327,11 +312,11 @@ class TourCard extends React.Component {
 					}}
 				/>
 				<View style={styles.guideActionsCont}>
-					<View style={{ flexDirection: 'row', marginTop: 0 }}>
+					<View style={{flexDirection: 'row', marginTop: 0}}>
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomUp}
 							onPress={this._onPressUp}>
-							<FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5, marginTop:0 }} />
+							<FontAwesomeIcon icon={faArrowUp} style={{color: 'black', marginRight: 5, marginTop: 0}}/>
 						</TouchableWithoutFeedback>
 						<Text style={{
 							fontSize: 13,
@@ -373,11 +358,12 @@ class Gallery extends React.Component {
 							<TouchableHighlight style={styles.stopViews} key={i}>
 								<View>
 									{console.log(img.url)}
-									<ImageBackground source={img.url}
-									                 style={{
-										                 width: 100,
-										                 height: 70
-									                 }}>
+									<ImageBackground
+										source={{uri: img.url}}
+										style={{
+											width: 100,
+											height: 70
+										}}>
 									</ImageBackground>
 								</View>
 							</TouchableHighlight>

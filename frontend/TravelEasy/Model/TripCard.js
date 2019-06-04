@@ -14,7 +14,7 @@ export class TripCard {
 	route: Route;
 	title: string;
 	desc: string;
-	imgs: CardImage[];
+	imgs: CardImage[] = [];
 	vote: number;
 
 	constructor(route: Route) {

@@ -1,6 +1,4 @@
-import {Route, routeUW} from "./Route";
-
-const stops = require("./Stops");
+import {Route} from "./Route";
 
 export class Routes {
 
@@ -16,9 +14,9 @@ export class Routes {
 	// getAllRoutes(): Route[] {
 	// both work
 	// getAllRoutes = () => {
-	getAllRoutes: Route[] = () => {
+	getAllRoutes(): Route[] {
 		return this.routes;
-	};
+	}
 
 	getRouteByID(id): Route {
 		for (let i = 0; i < this.routes.length; i++) {
@@ -41,4 +39,3 @@ export class Routes {
 	}
 }
 
-export const allRoutes: Routes = new Routes([routeUW]);
