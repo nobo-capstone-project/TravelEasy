@@ -26,7 +26,7 @@ import { logger } from 'react-native-logger'
 
 // IMPORT COMPONENTS: 
 import BottomNav from './Components/BottomNav';
-import HomePage from './Pages/HomePage';
+import HomePage from './Pages/HomePage/HomePage';
 import AddGuidePage from './Pages/AddGuidePage';
 import LoginPage from './Pages/LoginPage';
 import RoutePage from './Pages/RoutePage';

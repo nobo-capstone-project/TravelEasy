@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 
-import HomePage from '../Pages/HomePage'
+import HomePage from '../Pages/HomePage/HomePage'
 
 class Test extends React.Component {
     render() {

@@ -3,17 +3,29 @@ import {Route} from "./Route";
 import {Routes} from "./Routes";
 
 export const stopLaw = new Stop(
+	// stopID, should be unique, but no one cares
 	2,
+	// orderID, the order of the stop in a route
 	2,
+	// lat
 	47.659124,
+	// long
 	-122.310963,
+	// stopName
 	"University of Washington LAW School",
+	// locationName
 	"William H. Gates Hall",
+	// description
 	"It is the LAW school with capitalized letters",
+	// address
 	"William H. Gates Hall (LAW), Seattle, WA 98105",
+	// type, in an array, can be any string
 	[STOP_TYPES.Academic],
+	// timeSpent, in hours
 	1,
+	// URLs to images
 	["https://www.law.uw.edu/media/1151/clinics.jpg"],
+	// ADA?
 	true,
 );
 export const stopParrington = new Stop(
