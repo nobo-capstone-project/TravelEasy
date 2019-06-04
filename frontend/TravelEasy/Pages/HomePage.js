@@ -98,6 +98,87 @@ const window = Dimensions.get('window');
 // 	allCards.push(new TripCard(r));
 // });
 
+const followingCards = [
+
+	{
+		title: 'Singapore Madness',
+		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+		imgs: [
+			{
+				url: require('../imgs/sgp1.jpg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/sgp2.jpeg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/sgp3.jpg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/sgp4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 877,
+		category: 'City Tour'
+	},
+
+
+	{
+		title: 'Yosemite!!!',
+		desc: 'Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.',
+		imgs: [
+			{
+				url: require('../imgs/ys1.jpeg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/ys2.jpg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/ys3.jpg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/ys4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 100,
+		category: 'National Park'
+	},
+]
+
+const nearbyCards = [
+	{
+		title: 'UW 1-Day Tour',
+		desc: 'University of Washington is the top university in Washington state, founded in 1861. It is also famous for the cherry blossom view and many aesthetically appealing buildings.',
+		imgs: [
+			{
+				url: require('../imgs/uw1.jpg'),
+				title: 'Breakfast'
+			},
+			{
+				url: require('../imgs/uw2.jpg'),
+				title: 'Hiking at Temple'
+			},
+			{
+				url: require('../imgs/uw3.jpeg'),
+				title: 'Lunch'
+			},
+			{
+				url: require('../imgs/uw4.jpg'),
+				title: 'Lunch'
+			}
+		],
+		vote: 1365,
+		category: 'Campus Tour'
+	}
+]
+
 const allCards = [
 	{
 		title: 'UW 1-Day Tour',
@@ -244,7 +325,9 @@ class HomePage extends React.Component {
 					img: require('../imgs/park.jpg')
 				}
 			],
-			cards: allCards
+			cards: allCards,
+			nearbyCards: nearbyCards,
+			followingCards: followingCards
 		}
 	}
 
@@ -379,12 +462,114 @@ class HomePage extends React.Component {
 						heading="Nearby"
 						activeTextStyle={{ color: '#F67779' }}>
 						{/* <Tab2 /> */}
+
+						<Text style={styles.trendingText}>Trending Today</Text>
+						<View style={{
+							height: 90,
+							shadowColor: "rgba(0, 0, 0, 0.25)",
+							shadowOffset: {
+								width: 0,
+								height: 2
+							},
+							shadowRadius: 2,
+							shadowOpacity: 1
+						}}>
+							<ScrollView horizontal style={styles.categContainer}>
+								{this.state.categories.map((e, i) => {
+									return (
+										<TouchableHighlight style={styles.categView} key={i} onPress={() => this._selectCategory(e.category)}>
+											<View style={{ position: 'relative' }}>
+												<ImageBackground source={e.img}
+													style={{
+														width: 136,
+														height: 90
+													}} />
+
+												<Text style={{
+													position: 'absolute',
+													top: 65,
+													left: 5,
+													color: "white",
+													fontWeight: "bold"
+												}}>{e.category}</Text>
+
+											</View>
+										</TouchableHighlight>
+									);
+								})}
+							</ScrollView>
+						</View>
+
+						{/* --------------------------------------------------------------------*/}
+						{/* --------------------- GUIDE SECTION -----------------------*/}
+						{/* --------------------------------------------------------------------*/}
+
+						{/* <Text style={styles.centerText}>Popular Guides At The Moment: </Text> */}
+						<Content style={styles.guideContainer} ref={c => (this.component = c)}>
+							<TourCards
+								cards={this.state.nearbyCards}
+								navigateTo={this._navigateTo}
+								voteUp={this._voteUp}
+								voteDown={this._voteDown}></TourCards>
+						</Content>
 					</Tab>
+
 					<Tab
 						style={styles.tab}
 						heading="Following"
 						activeTextStyle={{ color: '#F67779' }}>
 						{/* <Tab2 /> */}
+
+						<Text style={styles.trendingText}>Trending Today</Text>
+						<View style={{
+							height: 90,
+							shadowColor: "rgba(0, 0, 0, 0.25)",
+							shadowOffset: {
+								width: 0,
+								height: 2
+							},
+							shadowRadius: 2,
+							shadowOpacity: 1
+						}}>
+							<ScrollView horizontal style={styles.categContainer}>
+								{this.state.categories.map((e, i) => {
+									return (
+										<TouchableHighlight style={styles.categView} key={i} onPress={() => this._selectCategory(e.category)}>
+											<View style={{ position: 'relative' }}>
+												<ImageBackground source={e.img}
+													style={{
+														width: 136,
+														height: 90
+													}} />
+
+												<Text style={{
+													position: 'absolute',
+													top: 65,
+													left: 5,
+													color: "white",
+													fontWeight: "bold"
+												}}>{e.category}</Text>
+
+											</View>
+										</TouchableHighlight>
+									);
+								})}
+							</ScrollView>
+						</View>
+
+						{/* --------------------------------------------------------------------*/}
+						{/* --------------------- GUIDE SECTION -----------------------*/}
+						{/* --------------------------------------------------------------------*/}
+
+						{/* <Text style={styles.centerText}>Popular Guides At The Moment: </Text> */}
+						<Content style={styles.guideContainer} ref={c => (this.component = c)}>
+							<TourCards
+								cards={this.state.followingCards}
+								navigateTo={this._navigateTo}
+								voteUp={this._voteUp}
+								voteDown={this._voteDown}></TourCards>
+						</Content>
+
 					</Tab>
 				</Tabs>
 
