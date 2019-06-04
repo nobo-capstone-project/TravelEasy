@@ -22,6 +22,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import {withNavigation} from 'react-navigation';
 import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
+import {TripCard} from "../Model/TripCard";
+import {Image} from "react-native-elements";
+import {allRoutes} from "../Model/Data";
 // import {Route} from "../Model/Route";
 // import {CardImage, TripCard} from "../Model/TripCard";
 // import {routes} from "../Model/Routes";
@@ -39,10 +42,58 @@ const window = Dimensions.get('window');
 
 // import { skyline } from './imgs/singaSky.jpg';
 
-// const allRoutes = routes;
 // const allCards: TripCard[] = [];
+// const testCards = [
+// 	{
+// 		title: 'Singapore Madness',
+// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+// 		imgs: [
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				// url: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+// 				title: 'Breakfast'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Hiking at Temple'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			}
+// 		],
+// 		vote: 230
+// 	},
+// 	{
+// 		title: 'Singapore Madness',
+// 		desc: 'Singapore is cocktail of the best clubs, the best foods, and the best views in the world. Read more..',
+// 		imgs: [
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Breakfast'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Hiking at Temple'
+// 			},
+// 			{
+// 				url: require('../imgs/singaSky.jpg'),
+// 				title: 'Lunch'
+// 			}
+// 		],
+// 		vote: 100
+// 	}
+// ];
 
-// allRoutes.getAllRoutes().forEach((r) => {
+// allRoutes.routes.forEach((r) => {
 // 	allCards.push(new TripCard(r));
 // });
 
@@ -192,7 +243,7 @@ class HomePage extends React.Component {
 
 	render() {
 		// console.log('hello');
-		console.log(this.props.navigation);
+		// console.log(this.props.navigation);
 
 		return (
 			<Container style={styles.homeSearch}>
@@ -253,10 +304,10 @@ class HomePage extends React.Component {
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
 										<ImageBackground source={require('../imgs/shopping.jpg')}
-										           style={{
-											           width: 136,
-											           height: 90
-										           }}/>
+										                 style={{
+											                 width: 136,
+											                 height: 90
+										                 }}/>
 
 										<Text style={{
 											position: 'absolute',
@@ -270,10 +321,10 @@ class HomePage extends React.Component {
 								<TouchableHighlight style={styles.categView}>
 									<View style={{position: 'relative'}}>
 										<ImageBackground source={require('../imgs/park.jpg')}
-										           style={{
-											           width: 136,
-											           height: 90
-										           }}/>
+										                 style={{
+											                 width: 136,
+											                 height: 90
+										                 }}/>
 
 										<Text style={{
 											position: 'absolute',
@@ -321,7 +372,7 @@ class TourCards extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.cards);
+		// console.log(this.props.cards);
 		return (
 			<View>
 				{this.props.cards.map((card, i) => {
@@ -373,8 +424,8 @@ class TourCard extends React.Component {
 					</Button>
 				</View>
 
-				<View style={{ margin: 5 }}>
-					<Text style={{ color: '#424242', lineHeight: 16 }}>{this.props.card.desc}</Text>
+				<View style={{margin: 5}}>
+					<Text style={{color: '#424242', lineHeight: 16}}>{this.props.card.desc}</Text>
 				</View>
 
 				{/* ------------------------------------------------ */}
@@ -390,11 +441,11 @@ class TourCard extends React.Component {
 					}}
 				/>
 				<View style={styles.guideActionsCont}>
-					<View style={{ flexDirection: 'row', marginTop: 0 }}>
+					<View style={{flexDirection: 'row', marginTop: 0}}>
 						<TouchableWithoutFeedback
 							disabled={this.state.buttomUp}
 							onPress={this._onPressUp}>
-							<FontAwesomeIcon icon={faArrowUp} style={{ color: 'black', marginRight: 5, marginTop:0 }} />
+							<FontAwesomeIcon icon={faArrowUp} style={{color: 'black', marginRight: 5, marginTop: 0}}/>
 						</TouchableWithoutFeedback>
 						<Text style={{
 							fontSize: 13,
@@ -425,7 +476,7 @@ class Gallery extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.imgs);
+		// console.log(this.props.imgs);
 		return (
 			<ScrollView
 				horizontal={true}
@@ -435,13 +486,14 @@ class Gallery extends React.Component {
 						return (
 							<TouchableHighlight style={styles.stopViews} key={i}>
 								<View>
-									{console.log(img.url)}
-									<ImageBackground source={img.url}
-									                 style={{
-										                 width: 100,
-										                 height: 70
-									                 }}>
-									</ImageBackground>
+									<Image
+										source={img.url}
+										// source={{uri: img.url}}
+										style={{
+											width: 100,
+											height: 70
+										}}>
+									</Image>
 								</View>
 							</TouchableHighlight>
 						);
