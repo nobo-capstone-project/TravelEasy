@@ -9,8 +9,9 @@ export class Route {
 	category: string[];
 	picture: string[];
 	vote: number;
+	categoryID: string;
 
-	constructor(routeName, routeID, creatorID, description, stops, vote) {
+	constructor(routeName, routeID, creatorID, description, stops, vote, categoryID) {
 		this.routeName = routeName;
 		this.routeID = routeID;
 		this.creatorID = creatorID;
@@ -19,6 +20,7 @@ export class Route {
 		this.vote = vote;
 		this.category = this.setCategory();
 		this.picture = this.setPicture();
+		this.categoryID = categoryID;
 	}
 
 	setCategory() {

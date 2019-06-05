@@ -7,13 +7,13 @@
  */
 
 import React from 'react';
-import {ImageBackground, ScrollView, Text, TouchableHighlight, View} from 'react-native';
-import {withNavigation} from 'react-navigation';
-import {Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs,} from 'native-base';
-import {TripCard} from "../../Model/TripCard";
-import {allRoutes} from "../../Model/Data";
-import {styles} from "./Stylesheet";
-import {TourCards} from "./TourCard";
+import { ImageBackground, ScrollView, Text, TouchableHighlight, View } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import { Button, Container, Content, Header, Icon, Input, Item, Tab, Tabs, } from 'native-base';
+import { TripCard } from "../../Model/TripCard";
+import { allRoutes } from "../../Model/Data";
+import { styles } from "./Stylesheet";
+import { TourCards } from "./TourCard";
 
 const allCards: TripCard[] = [];
 allRoutes.getAllRoutes().forEach(function (r) {
@@ -24,14 +24,29 @@ class HomePage extends React.Component {
 	constructor(props) {
 		super(props);
 		this._navigateTo = this._navigateTo.bind(this);
-		this._voteUp     = this._voteUp.bind(this);
-		this._voteDown   = this._voteDown.bind(this);
+		this._voteUp = this._voteUp.bind(this);
+		this._voteDown = this._voteDown.bind(this);
 
 		this.state = {
-			cards: allCards
+			searchText: "",
+			cards: allCards,
+			categories: [
+				{
+					category: 'Museum',
+					img: require('../../imgs/mtmuseum4.jpg')
+				},
+				{
+					category: 'Shopping',
+					img: require('../../imgs/shopping.jpg')
+				},
+				{
+					category: 'National Park',
+					img: require('../../imgs/park.jpg')
+				}
+			],
 		}
 	}
- 
+
 	_navigateTo(index) {
 		console.log(this.state.cards[index])
 
@@ -44,14 +59,14 @@ class HomePage extends React.Component {
 
 	_voteUp(index) {
 
-		console.log("self:",index)		
+		console.log("self:", index)
 
 		let stateCopy = Object.assign({}, this.state);
-		
+
 		console.log("voting up...")
 		console.log(stateCopy) // gets the thing
 		console.log(stateCopy.cards[index].vote) // gets the thing
-		
+
 		stateCopy.cards[index].vote += 1;
 		this.setState(stateCopy);
 	}
@@ -62,27 +77,59 @@ class HomePage extends React.Component {
 		this.setState(stateCopy);
 	}
 
+	_selectCategory(value) {
+		console.log(allCards);
+		let newCard = allCards.filter((e) => {
+			// console.log(e.type);
+			if (e.type == value) {
+				return e;
+			}
+		});
+		console.log(newCard);
+		this.setState({
+			searchText: value,
+			cards: newCard
+		});
+	}
+
+	_filterCard(value) {
+		this.setState({ searchText: value });
+		if (this.state.searchText.length == 1) {
+			this.setState({
+				cards: allCards
+			})
+		}
+	}
+
 	render() {
 		return (
 			<Container style={styles.homeSearch}>
 				<Header searchBar rounded style={styles.homeSearch}>
 					<Item style={styles.searchBox}>
-						<Icon name="ios-search"/>
-						<Input placeholder="Search"/>
+						<Icon name="ios-search" />
+						<Input
+							placeholder='Search'
+							onChangeText={value => {
+								this._filterCard(value);
+							}}
+							value={this.state.searchText} />
 						{/* <Icon name="ios-people" /> */}
 					</Item>
-					<Button transparent>
-						<Text>Search</Text>
-					</Button>
 				</Header>
 
 				{/* <Header hasTabs /> */}
 
 				{/* <View style={styles.tabHeader}> */}
 
-				<Tabs tabStyle={{backgroundColor: '#FAD05A'}} locked={true}>
+				<Tabs
+					tabStyle={{ backgroundColor: '#FAD05A' }}
+					locked={true}
+					tabBarUnderlineStyle={{ backgroundColor: '#F67779' }} >
 
-					<Tab style={styles.tab} heading="All">
+					<Tab
+						style={styles.tab}
+						heading="All"
+						activeTextStyle={{ color: '#F67779' }} >
 
 						{/* --------------------------------------------------------------------*/}
 						{/* --------------------- CATEGORIES SECTION -----------------------*/}
@@ -100,60 +147,28 @@ class HomePage extends React.Component {
 							shadowOpacity: 1
 						}}>
 							<ScrollView horizontal style={styles.categContainer}>
-								<TouchableHighlight style={styles.categView}>
-									<View style={{position: 'relative'}}>
-										<ImageBackground source={require('../../imgs/mtmuseum4.jpg')}
-										                 style={{
-											                 width: 136,
-											                 height: 90
-										                 }}/>
+								{this.state.categories.map((e, i) => {
+									return (
+										<TouchableHighlight style={styles.categView} key={i} onPress={() => this._selectCategory(e.category)}>
+											<View style={{ position: 'relative' }}>
+												<ImageBackground source={e.img}
+													style={{
+														width: 136,
+														height: 90
+													}} />
 
-										<Text style={{
-											position: 'absolute',
-											top: 65,
-											left: 5,
-											color: "white",
-											fontWeight: "bold"
-										}}>Museum Day</Text>
+												<Text style={{
+													position: 'absolute',
+													top: 65,
+													left: 5,
+													color: "white",
+													fontWeight: "bold"
+												}}>{e.category}</Text>
 
-									</View>
-								</TouchableHighlight>
-
-								<TouchableHighlight style={styles.categView}>
-									<View style={{position: 'relative'}}>
-										<ImageBackground source={require('../../imgs/shopping.jpg')}
-										                 style={{
-											                 width: 136,
-											                 height: 90
-										                 }}/>
-
-										<Text style={{
-											position: 'absolute',
-											top: 65,
-											left: 5,
-											color: "white",
-											fontWeight: "bold"
-										}}>Shopping Festival</Text>
-									</View>
-								</TouchableHighlight>
-								<TouchableHighlight style={styles.categView}>
-									<View style={{position: 'relative'}}>
-										<ImageBackground source={require('../../imgs/park.jpg')}
-										                 style={{
-											                 width: 136,
-											                 height: 90
-										                 }}/>
-
-										<Text style={{
-											position: 'absolute',
-											top: 65,
-											left: 5,
-											color: "white",
-											fontWeight: "bold"
-										}}>National Park</Text>
-
-									</View>
-								</TouchableHighlight>
+											</View>
+										</TouchableHighlight>
+									);
+								})}
 							</ScrollView>
 						</View>
 

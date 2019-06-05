@@ -80,20 +80,12 @@ class LoginPage extends React.Component {
 				})
 				.then(data => {
 					// set key value
-					storeData = async () => {
-						try {
-							await AsyncStorage.setItem('user', data.username);
-							await AsyncStorage.setItem('email', data.email);
-						} catch (e) {
-							console.log(error);
-						}
-					};
-
+					AsyncStorage.setItem('username', data.username);
+					AsyncStorage.setItem('email', data.email);
 					// get key
-					AsyncStorage.getItem('email')
+					AsyncStorage.getItem('username')
 						.then((value) => {
-							// const data = value;
-							// console.log(data);
+							console.log(value);
 						})
 						.catch(error => {
 							console.log(error);

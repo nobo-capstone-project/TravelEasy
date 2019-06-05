@@ -10,7 +10,7 @@ import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Header } from 'native-base';
+import { Header, Item } from 'native-base';
 
 const Dimensions = require('Dimensions');
 const window = Dimensions.get('window');
@@ -52,29 +52,6 @@ export default class ProfilePage extends React.Component {
 		console.log('dhkvbdkvbhdfbvdhfk');
 	}
 
-	// shouldComponentUpdate() {
-	// 	AsyncStorage.getItem('username')
-	// 		.then((value) => {
-	// 			console.log(value);
-	// 			this.setState({ "username": value });
-	// 		})
-	// 		.catch(error => {
-	// 			console.log('error');
-	// 		});
-	// 	AsyncStorage.getItem('email')
-	// 		.then((value) => {
-	// 			console.log(value);
-	// 			this.setState({ "email": value });
-	// 		})
-	// 		.catch(error => {
-	// 			console.log('error');
-	// 		});
-	// 		const { navigation } = this.props;
-	// 		let bio = navigation.getParam('userBio', '');
-	// 		if (bio.length != 0) {
-	// 			this.setState({ "userIntro": bio });
-	// 		}
-	// }
 	refreshFunction(value) {
 		AsyncStorage.getItem('username')
 			.then((value) => {
@@ -98,16 +75,24 @@ export default class ProfilePage extends React.Component {
 				<View style={{ backgroundColor: '#F3F7FF', width: window.width, height: window.height }}>
 					{/* <RouteIntro tags={this.state.tags}></RouteIntro>
                     <RouteDetail stops={this.state.stops}></RouteDetail> */}
-					<Header style={{ backgroundColor: '#FAD05A', flexDirection: 'row' }}>
-
-						<Text style={{ marginTop: 14, fontSize: 16, fontWeight: '500' }}>
-							Hi, {this.state.username}
-						</Text>
-						<View>
+					<Header style={{ backgroundColor: '#FAD05A' }}>
+						<View style={{
+							flexDirection: 'row',
+							justifyContent: 'center', 
+							position: 'relative',
+							width: window.width
+						}}>
+							<Text style={{ marginTop: 14, fontSize: 16, fontWeight: '500' }}>
+								Hi, {this.state.username}
+							</Text>
 							<TouchableHighlight
 								onPress={() => this.props.navigation.navigate('Login')}
-								style={{ backgroundColor: 'transparent' }
-								}>
+								style={{ 
+									backgroundColor: 'transparent',
+									position: 'absolute',
+									right: 20
+
+								}}>
 								<Text style={{
 									fontWeight: "500",
 									fontStyle: "normal",
@@ -115,11 +100,11 @@ export default class ProfilePage extends React.Component {
 									paddingBottom: 0,
 									lineHeight: 14,
 									marginTop: 17,
-									justifyContent: 'flex-end',
 
 								}}>
 									Log out
-							</Text>
+								</Text>
+
 							</TouchableHighlight>
 						</View>
 					</Header>

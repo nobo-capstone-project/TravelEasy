@@ -11,6 +11,7 @@ export class CardImage {
 }
 
 export class TripCard {
+	type: string;
 	route: Route;
 	title: string;
 	desc: string;
@@ -18,6 +19,7 @@ export class TripCard {
 	vote: number;
 
 	constructor(route: Route) {
+		this.type = route.categoryID;
 		this.route = route;
 		this.title = this.route.routeName;
 		this.desc = this.route.description;

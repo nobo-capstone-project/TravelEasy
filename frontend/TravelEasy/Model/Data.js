@@ -228,7 +228,7 @@ const stopMetropolitanMuseum= new Stop(
 	"The Metropolitan Museum of Art of New York City, colloquially \"the Met\", is the largest art museum in the United States. With 6,953,927 visitors to its three locations in 2018, it was the third most visited art museum in the world.", 
 	"The Metropolitan Museum of Art", 
 	"1000 5th Ave, New York, NY 10028", 
-	[STOP_TYPES.Historic, STOP_TYPES.Urban, STOP_TYPES.Art], 
+	[STOP_TYPES.Historic, STOP_TYPES.Urban, STOP_TYPES.Art, STOP_TYPES.Museum], 
 	4, 
 	["https://si.wsj.net/public/resources/images/BN-WV739_THEMET_GR_20180104113341.jpg", "http://www.ariah.info/MET1.jpg"], 
 	false
@@ -321,7 +321,8 @@ const routeNYCDay1 = new Route(
 	0,
 	"1 Day trip in New York City, visiting the Central Park, Metropolitan Museum of Art, and more.",
 	stopsNYCDay1, 
-	1238
+	1238,
+	'Museum',
 )
 
 
@@ -332,7 +333,8 @@ const routeYosemite = new Route(
 	0,
 	"Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome.",
 	stopsYosemite, 
-	23580
+	23580,
+	'National Park',
 )
 
 const routeVegasShopping= new Route(
@@ -341,11 +343,12 @@ const routeVegasShopping= new Route(
 	0,
 	"You can spend money in tons of way in Las Vegas but the only thing you CANNOT miss is shopping! This route provide you tips in shopping at both outlets and malls.",
 	stopsVegas, 
-	23580
+	23580,
+	'Shopping',
 )
 const nameUW: string = "UW 1-Day Tour";
 const descUW: string = "University of Washington is one of best universities in the world and is known for its research capabilities and gothic, historic buildings. It has been around for more than 150 years.";
-export const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW, 242);
+export const routeUW: Route = new Route(nameUW, 1, 0, descUW, stopsUW, 242, 'Campus');
 
 export const allRoutes: Routes = new Routes([routeUW,routeYosemite, routeNYCDay1, routeVegasShopping]);
 

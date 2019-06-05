@@ -12,7 +12,8 @@ export const STOP_TYPES = {
 	Art: "Art",
 	Shopping: "Shopping",
 	Distress: "Distress",
-	Fashion: "Fashion"
+	Fashion: "Fashion",
+	Museum: "Museum"
 };
 
 export class Stop {
